@@ -7,21 +7,17 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
-*
-* @author celes
-*/
 @Singleton
 @LocalBean
 @Startup
 public class DataInitSessionBean {
 
-@PersistenceContext(unitName = "PlandrSystem-ejbPU")
-private EntityManager em;
+    @PersistenceContext(unitName = "PlandrSystem-ejbPU")
+    private EntityManager em;
 
-public void postConstruct(){
-    if(em.find(Event.class, 1l) == null) { 
+    public void postConstruct(){
+        if(em.find(Event.class, 1l) == null) { 
+            //then u initialise
+        }         
     }
-    //then u initialise 
-}
 }
