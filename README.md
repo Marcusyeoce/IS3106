@@ -1,4 +1,6 @@
-# IS3106 Project
+# IS3106 Project 
+Plandr
+Group 15 Members:
 
 Celesse Tay Yi Qi, A0187804W
 Wong Oi Mun, A0189396E
