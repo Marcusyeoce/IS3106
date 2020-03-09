@@ -1,6 +1,6 @@
 package ejb.session.stateless;
 
-import Entity.Event;
+import entity.BookingEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -8,21 +8,20 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class EventSessionBean implements EventSessionBeanLocal {
+public class BookingEntitiySessionBean implements BookingEntitySessionBeanLocal {
 
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;
     
-    @Override
-    public Long createNewEvent(Event newEvent) {
-        em.persist(newEvent);
+    public Long createNewBooking(BookingEntity newBooking) {
+        em.persist(newBooking);
         em.flush(); //because its using IDENTITY generation, need to flush then can get the ID back from the db management system 
-        return newEvent.getEventId(); 
+        return newBooking.getBookingId(); 
     }
 
-    @Override
-    public List<Event> retrieveAllEvents(){
-        Query query = em.createQuery("SELECT e from Event e");
+    public List<BookingEntity> retrieveAllBookings(){
+        Query query = em.createQuery("SELECT b from BookingEntity b");
         return query.getResultList(); 
     } 
+
 }

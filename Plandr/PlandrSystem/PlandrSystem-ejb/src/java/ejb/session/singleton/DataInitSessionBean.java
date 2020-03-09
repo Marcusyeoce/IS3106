@@ -1,6 +1,6 @@
 package ejb.session.singleton;
 
-import Entity.Event;
+import entity.BookingEntity;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
@@ -16,7 +16,7 @@ public class DataInitSessionBean {
     private EntityManager em;
 
     public void postConstruct(){
-        if(em.find(Event.class, 1l) == null) { 
+        if(em.find(BookingEntity.class, 1l) == null) { 
             //then u initialise
         }         
     }
