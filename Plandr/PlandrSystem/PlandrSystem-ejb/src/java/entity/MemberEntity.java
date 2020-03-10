@@ -99,6 +99,14 @@ public class MemberEntity implements Serializable {
         setPassword(password);
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public List<ReviewEntity> getReviewEntities() {
         return reviewEntities;
     }
