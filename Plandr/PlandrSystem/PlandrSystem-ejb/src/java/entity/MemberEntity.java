@@ -70,17 +70,17 @@ public class MemberEntity implements Serializable {
     @Column(columnDefinition = "CHAR(32) NOT NULL")
 //    @NotNull
     private String salt;
-    
+
     @OneToMany(mappedBy = "memberEntity")
     private List<ReviewEntity> reviewEntities;
-    
+
     @OneToMany(mappedBy = "memberEntity")
     private List<BookingEntity> bookingEntities;
-    
+
 
     public MemberEntity() {
         this.salt = CryptographicHelper.getInstance().generateRandomString(32);
-    
+
         reviewEntities = new ArrayList<>();
         bookingEntities = new ArrayList<>();
         subscribed = false;
@@ -88,7 +88,7 @@ public class MemberEntity implements Serializable {
 
     public MemberEntity(String name, String email, String contactNumber, String username, String password, String gender, Date dob, boolean subscribed, Date subscribedUntil, String creditCard) {
         this();
-        
+
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
@@ -98,10 +98,18 @@ public class MemberEntity implements Serializable {
 //        this.subscribed = subscribed;
 //        this.subscribedUntil = subscribedUntil;
         this.creditCard = creditCard;
-        
+
         setPassword(password);
     }
-    
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public List<ReviewEntity> getReviewEntities() {
         return reviewEntities;
     }
@@ -202,7 +210,7 @@ public class MemberEntity implements Serializable {
     public void setCreditCard(String creditCard) {
         this.creditCard = creditCard;
     }
-    
+
     public Long getMemberId() {
         return memberId;
     }
@@ -236,12 +244,4 @@ public class MemberEntity implements Serializable {
         return "entity.MemberEntity[ id=" + memberId + " ]";
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-    
 }
