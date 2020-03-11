@@ -41,8 +41,11 @@ public class MemberEntity implements Serializable {
     @NotNull
     @Size(max = 10)
     private String contactNumber;
-    @Column(columnDefinition = "CHAR(32) NOT NULL")
+//    @Column(columnDefinition = "CHAR(32) NOT NULL")
+//    @NotNull
+    @Column(nullable = false, unique = true, length = 32)
     @NotNull
+    @Size(min = 4, max = 32)
     private String username;
     @Column(columnDefinition = "CHAR(32) NOT NULL")
     @NotNull
@@ -59,13 +62,13 @@ public class MemberEntity implements Serializable {
     private boolean subscribed;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    @NotNull
+//    @NotNull
     private Date subscribedUntil;
-    @Column(columnDefinition = "CHAR(32) NOT NULL")
+    @Column(columnDefinition = "CHAR(16) NOT NULL")
     @NotNull
     private String creditCard;
     @Column(columnDefinition = "CHAR(32) NOT NULL")
-    @NotNull
+//    @NotNull
     private String salt;
     
     @OneToMany(mappedBy = "memberEntity")
@@ -92,13 +95,13 @@ public class MemberEntity implements Serializable {
         this.username = username;
         this.gender = gender;
         this.dob = dob;
-        this.subscribed = subscribed;
-        this.subscribedUntil = subscribedUntil;
+//        this.subscribed = subscribed;
+//        this.subscribedUntil = subscribedUntil;
         this.creditCard = creditCard;
         
         setPassword(password);
     }
-
+    
     public List<ReviewEntity> getReviewEntities() {
         return reviewEntities;
     }
@@ -152,7 +155,12 @@ public class MemberEntity implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null) {
+            this.password = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + this.salt));
+        }
+        else {
+            this.password = null;
+        }
     }
 
     public String getGender() {
@@ -226,6 +234,14 @@ public class MemberEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.MemberEntity[ id=" + memberId + " ]";
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
     
 }

@@ -41,14 +41,17 @@ public class StaffEntity implements Serializable {
     @NotNull
     @Size(max = 10)
     private String contactNumber;
-    @Column(columnDefinition = "CHAR(32) NOT NULL")
+//    @Column(columnDefinition = "CHAR(32) NOT NULL")
+//    @NotNull
+    @Column(nullable = false, unique = true, length = 32)
     @NotNull
+    @Size(min = 4, max = 32)
     private String username;
     @Column(columnDefinition = "CHAR(32) NOT NULL")
     @NotNull
     private String password;
     @Column(columnDefinition = "CHAR(32) NOT NULL")
-    @NotNull
+//    @NotNull
     private String salt;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -137,7 +140,14 @@ public class StaffEntity implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null)
+        {
+            this.password = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + this.salt));
+        }
+        else
+        {
+            this.password = null;
+        }
     }
     
     public Long getStaffId() {

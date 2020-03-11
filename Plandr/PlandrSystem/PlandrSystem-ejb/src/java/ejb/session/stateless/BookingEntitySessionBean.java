@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class BookingEntitiySessionBean implements BookingEntitySessionBeanLocal {
+public class BookingEntitySessionBean implements BookingEntitySessionBeanLocal {
 
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;
