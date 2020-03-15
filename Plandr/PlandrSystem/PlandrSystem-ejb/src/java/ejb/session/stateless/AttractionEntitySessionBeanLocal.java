@@ -8,6 +8,8 @@ package ejb.session.stateless;
 import entity.AttractionEntity;
 import java.util.List;
 import javax.ejb.Local;
+import util.exception.AttractionNotFoundException;
+import util.exception.InputDataValidationException;
 
 /**
  *
@@ -17,5 +19,15 @@ import javax.ejb.Local;
 public interface AttractionEntitySessionBeanLocal {
 
     public List<AttractionEntity> retrieveAttractionsByCompanyId(Long companyId);
+
+    public List<AttractionEntity> retrieveAllAttractions();
+
+    public AttractionEntity retrieveAttractionByAttractionId(Long attractionId) throws AttractionNotFoundException;
+
+    public Long createNewAttractionEntity(AttractionEntity newAttractionEntity) throws InputDataValidationException;
+
+    public void updateAttraction(AttractionEntity attraction) throws AttractionNotFoundException, InputDataValidationException;
+
+    public void deleteAttraction(Long attractionId) throws AttractionNotFoundException;
     
 }

@@ -9,13 +9,14 @@ package util.exception;
  *
  * @author oimun
  */
-public class DeleteTagException extends Exception{
+public class AttractionNotFoundException extends Exception{
 
-    public DeleteTagException() {
+    public AttractionNotFoundException() {
     }
 
-    public DeleteTagException(String message) {
+    public AttractionNotFoundException(String message) {
         super(message);
     }
+    
     
 }

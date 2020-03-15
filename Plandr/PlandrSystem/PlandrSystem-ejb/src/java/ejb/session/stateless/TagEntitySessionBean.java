@@ -1,5 +1,6 @@
 package ejb.session.stateless;
 
+import entity.AttractionEntity;
 import entity.TagEntity;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.CreateNewTagException;
-import util.exception.DeleteTagException;
 import util.exception.InputDataValidationException;
 import util.exception.TagNotFoundException;
 import util.exception.UnknownPersistenceException;
@@ -145,13 +145,20 @@ public class TagEntitySessionBean implements TagEntitySessionBeanLocal {
     
     
     @Override
-    public void deleteTag(Long tagId) throws TagNotFoundException, DeleteTagException
+    public void deleteTag(Long tagId) throws TagNotFoundException
     {
         TagEntity tagEntityToRemove = retrieveTagByTagId(tagId);
         
-        if(!tagEntityToRemove.getAttractionEntities().isEmpty())
+        List<AttractionEntity> attractionEntities = tagEntityToRemove.getAttractionEntities();
+        
+        if(!attractionEntities.isEmpty())
         {
-            throw new DeleteTagException("Tag ID " + tagId + " is associated with existing attractions and cannot be deleted!");
+            for(AttractionEntity attraction : attractionEntities)
+            {
+                attraction.getTagEntities().size();
+                attraction.getTagEntities().remove(tagEntityToRemove);
+            }
+            em.remove(tagEntityToRemove);
         }
         else
         {

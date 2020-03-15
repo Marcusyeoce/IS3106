@@ -46,7 +46,7 @@ public abstract class AttractionEntity implements Serializable {
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private CompanyEntity companyEntity;
-    
+
     @OneToOne(mappedBy = "attractionEntity")
     private PromotionEntity promotionEntity;
     @OneToOne(mappedBy = "attractionEntity")
@@ -57,7 +57,7 @@ public abstract class AttractionEntity implements Serializable {
     
     @OneToMany(mappedBy = "attractionEntity")
     private List<ReviewEntity> reviewEntities;
-    
+
     
     public AttractionEntity() {
         tagEntities = new ArrayList<>();
@@ -103,6 +103,47 @@ public abstract class AttractionEntity implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+    
+    public List<TagEntity> getTagEntities() {
+        return tagEntities;
+    }
+
+    public void setTagEntities(List<TagEntity> tagEntities) {
+        this.tagEntities = tagEntities;
+    }
+    
+    public List<ReviewEntity> getReviewEntities() {
+        return reviewEntities;
+    }
+
+    public void setReviewEntities(List<ReviewEntity> reviewEntities) {
+        this.reviewEntities = reviewEntities;
+    }
+    
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
+    }
+
+    public PromotionEntity getPromotionEntity() {
+        return promotionEntity;
+    }
+
+    public void setPromotionEntity(PromotionEntity promotionEntity) {
+        this.promotionEntity = promotionEntity;
+    }
+
+    public TicketEntity getTicketEntity() {
+        return ticketEntity;
+    }
+
+    public void setTicketEntity(TicketEntity ticketEntity) {
+        this.ticketEntity = ticketEntity;
+    }
+    
 
     @Override
     public int hashCode() {

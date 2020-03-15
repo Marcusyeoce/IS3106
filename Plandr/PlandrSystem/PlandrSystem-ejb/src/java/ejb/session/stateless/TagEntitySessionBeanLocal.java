@@ -9,7 +9,6 @@ import entity.TagEntity;
 import java.util.List;
 import javax.ejb.Local;
 import util.exception.CreateNewTagException;
-import util.exception.DeleteTagException;
 import util.exception.InputDataValidationException;
 import util.exception.TagNotFoundException;
 import util.exception.UnknownPersistenceException;
@@ -30,6 +29,6 @@ public interface TagEntitySessionBeanLocal {
 
     public void updateTag(TagEntity tagEntity) throws InputDataValidationException, TagNotFoundException, UpdateTagException;
 
-    public void deleteTag(Long tagId) throws TagNotFoundException, DeleteTagException;
+    public void deleteTag(Long tagId) throws TagNotFoundException;
     
 }
