@@ -4,3 +4,6 @@
 /Plandr/PlandrSystem/PlandrSystem-ejb/dist/
 /Plandr/PlandrSystem/dist/
 /Plandr/PlandrSystem/PlandrSystem-war/dist/
+/Plandr/PlandrSystem/nbproject/private/
+/Plandr/PlandrSystem/PlandrSystem-ejb/nbproject/private/
+/Plandr/PlandrSystem/PlandrSystem-war/nbproject/private/

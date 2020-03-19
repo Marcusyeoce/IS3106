@@ -6,6 +6,8 @@
 package ejb.session.stateless;
 
 import entity.MemberEntity;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -198,6 +200,46 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
                 }
             } else {
                 throw new PasswordMismatchException("Invalid password!"); 
+            }
+        } catch (MemberNotFoundException ex) {
+            throw new MemberNotFoundException("Member ID " + memberId + " does not exist!");
+        }
+    }
+
+    @Override
+    public void memberSubscribe(Long memberId, int subPackage) throws MemberNotFoundException {
+        try {
+            MemberEntity member = retrieveMemberById(memberId);
+            
+            Calendar c = Calendar.getInstance();
+            member.setSubscribed(true);
+            if (subPackage == 1) { // 1-month subscription
+                if (member.getSubscribedUntil() == null) {
+                    c.add(Calendar.DAY_OF_MONTH, 30);
+                    member.setSubscribedUntil(c.getTime());
+                } else {
+                    c.setTime(member.getSubscribedUntil());
+                    c.add(Calendar.DAY_OF_MONTH, 30);
+                    member.setSubscribedUntil(c.getTime());
+                }
+            } else if (subPackage == 2) { // 3-month subscription
+                if (member.getSubscribedUntil() == null) {
+                    c.add(Calendar.DAY_OF_MONTH, 90);
+                    member.setSubscribedUntil(c.getTime());
+                } else {
+                    c.setTime(member.getSubscribedUntil());
+                    c.add(Calendar.DAY_OF_MONTH, 90);
+                    member.setSubscribedUntil(c.getTime());
+                }
+            } else { // 6-month subscription
+                if (member.getSubscribedUntil() == null) {
+                    c.add(Calendar.DAY_OF_MONTH, 180);
+                    member.setSubscribedUntil(c.getTime());
+                } else {
+                    c.setTime(member.getSubscribedUntil());
+                    c.add(Calendar.DAY_OF_MONTH, 180);
+                    member.setSubscribedUntil(c.getTime());
+                }
             }
         } catch (MemberNotFoundException ex) {
             throw new MemberNotFoundException("Member ID " + memberId + " does not exist!");
