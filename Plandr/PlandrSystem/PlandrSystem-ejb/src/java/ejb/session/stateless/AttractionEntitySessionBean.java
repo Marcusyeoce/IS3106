@@ -116,7 +116,6 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 AttractionEntity attractionEntityToUpdate = retrieveAttractionByAttractionId(attraction.getAttractionId());
                 
                 attractionEntityToUpdate.setPromotionEntity(attraction.getPromotionEntity());
-                attractionEntityToUpdate.setTicketEntity(attraction.getTicketEntity());
                 attractionEntityToUpdate.setReviewEntities(attraction.getReviewEntities());
                 
                 List<TagEntity> tagEntities = attraction.getTagEntities();

@@ -49,8 +49,6 @@ public abstract class AttractionEntity implements Serializable {
 
     @OneToOne(mappedBy = "attractionEntity")
     private PromotionEntity promotionEntity;
-    @OneToOne(mappedBy = "attractionEntity")
-    private TicketEntity ticketEntity;
     
     @ManyToMany(mappedBy = "attractionEntities")
     private List<TagEntity> tagEntities;
@@ -134,16 +132,7 @@ public abstract class AttractionEntity implements Serializable {
 
     public void setPromotionEntity(PromotionEntity promotionEntity) {
         this.promotionEntity = promotionEntity;
-    }
-
-    public TicketEntity getTicketEntity() {
-        return ticketEntity;
-    }
-
-    public void setTicketEntity(TicketEntity ticketEntity) {
-        this.ticketEntity = ticketEntity;
-    }
-    
+    }    
 
     @Override
     public int hashCode() {
