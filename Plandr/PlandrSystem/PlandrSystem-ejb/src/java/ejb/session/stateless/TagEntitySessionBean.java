@@ -101,6 +101,9 @@ public class TagEntitySessionBean implements TagEntitySessionBeanLocal {
         
         if(tagEntity != null)
         {
+            //Fetching
+            tagEntity.getAttractionEntities().size();
+            
             return tagEntity;
         }
         else

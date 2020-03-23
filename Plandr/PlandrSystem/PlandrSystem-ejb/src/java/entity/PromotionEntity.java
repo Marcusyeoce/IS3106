@@ -47,9 +47,6 @@ public class PromotionEntity implements Serializable {
     @Digits(integer = 9, fraction = 2)
     private BigDecimal discount;
     
-    @OneToOne(mappedBy = "bookingEntity")
-    private BookingEntity bookingEntity;
-    
     @OneToOne
     private AttractionEntity attractionEntity;
     
@@ -71,15 +68,7 @@ public class PromotionEntity implements Serializable {
 
     public void setAttractionEntity(AttractionEntity attractionEntity) {
         this.attractionEntity = attractionEntity;
-    }
-
-    public BookingEntity getBookingEntity() {
-        return bookingEntity;
-    }
-
-    public void setBookingEntity(BookingEntity bookingEntity) {
-        this.bookingEntity = bookingEntity;
-    }   
+    }  
 
     public Long getPromotionId() {
         return promotionId;

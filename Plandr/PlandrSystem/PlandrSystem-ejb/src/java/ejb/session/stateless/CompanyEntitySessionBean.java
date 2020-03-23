@@ -89,7 +89,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public List<CompanyEntity> retrieveAllComapnies()
+    public List<CompanyEntity> retrieveAllCompanies()
     {
         Query query = em.createQuery("SELECT c FROM CompanyEntity c ORDER BY c.name ASC");
         List<CompanyEntity> companyEntities = query.getResultList();
@@ -98,7 +98,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public void updateComapny(CompanyEntity company) throws CompanyNotFoundException, InputDataValidationException {
+    public void updateCompany(CompanyEntity company) throws CompanyNotFoundException, InputDataValidationException {
         if(company != null && company.getCompanyId()!= null)
         {
             Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(company);
@@ -123,7 +123,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public void deleteComapny(Long companyId) throws CompanyNotFoundException, DeleteCompanyException
+    public void deleteCompany(Long companyId) throws CompanyNotFoundException, DeleteCompanyException
     {
         CompanyEntity companyEntityToRemove = retrieveCompanyByCompanyId(companyId);
         

@@ -97,6 +97,11 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
         
         if(attractionEntity != null)
         {
+            //Fetching
+            attractionEntity.getCompanyEntity();
+            attractionEntity.getReviewEntities().size();
+            attractionEntity.getTagEntities().size();
+            
             return attractionEntity;
         }
         else
@@ -152,6 +157,8 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
    public void deleteAttraction(Long attractionId) throws AttractionNotFoundException
     {
         AttractionEntity attractionEntityToRemove = retrieveAttractionByAttractionId(attractionId);
+        
+        //Disconnecting from associated relationships
         
         em.remove(attractionEntityToRemove);
     }

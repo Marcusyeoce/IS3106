@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
  * @author Marcusyeoce
  */
 @Stateless
-public class ReccomendationAlgorithmSessionBean implements ReccomendationAlgorithmSessionBeanLocal {
+public class RecommendationAlgorithmSessionBean implements RecommendationAlgorithmSessionBeanLocal {
 
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;

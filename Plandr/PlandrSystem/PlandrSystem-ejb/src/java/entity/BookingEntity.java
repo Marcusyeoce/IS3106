@@ -52,9 +52,7 @@ public class BookingEntity implements Serializable {
     
     @OneToMany
     private List<AttractionEntity> attractionEntities;
-    
-    @OneToOne
-    private PromotionEntity promotionEntity;
+
     
     public BookingEntity() {
         attractionEntities = new ArrayList<>();
@@ -74,14 +72,6 @@ public class BookingEntity implements Serializable {
 
     public void setAttractionEntities(List<AttractionEntity> attractionEntities) {
         this.attractionEntities = attractionEntities;
-    }
-
-    public PromotionEntity getPromotionEntity() {
-        return promotionEntity;
-    }
-
-    public void setPromotionEntity(PromotionEntity promotionEntity) {
-        this.promotionEntity = promotionEntity;
     }
 
     public MemberEntity getMemberEntity() {

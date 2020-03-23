@@ -216,6 +216,8 @@ public class StaffEntitySessionBean implements StaffEntitySessionBeanLocal {
     {
         StaffEntity staffEntityToRemove = retrieveStaffByStaffId(staffId);
         
+        //If staff has articles -> throw Exception or cascade delete articles?
+        
         em.remove(staffEntityToRemove);
         
     }
