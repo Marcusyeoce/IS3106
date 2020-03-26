@@ -25,7 +25,7 @@ public interface StaffEntitySessionBeanLocal {
 
     public Long createNewStaff(StaffEntity newStaffEntity) throws UsernameExistException, UnknownPersistenceException, InputDataValidationException;
 
-    public StaffEntity staffLogin(String username, String password) throws InvalidLoginCredentialException, StaffNotFoundException;
+    public StaffEntity staffLogin(String username, String password) throws InvalidLoginCredentialException;
 
     public StaffEntity retrieveStaffByUsername(String username) throws StaffNotFoundException;
 

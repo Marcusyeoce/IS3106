@@ -3,6 +3,7 @@ package ejb.session.singleton;
 import ejb.session.stateless.StaffEntitySessionBeanLocal;
 import entity.BookingEntity;
 import entity.StaffEntity;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
@@ -26,10 +27,11 @@ public class DataInitSessionBean {
     @EJB(name = "StaffEntitySessionBeanLocal")
     private StaffEntitySessionBeanLocal staffEntitySessionBeanLocal;
 
+    @PostConstruct
     public void postConstruct(){
         try
         {
-            staffEntitySessionBeanLocal.retrieveStaffByUsername("manager");
+            staffEntitySessionBeanLocal.retrieveStaffByUsername("admin");
         }
         catch(StaffNotFoundException ex)
         {
@@ -40,8 +42,10 @@ public class DataInitSessionBean {
     public void initializeData(){
         try
         {
-            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password", AccessRightEnum.ADMIN)); 
-            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Employee", "employee@gmail.com", "99999992", "employee", "password", AccessRightEnum.EMPLOYEE));
+            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password")); 
+            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Employee", "employee@gmail.com", "99999992", "employee", "password"));
+            
+            
             
             
         }catch(UsernameExistException | UnknownPersistenceException | InputDataValidationException ex){
