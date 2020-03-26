@@ -3,14 +3,13 @@ package entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
@@ -47,28 +46,19 @@ public class PromotionEntity implements Serializable {
     @Digits(integer = 9, fraction = 2)
     private BigDecimal discount;
     
-    @OneToOne
-    private AttractionEntity attractionEntity;
+    @ManyToMany
+    private List<AttractionEntity> attractionEntities;
     
     public PromotionEntity() {
     }
 
-    public PromotionEntity(String name, Date startDate, Date endDate, BigDecimal discount) {
+    public PromotionEntity(String name, Date startDate, BigDecimal discount, List<AttractionEntity> attractionEntities) {
         this();
-        
         this.name = name;
         this.startDate = startDate;
-        this.endDate = endDate;
         this.discount = discount;
+        this.attractionEntities = attractionEntities;
     }
-
-    public AttractionEntity getAttractionEntity() {
-        return attractionEntity;
-    }
-
-    public void setAttractionEntity(AttractionEntity attractionEntity) {
-        this.attractionEntity = attractionEntity;
-    }  
 
     public Long getPromotionId() {
         return promotionId;
@@ -108,6 +98,14 @@ public class PromotionEntity implements Serializable {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+    
+    public List<AttractionEntity> getAttractionEntities() {
+        return attractionEntities;
+    }
+
+    public void setAttractionEntities(List<AttractionEntity> attractionEntities) {
+        this.attractionEntities = attractionEntities;
     }
 
     @Override

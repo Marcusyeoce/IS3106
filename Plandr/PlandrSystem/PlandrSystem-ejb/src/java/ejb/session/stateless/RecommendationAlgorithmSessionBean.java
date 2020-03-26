@@ -19,11 +19,12 @@ public class RecommendationAlgorithmSessionBean implements RecommendationAlgorit
     // "Insert Code > Add Business Method")
     
     public AttractionEntity getReccomendedAttractionByTags() {
+        return null;
         
     }
 
     public AttractionEntity getReccomendedAttractionByPopular() {
-        
+        return null;
     }
     
 }

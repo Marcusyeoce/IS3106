@@ -4,6 +4,7 @@ import entity.AttractionEntity;
 import entity.CompanyEntity;
 import entity.EventEntity;
 import entity.PlaceEntity;
+import entity.PromotionEntity;
 import entity.TagEntity;
 import java.util.List;
 import java.util.Set;
@@ -52,6 +53,12 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
             for(TagEntity tag: tagEntities)
             {
                 tag.getAttractionEntities().add(newAttractionEntity);
+            }
+            
+            List<PromotionEntity> promotionEntities = newAttractionEntity.getPromotionEntities();
+            for(PromotionEntity promotion: promotionEntities)
+            {
+                promotion.getAttractionEntities().add(newAttractionEntity);
             }
             
             em.persist(newAttractionEntity);
@@ -120,7 +127,6 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
             {
                 AttractionEntity attractionEntityToUpdate = retrieveAttractionByAttractionId(attraction.getAttractionId());
                 
-                attractionEntityToUpdate.setPromotionEntity(attraction.getPromotionEntity());
                 attractionEntityToUpdate.setReviewEntities(attraction.getReviewEntities());
                 
                 List<TagEntity> tagEntities = attraction.getTagEntities();
@@ -128,6 +134,13 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 for(TagEntity tag: tagEntities)
                 {
                     tag.getAttractionEntities().add(attractionEntityToUpdate);
+                }
+                
+                List<PromotionEntity> promotionEntities = attraction.getPromotionEntities();
+                attractionEntityToUpdate.setPromotionEntities(promotionEntities);
+                for(PromotionEntity promotion: promotionEntities)
+                {
+                    promotion.getAttractionEntities().add(attractionEntityToUpdate);
                 }
                 
                 attractionEntityToUpdate.setCompanyEntity(attraction.getCompanyEntity());

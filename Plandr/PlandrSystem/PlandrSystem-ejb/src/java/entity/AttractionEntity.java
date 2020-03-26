@@ -47,8 +47,8 @@ public abstract class AttractionEntity implements Serializable {
     @JoinColumn(nullable = true)
     private CompanyEntity companyEntity;
 
-    @OneToOne(mappedBy = "attractionEntity")
-    private PromotionEntity promotionEntity;
+    @ManyToMany(mappedBy = "attractionEntities")
+    private List<PromotionEntity> promotionEntities;
     
     @ManyToMany(mappedBy = "attractionEntities")
     private List<TagEntity> tagEntities;
@@ -60,6 +60,7 @@ public abstract class AttractionEntity implements Serializable {
     public AttractionEntity() {
         tagEntities = new ArrayList<>();
         reviewEntities = new ArrayList<>();
+        promotionEntities = new ArrayList<>();
     }
 
     public AttractionEntity(String name, String description, String location) {
@@ -125,14 +126,14 @@ public abstract class AttractionEntity implements Serializable {
     public void setCompanyEntity(CompanyEntity companyEntity) {
         this.companyEntity = companyEntity;
     }
-
-    public PromotionEntity getPromotionEntity() {
-        return promotionEntity;
+    
+    public List<PromotionEntity> getPromotionEntities() {
+        return promotionEntities;
     }
 
-    public void setPromotionEntity(PromotionEntity promotionEntity) {
-        this.promotionEntity = promotionEntity;
-    }    
+    public void setPromotionEntities(List<PromotionEntity> promotionEntities) {
+        this.promotionEntities = promotionEntities;
+    }
 
     @Override
     public int hashCode() {
