@@ -173,6 +173,7 @@ public class StaffEntitySessionBean implements StaffEntitySessionBeanLocal {
                     staffEntityToUpdate.setName(staff.getName());
                     staffEntityToUpdate.setEmail(staff.getEmail());
                     staffEntityToUpdate.setContactNumber(staff.getContactNumber());
+                    staffEntityToUpdate.setAccessRightEnum(staff.getAccessRightEnum());
                 }
                 else
                 {

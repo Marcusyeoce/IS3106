@@ -42,8 +42,8 @@ public class DataInitSessionBean {
     public void initializeData(){
         try
         {
-            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password")); 
-            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Employee", "employee@gmail.com", "99999992", "employee", "password"));
+            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password", AccessRightEnum.ADMIN)); 
+            staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Employee", "employee@gmail.com", "99999992", "employee", "password", AccessRightEnum.EMPLOYEE));
             
             
             

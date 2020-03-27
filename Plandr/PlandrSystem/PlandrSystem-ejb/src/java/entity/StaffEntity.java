@@ -53,10 +53,10 @@ public class StaffEntity implements Serializable {
     @Column(columnDefinition = "CHAR(32) NOT NULL")
 //    @NotNull
     private String salt;
-    /*@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NotNull
-    private AccessRightEnum accessRightEnum;*/
+    private AccessRightEnum accessRightEnum;
     
     @OneToMany(mappedBy = "staffEntity")
     private List<ArticleEntity> articleEntities;
@@ -67,13 +67,14 @@ public class StaffEntity implements Serializable {
         articleEntities = new ArrayList<>();
     }
 
-    public StaffEntity(String name, String email, String contactNumber, String username, String password) {
+    public StaffEntity(String name, String email, String contactNumber, String username, String password, AccessRightEnum accessRightEnum) {
         this();
         
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;
         this.username = username;
+        this.accessRightEnum = accessRightEnum;
         
         setPassword(password);
     }
@@ -172,6 +173,20 @@ public class StaffEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.StaffEntity[ id=" + staffId + " ]";
+    }
+
+    /**
+     * @return the accessRightEnum
+     */
+    public AccessRightEnum getAccessRightEnum() {
+        return accessRightEnum;
+    }
+
+    /**
+     * @param accessRightEnum the accessRightEnum to set
+     */
+    public void setAccessRightEnum(AccessRightEnum accessRightEnum) {
+        this.accessRightEnum = accessRightEnum;
     }
     
 }
