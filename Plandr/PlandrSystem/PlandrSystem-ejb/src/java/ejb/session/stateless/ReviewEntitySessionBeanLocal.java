@@ -5,6 +5,7 @@
  */
 package ejb.session.stateless;
 
+import entity.ReviewEntity;
 import javax.ejb.Local;
 
 /**
@@ -14,4 +15,5 @@ import javax.ejb.Local;
 @Local
 public interface ReviewEntitySessionBeanLocal {
     
+    public Long createNewReview(ReviewEntity newReview);
 }
