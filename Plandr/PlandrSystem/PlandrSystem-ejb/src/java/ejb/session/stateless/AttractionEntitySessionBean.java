@@ -4,6 +4,7 @@ import entity.AttractionEntity;
 import entity.CompanyEntity;
 import entity.EventEntity;
 import entity.PlaceEntity;
+import entity.PromotionEntity;
 import entity.TagEntity;
 import java.util.List;
 import java.util.Set;
@@ -54,6 +55,12 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 tag.getAttractionEntities().add(newAttractionEntity);
             }
             
+            List<PromotionEntity> promotionEntities = newAttractionEntity.getPromotionEntities();
+            for(PromotionEntity promotion: promotionEntities)
+            {
+                promotion.getAttractionEntities().add(newAttractionEntity);
+            }
+            
             em.persist(newAttractionEntity);
             em.flush();
 
@@ -97,6 +104,11 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
         
         if(attractionEntity != null)
         {
+            //Fetching
+            attractionEntity.getCompanyEntity();
+            attractionEntity.getReviewEntities().size();
+            attractionEntity.getTagEntities().size();
+            
             return attractionEntity;
         }
         else
@@ -115,7 +127,6 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
             {
                 AttractionEntity attractionEntityToUpdate = retrieveAttractionByAttractionId(attraction.getAttractionId());
                 
-                attractionEntityToUpdate.setPromotionEntity(attraction.getPromotionEntity());
                 attractionEntityToUpdate.setReviewEntities(attraction.getReviewEntities());
                 
                 List<TagEntity> tagEntities = attraction.getTagEntities();
@@ -123,6 +134,13 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 for(TagEntity tag: tagEntities)
                 {
                     tag.getAttractionEntities().add(attractionEntityToUpdate);
+                }
+                
+                List<PromotionEntity> promotionEntities = attraction.getPromotionEntities();
+                attractionEntityToUpdate.setPromotionEntities(promotionEntities);
+                for(PromotionEntity promotion: promotionEntities)
+                {
+                    promotion.getAttractionEntities().add(attractionEntityToUpdate);
                 }
                 
                 attractionEntityToUpdate.setCompanyEntity(attraction.getCompanyEntity());
@@ -152,6 +170,8 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
    public void deleteAttraction(Long attractionId) throws AttractionNotFoundException
     {
         AttractionEntity attractionEntityToRemove = retrieveAttractionByAttractionId(attractionId);
+        
+        //Disconnecting from associated relationships
         
         em.remove(attractionEntityToRemove);
     }

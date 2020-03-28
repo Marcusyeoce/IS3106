@@ -7,6 +7,6 @@ import javax.ejb.Local;
  * @author Marcusyeoce
  */
 @Local
-public interface ReccomendationAlgorithmSessionBeanLocal {
+public interface RecommendationAlgorithmSessionBeanLocal {
     
 }

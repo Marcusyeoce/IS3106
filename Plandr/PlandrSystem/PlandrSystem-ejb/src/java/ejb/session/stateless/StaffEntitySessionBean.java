@@ -96,7 +96,7 @@ public class StaffEntitySessionBean implements StaffEntitySessionBeanLocal {
     
     
     @Override
-    public StaffEntity staffLogin(String username, String password) throws InvalidLoginCredentialException, StaffNotFoundException{
+    public StaffEntity staffLogin(String username, String password) throws InvalidLoginCredentialException{
         try
         {
             StaffEntity staff = retrieveStaffByUsername(username);            
@@ -114,7 +114,7 @@ public class StaffEntitySessionBean implements StaffEntitySessionBeanLocal {
         }
         catch(StaffNotFoundException ex)
         {
-            throw new StaffNotFoundException("Username does not exist!");
+            throw new InvalidLoginCredentialException("Username does not exist!");
         }
     }
 
@@ -215,6 +215,8 @@ public class StaffEntitySessionBean implements StaffEntitySessionBeanLocal {
     public void deleteStaff(Long staffId) throws StaffNotFoundException
     {
         StaffEntity staffEntityToRemove = retrieveStaffByStaffId(staffId);
+        
+        //If staff has articles -> throw Exception or cascade delete articles?
         
         em.remove(staffEntityToRemove);
         

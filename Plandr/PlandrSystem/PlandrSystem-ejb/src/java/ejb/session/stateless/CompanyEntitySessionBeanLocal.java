@@ -25,10 +25,10 @@ public interface CompanyEntitySessionBeanLocal {
 
     public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException;
 
-    public List<CompanyEntity> retrieveAllComapnies();
+    public List<CompanyEntity> retrieveAllCompanies();
 
-    public void updateComapny(CompanyEntity company) throws CompanyNotFoundException, InputDataValidationException;
+    public void updateCompany(CompanyEntity company) throws CompanyNotFoundException, InputDataValidationException;
 
-    public void deleteComapny(Long companyId) throws CompanyNotFoundException, DeleteCompanyException;
+    public void deleteCompany(Long companyId) throws CompanyNotFoundException, DeleteCompanyException;
     
 }

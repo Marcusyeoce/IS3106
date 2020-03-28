@@ -180,6 +180,9 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
         MemberEntity member = em.find(MemberEntity.class, memberId);
         
         if(member != null) {
+            member.getBookingEntities().size();
+            member.getReviewEntities().size();
+            
             return member;
         } else {
             throw new MemberNotFoundException("Member ID " + memberId + " does not exist!");

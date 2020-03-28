@@ -87,14 +87,6 @@ public class StaffEntity implements Serializable {
         this.articleEntities = articleEntities;
     }
 
-    public AccessRightEnum getAccessRightEnum() {
-        return accessRightEnum;
-    }
-
-    public void setAccessRightEnum(AccessRightEnum accessRightEnum) {
-        this.accessRightEnum = accessRightEnum;
-    }
-
     public String getName() {
         return name;
     }
@@ -181,6 +173,20 @@ public class StaffEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.StaffEntity[ id=" + staffId + " ]";
+    }
+
+    /**
+     * @return the accessRightEnum
+     */
+    public AccessRightEnum getAccessRightEnum() {
+        return accessRightEnum;
+    }
+
+    /**
+     * @param accessRightEnum the accessRightEnum to set
+     */
+    public void setAccessRightEnum(AccessRightEnum accessRightEnum) {
+        this.accessRightEnum = accessRightEnum;
     }
     
 }
