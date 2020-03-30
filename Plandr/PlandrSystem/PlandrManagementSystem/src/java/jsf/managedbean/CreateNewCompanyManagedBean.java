@@ -36,7 +36,7 @@ public class CreateNewCompanyManagedBean {
     
     public void createNewCompany(ActionEvent event) throws CompanyExistException, UnknownPersistenceException, InputDataValidationException {
         Long newCompanyId = companyEntitySessionBeanLocal.createNewCompany(newCompany);
-        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"New Company has been added succesfully!" + newCompany.getCompanyId(),null));
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"New Company has been added succesfully! Company's ID : " + newCompany.getCompanyId(),null));
     }
 
     public CompanyEntity getNewCompany() {
