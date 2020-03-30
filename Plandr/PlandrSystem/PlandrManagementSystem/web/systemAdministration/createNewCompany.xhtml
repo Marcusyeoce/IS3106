@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+        <div>
+            <h3>Add a new Company</h3>
+         <h:form>
+            <h:messages />
+            
+            <h:panelGrid columns="2">
+                <h:outputLabel for="Name" value="Company's Name:"/>
+                <h:inputText id="Name" value="#{CreateNewCompanyManagedBean.newCompany.name}"/>
+                
+                <h:outputLabel for="Email" value="Company's Email:"/>
+                <h:inputText id="Email" value="#{CreateNewCompanyManagedBean.newCompany.email}"/>
+                
+                <h:outputLabel for="Contact" value="Company's Contact Number:"/>
+                <h:inputText id="Contact" value="#{CreateNewCompanyManagedBean.newCompany.contactNumber}"/>
+                
+                <h:commandButton value ="Clear" type ="reset"/> &nbsp;
+                <h:commandButton value ="Create" actionListener="#{CreateNewCompanyManagedBean.createNewCompany}"/>
+                
+            </h:panelGrid>
+         </h:form>
+        </div>
+    </ui:define>
+                    
+</ui:composition>
+
+
