@@ -99,7 +99,9 @@ public class SecurityFilter implements Filter {
         if(accessRight.equals(AccessRightEnum.ADMIN))
         {            
             if(path.equals("/systemAdministration/staffManagement.xhtml") ||
-               path.equals("/systemAdministration/createNewCompany.xhtml"))
+               path.equals("/systemAdministration/createNewCompany.xhtml") ||
+               path.equals("/systemAdministration/viewAllCompany.xhtml") ||
+               path.equals("/systemAdministration/deleteCompany.xhtml"))
             {
                 return true;
             }
