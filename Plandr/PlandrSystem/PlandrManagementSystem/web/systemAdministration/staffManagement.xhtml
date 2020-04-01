@@ -9,7 +9,99 @@
     <ui:define name="content">
         <div>
             <h3>Staff Management</h3>
-        </div>
+        
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Create New Staff" onclick="PF('dialogCreateNewStaff').show()"/>                                      
+                </p:menubar>
+                <br/>
+            </h:form>
+
+            <h:form id="formCreateNewStaff">
+
+            <p:dialog id="dialogCreateNewStaff" widgetVar="dialogCreateNewStaff" header="Create New Staff" closable="true">
+
+                <p:messages id="messagesCreateNewStaff" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="name" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{staffManagementManagedBean.newStaffEntity.name}" placeholder="name" required="true" requiredMessage="Name is required" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="email" value="Email: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{staffManagementManagedBean.newStaffEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </p:inputText>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="contactNumber" value="Contact Number "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="contactNumber" value="#{staffManagementManagedBean.newStaffEntity.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
+                                <f:validateLength minimum="8" />
+                            </p:inputText>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="username" value="Username" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="username" value="#{staffManagementManagedBean.newStaffEntity.username}" required="true" requiredMessage="Username is required" maxlength="32" >
+                                <f:validateLength minimum="4" />
+                            </p:inputText>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="password" value="Password" />
+                        </p:column>
+                        <p:column>
+                            <p:password id="password" value="#{staffManagementManagedBean.newStaffEntity.password}" required="true" requiredMessage="Password is required" maxlength="32">
+                                   <f:validateLength minimum="4" />
+                           </p:password>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="accessRight" value="Access Right " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="accessRight" value="#{staffManagementManagedBean.newAccessRight}" placeholder="1 for administrator, 2 for employee" required="true" requiredMessage="Access Right is required" maxlength="2" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Staff" actionListener="#{staffManagementManagedBean.createNewStaff}" oncomplete="PF('dialogCreateNewStaff').show();"/>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+    
+    </div>
+        
     </ui:define>
                     
 </ui:composition>
