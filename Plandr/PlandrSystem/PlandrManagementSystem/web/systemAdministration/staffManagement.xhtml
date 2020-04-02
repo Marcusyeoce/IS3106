@@ -31,6 +31,7 @@
                         </p:column>
                         <p:column>
                             <p:inputText id="name" value="#{staffManagementManagedBean.newStaffEntity.name}" placeholder="name" required="true" requiredMessage="Name is required" />
+                            <p:message for="name" />
                         </p:column>
                     </p:row>
 
@@ -42,6 +43,7 @@
                             <p:inputText id="email" value="#{staffManagementManagedBean.newStaffEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
+                            <p:message for="email" />
                         </p:column>
                     </p:row>
 
@@ -53,6 +55,7 @@
                             <p:inputText id="contactNumber" value="#{staffManagementManagedBean.newStaffEntity.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
                                 <f:validateLength minimum="8" />
                             </p:inputText>
+                            <p:message for="contactNumber" />
                         </p:column>
                     </p:row>
 
@@ -64,6 +67,7 @@
                             <p:inputText id="username" value="#{staffManagementManagedBean.newStaffEntity.username}" required="true" requiredMessage="Username is required" maxlength="32" >
                                 <f:validateLength minimum="4" />
                             </p:inputText>
+                            <p:message for="username" />
                         </p:column>
                     </p:row>
 
@@ -75,6 +79,7 @@
                             <p:password id="password" value="#{staffManagementManagedBean.newStaffEntity.password}" required="true" requiredMessage="Password is required" maxlength="32">
                                    <f:validateLength minimum="4" />
                            </p:password>
+                            <p:message for="password" />
                         </p:column>
                     </p:row>
 
@@ -83,14 +88,17 @@
                             <p:outputLabel for="accessRight" value="Access Right " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="accessRight" value="#{staffManagementManagedBean.newAccessRight}" placeholder="1 for administrator, 2 for employee" required="true" requiredMessage="Access Right is required" maxlength="2" />
+                            <p:selectOneMenu id="accessRight" value="#{staffManagementManagedBean.newStaffEntity.accessRightEnum}">
+                                <f:selectItems value="#{staffManagementManagedBean.accessRight}" var="accessRight" />
+                            </p:selectOneMenu>
+                            <p:message for="accessRight" />
                         </p:column>
                     </p:row>
 
                     <p:row>
                         <p:column colspan="2">
                             <p:commandButton type="reset" value="Clear" />&nbsp;
-                            <p:commandButton  value="Create New Staff" actionListener="#{staffManagementManagedBean.createNewStaff}" oncomplete="PF('dialogCreateNewStaff').show();"/>
+                            <p:commandButton  value="Create New Staff" actionListener="#{staffManagementManagedBean.createNewStaff}" update="@form formAllStaffs:dataTableAllStaffs" oncomplete="PF('dialogCreateNewStaff').show();" />
                         </p:column>
                     </p:row>
 
@@ -99,6 +107,135 @@
             </p:dialog>
 
         </h:form>
+            
+        <h:form id="formAllStaffs">
+            
+                <p:messages id="messages" redisplay="false" closable="true" />
+
+                <p:dataTable id="dataTableAllStaffs" widgetVar="dataTableAllStaffs" value="#{staffManagementManagedBean.allStaffEntities}" var="staffEntity" rowKey="#{staffEntity.staffId}" rowIndexVar="row"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('dataTableAllStaffs').filter()" style="width:300px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Name" sortBy="#{staffEntity.name}" filterBy="#{staffEntity.name}" filterMatchMode="contains">
+                        <h:outputText value="#{staffEntity.name}" />
+                    </p:column>
+
+                    <p:column headerText="Email" sortBy="#{staffEntity.email}" filterBy="#{staffEntity.email}" filterMatchMode="contains">
+                        <h:outputText value="#{staffEntity.email}" />
+                    </p:column>                            
+
+                    <p:column headerText="Contact Number" sortBy="#{staffEntity.contactNumber}" filterBy="#{staffEntity.contactNumber}" filterMatchMode="contains">
+                        <h:outputText value="#{staffEntity.contactNumber}" />
+                    </p:column>
+                    
+                    <p:column headerText="Username" sortBy="#{staffEntity.username}" filterBy="#{staffEntity.username}" filterMatchMode="contains">
+                        <h:outputText value="#{staffEntity.username}" />
+                    </p:column>
+
+                    <p:column headerText="Access Right" sortBy="#{staffEntity.accessRightEnum}" filterBy="#{staffEntity.accessRightEnum}" filterMatchMode="contains">
+                        <h:outputText value="#{staffEntity.accessRightEnum}" />
+                    </p:column>
+
+                    <p:column headerText="Action" >
+                        <p:commandButton update="formViewStaff" oncomplete="PF('dialogViewStaff').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{staffEntity}" target="#{staffManagementManagedBean.staffEntityToView}" />
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{staffManagementManagedBean.deleteStaff}" update="formAllStaffs:dataTableAllStaffs formAllStaffs:messages">
+                            <f:attribute name="staffEntityToDelete" value="#{staffEntity}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{staffEntity.name}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+            </h:form>
+            
+            <h:form id="formViewStaff">
+                <p:dialog id="dialogViewStaff" widgetVar="dialogViewStaff" header="View Staff" closable="true">
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Staff ID: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.staffId}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Name: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.name}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Email: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.email}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Contact Number: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.contactNumber}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Username: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.username}" />
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Access Right: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{staffManagementManagedBean.staffEntityToView.accessRightEnum}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Article(s) Posted: " />
+                            </p:column>
+                            <p:column>
+                                <p:dataList value="#{staffManagementManagedBean.staffEntityToView.articleEntities}" var="article" type="unordered">
+                                    #{article.title}
+                                </p:dataList>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </p:dialog>
+
+            </h:form>
     
     </div>
         
