@@ -112,11 +112,8 @@ public class SecurityFilter implements Filter {
         }
         else if(accessRight.equals(AccessRightEnum.EMPLOYEE))
         {
-            if(path.equals("/employeeOperation/articleMangement.xhtml") ||
-                    path.equals("/employeeOperation/attractionManagement.xhtml") ||
-                    path.equals("/employeeOperation/companyMangement.xhtml") ||
-                    path.equals("/employeeOperation/promotionMangement.xhtml") ||
-                    path.equals("/employeeOperation/viewAllCustomers.xhtml"))
+            if(path.equals("/employeeOperation/companyManagement.xhtml") ||
+                    path.equals("/employeeOperation/articleManagement.xhtml"))
             {
                 return true;
             }
