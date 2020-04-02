@@ -9,7 +9,237 @@
     <ui:define name="content">
         <div>
             <h3>Company Management</h3>
-        </div>
+            
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Create New Company" onclick="PF('dialogCreateNewCompany').show()"/>                                      
+                </p:menubar>
+                <br/>
+            </h:form>
+
+            <h:form id="formCreateNewCompany">
+
+            <p:dialog id="dialogCreateNewCompany" widgetVar="dialogCreateNewCompany" header="Create New Company" closable="true">
+
+                <p:messages id="messagesCreateNewCompany" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="name" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{companyManagementManagedBean.newCompanyEntity.name}" placeholder="name" required="true" requiredMessage="Name is required" />
+                            <p:message for="name" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="email" value="Email: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{companyManagementManagedBean.newCompanyEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </p:inputText>
+                            <p:message for="email" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="contactNumber" value="Contact Number "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="contactNumber" value="#{companyManagementManagedBean.newCompanyEntity.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
+                                <f:validateLength minimum="8" />
+                            </p:inputText>
+                            <p:message for="contactNumber" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Company" actionListener="#{companyManagementManagedBean.createNewCompany}" update="@form formAllCompanies:dataTableAllCompanies" oncomplete="PF('dialogCreateNewCompany').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+            
+        <h:form id="formAllCompanies">
+            
+            <p:messages id="messages" redisplay="false" closable="true" />
+
+            <p:dataTable id="dataTableAllCompanies" widgetVar="dataTableAllCompanies" value="#{companyManagementManagedBean.allCompanyEntities}" var="companyEntity" rowKey="#{companyEntity.companyId}" rowIndexVar="row"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: right;">
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('dataTableAllCompanies').filter()" style="width:300px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column headerText="Name" sortBy="#{companyEntity.name}" filterBy="#{companyEntity.name}" filterMatchMode="contains">
+                    <h:outputText value="#{companyEntity.name}" />
+                </p:column>
+
+                <p:column headerText="Email" sortBy="#{companyEntity.email}" filterBy="#{companyEntity.email}" filterMatchMode="contains">
+                    <h:outputText value="#{companyEntity.email}" />
+                </p:column>                            
+
+                <p:column headerText="Contact Number" sortBy="#{companyEntity.contactNumber}" filterBy="#{companyEntity.contactNumber}" filterMatchMode="contains">
+                    <h:outputText value="#{companyEntity.contactNumber}" />
+                </p:column>
+                
+                <p:column headerText="Action" >
+                    <p:commandButton update="formViewCompany" oncomplete="PF('dialogViewCompany').show()" icon="ui-icon-document" title="View">
+                        <f:setPropertyActionListener value="#{companyEntity}" target="#{companyManagementManagedBean.companyEntityToView}" />
+                    </p:commandButton>
+                    <p:commandButton update="formUpdateCompany" oncomplete="PF('dialogUpdateCompany').show()" icon="ui-icon-pencil" title="Update">
+                        <f:setPropertyActionListener value="#{companyEntity}" target="#{companyManagementManagedBean.companyEntityToUpdate}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{companyManagementManagedBean.deleteCompany}" update="formAllCompanies:dataTableAllCompanies formAllCompanies:messages">
+                        <f:attribute name="companyEntityToDelete" value="#{companyEntity}" />
+                        <p:confirm header="Confirmation" message="Are you sure you want to delete #{companyEntity.name}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+
+        <h:form id="formViewCompany">
+            <p:dialog id="dialogViewCompany" widgetVar="dialogViewCompany" header="View Company" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Company ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToView.companyId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToView.name}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Email: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToView.email}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Contact Number: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToView.contactNumber}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Associated attraction(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{companyManagementManagedBean.companyEntityToView.attractionsEntities}" var="attraction" type="unordered">
+                                #{attraction.name}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+            
+        <h:form id="formUpdateCompany">
+
+            <p:dialog id="dialogUpdateCompany" widgetVar="dialogUpdateCompany" header="Update Company" closable="true">
+
+                <p:messages id="messagesUpdateCompany" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Company ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToUpdate.companyId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{companyManagementManagedBean.companyEntityToUpdate.name}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="email" value="Email: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="email" value="#{companyManagementManagedBean.companyEntityToUpdate.email}" placeholder="#{staffEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </p:inputText>
+                            <p:message for="email" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="contactNumber" value="Contact Number "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="contactNumber" value="#{companyManagementManagedBean.companyEntityToUpdate.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
+                                <f:validateLength minimum="8" />
+                            </p:inputText>
+                            <p:message for="contactNumber" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton value="Update company" update="@form formAllCompanies:dataTableAllCompanies" actionListener="#{companyManagementManagedBean.updateCompany}" oncomplete="PF('dialogUpdateCompany').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+    </div>
     </ui:define>
                     
 </ui:composition>

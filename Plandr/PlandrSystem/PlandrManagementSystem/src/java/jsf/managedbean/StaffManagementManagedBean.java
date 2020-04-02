@@ -7,7 +7,6 @@ package jsf.managedbean;
 
 import ejb.session.stateless.StaffEntitySessionBeanLocal;
 import entity.StaffEntity;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -39,6 +38,7 @@ public class StaffManagementManagedBean implements Serializable{
     
     private List<StaffEntity> allStaffEntities;
     private StaffEntity staffEntityToView;
+    private StaffEntity staffEntityToUpdate;
 
     public StaffManagementManagedBean() {
         newStaffEntity = new StaffEntity();
@@ -50,13 +50,6 @@ public class StaffManagementManagedBean implements Serializable{
     {
         allStaffEntities = staffEntitySessionBeanLocal.retrieveAllStaffs();
     }
-    
-     public void viewProductDetails(ActionEvent event) throws IOException
-    {
-        Long productIdToView = (Long)event.getComponent().getAttributes().get("staffId");
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("productIdToView", productIdToView);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("viewProductDetails.xhtml");
-    }
 
     public void createNewStaff(ActionEvent event)
     {   
@@ -67,7 +60,25 @@ public class StaffManagementManagedBean implements Serializable{
         }
         catch(InputDataValidationException | UsernameExistException | UnknownPersistenceException ex)
         {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new product: " + ex.getMessage(), null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new staff: " + ex.getMessage(), null));
+        }
+    }
+    
+    public void updateStaff(ActionEvent event)
+    {         
+        try
+        {
+            staffEntitySessionBeanLocal.updateStaff(staffEntityToUpdate);
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Staff updated successfully", null));
+        }
+        catch(StaffNotFoundException ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while updating staff: " + ex.getMessage(), null));
+        }
+        catch(Exception ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
     }
     
@@ -84,7 +95,7 @@ public class StaffManagementManagedBean implements Serializable{
         }
         catch(StaffNotFoundException ex)
         {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting product: " + ex.getMessage(), null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting staff: " + ex.getMessage(), null));
         }
         catch(Exception ex)
         {
@@ -108,7 +119,6 @@ public class StaffManagementManagedBean implements Serializable{
         this.accessRight = accessRight;
     }
     
-    
     public List<StaffEntity> getAllStaffEntities() {
         return allStaffEntities;
     }
@@ -125,4 +135,11 @@ public class StaffManagementManagedBean implements Serializable{
         this.staffEntityToView = staffEntityToView;
     }
     
+    public StaffEntity getStaffEntityToUpdate() {
+        return staffEntityToUpdate;
+    }
+
+    public void setStaffEntityToUpdate(StaffEntity staffEntityToUpdate) {
+        this.staffEntityToUpdate = staffEntityToUpdate;
+    }
 }
