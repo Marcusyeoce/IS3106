@@ -12,6 +12,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import util.exception.ArticleNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.StaffNotFoundException;
@@ -34,6 +39,8 @@ public class ArticleManagedBean implements Serializable{
     private ArticleEntity articleEntityToView;
     private ArticleEntity articleEntityToUpdate;
 
+
+
     public ArticleManagedBean() {
         newArticleEntity = new ArticleEntity();
     }
@@ -48,6 +55,7 @@ public class ArticleManagedBean implements Serializable{
     {   
         try
         {
+            author = (StaffEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("currentStaffEntity");
             Long newArticleId = articleEntitySessionBeanLocal.createNewArticle(getAuthor().getStaffId(), getNewArticleEntity());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"New article has been added succesfully! Article's ID : " + newArticleId, null));
         }

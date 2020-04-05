@@ -10,6 +10,212 @@
         <div>
             <h3>Article Management</h3>
             
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Create New Article" onclick="PF('dialogCreateNewArticle').show()"/>                                      
+                </p:menubar>
+                <br/>
+            </h:form>
+            <h:form id="formCreateNewArticle">
+
+            <p:dialog id="dialogCreateNewArticle" widgetVar="dialogCreateNewArticle" header="Create New Article" closable="true">
+
+                <p:messages id="messagesCreateNewArticle" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="name" value="Title: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{articleManagedBean.newArticleEntity.title}" placeholder="name" required="true" requiredMessage="Title is required" />
+                            <p:message for="name" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="content" value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="content" value="#{articleManagedBean.newArticleEntity.content}" required="true" requiredMessage="Description is required">
+                            </p:inputText>
+                            <p:message for="content" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="picture" value="Picture "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="picture" value="#{articleManagedBean.newArticleEntity.picture}" required="true" requiredMessage="Picture is required">
+                            </p:inputText>
+                            <p:message for="picture" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Article" actionListener="#{articleManagedBean.createNewArticle}" update="@form formAllArticles:dataTableAllArticles" oncomplete="PF('dialogCreateNewArticle').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+            
+        <h:form id="formAllArticles">
+            
+            <p:messages id="messages" redisplay="false" closable="true" />
+
+            <p:dataTable id="dataTableAllArticles" widgetVar="dataTableAllArticles" value="#{articleManagedBean.allArticleEntities}" var="articleEntity" rowKey="#{articleEntity.articleId}" rowIndexVar="row"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: right;">
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('dataTableAllArticles').filter()" style="width:300px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column headerText="Title" sortBy="#{articleEntity.title}" filterBy="#{articleEntity.title}" filterMatchMode="contains">
+                    <h:outputText value="#{articleEntity.title}" />
+                </p:column>
+
+                <p:column headerText="Content" sortBy="#{articleEntity.content}" filterBy="#{articleEntity.content}" filterMatchMode="contains">
+                    <h:outputText value="#{articleEntity.content}" />
+                </p:column>                            
+
+                <p:column headerText="Action" >
+                    <p:commandButton update="formViewArticle" oncomplete="PF('formViewArticle').show()" icon="ui-icon-document" title="View">
+                        <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToView}" />
+                    </p:commandButton>
+                    <p:commandButton update="formUpdateArticle" oncomplete="PF('formUpdateArticle').show()" icon="ui-icon-pencil" title="Update">
+                        <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToUpdate}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{articleManagedBean.deleteArticle}" update="formAllArticles:dataTableAllArticles formAllArticles:messages">
+                        <f:attribute name="articleEntityToDelete" value="#{articleEntity}" />
+                        <p:confirm header="Confirmation" message="Are you sure you want to delete #{articleEntity.title}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+        </h:form>
+        <h:form id="formViewArticle">
+            <p:dialog id="dialogViewArticle" widgetVar="dialogViewArticle" header="View Article" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Article ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.articleId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Title: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.title}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.content}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Picture: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.picture}" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+       <h:form id="formUpdateArticle">
+
+            <p:dialog id="dialogUpdateArticle" widgetVar="dialogUpdateArticle" header="Update Article" closable="true">
+
+                <p:messages id="messagesUpdateArticle" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Article ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToUpdate.articleId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Title: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToUpdate.title}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="content" value="Description: "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="true" requiredMessage="Content is required">
+                            </p:inputText>
+                            <p:message for="content" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="picture" value="Picture" />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="picture" value="#{articleManagedBean.articleEntityToUpdate.picture}" required="true" requiredMessage="Picture is required" >
+                            </p:inputText>
+                            <p:message for="picture" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton value="Update Article" update="@form formAllArticles:dataTableAllArticles" actionListener="#{articleManagedBean.updateArticle}" oncomplete="PF('dialogUpdateArticle').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>     
         </div>
     </ui:define>
                     
