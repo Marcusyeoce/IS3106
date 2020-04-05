@@ -9,12 +9,12 @@
         <h:panelGroup rendered="#{sessionScope.isLogin == false}">
             <h:form id="loginForm">
 
-                <p:outputLabel for="username" value="Username" />&nbsp;
+                <p:outputLabel for="username" value="Username" />
                 <p:inputText id="username" value="#{staffLoginManagedBean.username}" size="16" required="true" label="username" requiredMessage="Username is required" maxlength="32" >
                     <f:validateLength minimum="4" />
                 </p:inputText>
                 &nbsp;
-                <p:outputLabel for="password" value="Password" />&nbsp;
+                <p:outputLabel for="password" value="Password" />
                 <p:password id="password" value="#{staffLoginManagedBean.password}" size="16" required="true" requiredMessage="Password is required" maxlength="32">
                     <f:validateLength minimum="4" />
                 </p:password>

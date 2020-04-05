@@ -56,6 +56,16 @@
                         </p:column>
                     </p:row>
                     
+                     <p:row>
+                        <p:column>
+                            <p:outputLabel for="date" value="Published Date Till:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="date" value="#{articleManagedBean.newArticleEntity.publishedDate}" showOn="button" />
+                            <p:message for="date" />
+                        </p:column>
+                    </p:row>
+                    
                     <p:row>
                         <p:column colspan="2">
                             <p:commandButton type="reset" value="Clear" />&nbsp;
@@ -89,7 +99,11 @@
 
                 <p:column headerText="Content" sortBy="#{articleEntity.content}" filterBy="#{articleEntity.content}" filterMatchMode="contains">
                     <h:outputText value="#{articleEntity.content}" />
-                </p:column>                            
+                </p:column>
+                
+                <p:column headerText="Published Till" sortBy="#{articleEntity.publishedDate}" filterBy="#{articleEntity.date}" filterMatchMode="contains">
+                    <h:outputText value="#{articleEntity.publishedDate}" />
+                </p:column>
 
                 <p:column headerText="Action" >
                     <p:commandButton update="formViewArticle" oncomplete="PF('formViewArticle').show()" icon="ui-icon-document" title="View">
@@ -149,7 +163,16 @@
                             <h:outputLabel value="Picture: " />
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{articleManagedBean.articleEntityToView.picture}" />
+                            <img src="data:image/png;base64, #{articleManagedBean.articleEntityToView.picture}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Published Till: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.publishedDate}" />
                         </p:column>
                     </p:row>
 
