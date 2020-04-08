@@ -8,6 +8,7 @@ import entity.PromotionEntity;
 import entity.TagEntity;
 import java.util.List;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.AttractionNotFoundException;
 import util.exception.InputDataValidationException;
+import util.exception.PromotionNotFoundException;
+import util.exception.TagNotFoundException;
 
 /**
  *
@@ -25,6 +28,12 @@ import util.exception.InputDataValidationException;
  */
 @Stateless
 public class AttractionEntitySessionBean implements AttractionEntitySessionBeanLocal {
+
+    @EJB(name = "PromotionSessionBeanLocal")
+    private PromotionSessionBeanLocal promotionSessionBeanLocal;
+
+    @EJB(name = "TagEntitySessionBeanLocal")
+    private TagEntitySessionBeanLocal tagEntitySessionBeanLocal;
 
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;
@@ -40,7 +49,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
     }
     
     @Override
-    public Long createNewAttractionEntity(AttractionEntity newAttractionEntity) throws InputDataValidationException
+    public Long createNewAttractionEntity(AttractionEntity newAttractionEntity, List<Long> tagIdsToAdd, List<Long> promotionIdsToAdd) throws InputDataValidationException, TagNotFoundException, PromotionNotFoundException
     {
         Set<ConstraintViolation<AttractionEntity>>constraintViolations = validator.validate(newAttractionEntity);
         
@@ -49,19 +58,32 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
             CompanyEntity companyEntity = newAttractionEntity.getCompanyEntity();
             companyEntity.getAttractionsEntities().add(newAttractionEntity);
 
-            List<TagEntity> tagEntities = newAttractionEntity.getTagEntities();
-            for(TagEntity tag: tagEntities)
-            {
-                tag.getAttractionEntities().add(newAttractionEntity);
-            }
-            
-            List<PromotionEntity> promotionEntities = newAttractionEntity.getPromotionEntities();
-            for(PromotionEntity promotion: promotionEntities)
-            {
-                promotion.getAttractionEntities().add(newAttractionEntity);
-            }
-            
             em.persist(newAttractionEntity);
+            if(tagIdsToAdd != null && (!tagIdsToAdd.isEmpty()))
+            {
+                for(Long tagId:tagIdsToAdd)
+                {
+                    try{
+                        TagEntity tagEntity = tagEntitySessionBeanLocal.retrieveTagByTagId(tagId);
+                        newAttractionEntity.addTag(tagEntity);
+                    }catch(TagNotFoundException ex){
+                        throw new TagNotFoundException("Tag with this ID does not exist!");
+                    }
+                }
+            }
+            
+            if(promotionIdsToAdd != null && (!promotionIdsToAdd.isEmpty()))
+            {
+                for(Long promotionId:promotionIdsToAdd)
+                {
+                    try{
+                        PromotionEntity promotionEntity = promotionSessionBeanLocal.retrievePromotionByPromotionId(promotionId);
+                        newAttractionEntity.addPromotion(promotionEntity);
+                    }catch(PromotionNotFoundException ex){
+                        throw new PromotionNotFoundException("Promotion with this ID does not exist!");
+                    }
+                }
+            }
             em.flush();
 
             return newAttractionEntity.getAttractionId();

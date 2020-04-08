@@ -37,25 +37,24 @@
 
                     <p:row>
                         <p:column>
-                            <p:outputLabel for="email" value="Email: " />
+                            <p:outputLabel for="companyEmail" value="Email: " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="email" value="#{companyManagementManagedBean.newCompanyEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            <p:inputText id="companyEmail" value="#{companyManagementManagedBean.newCompanyEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
                             </p:inputText>
-                            <p:message for="email" />
+                            <p:message for="companyEmail" />
                         </p:column>
                     </p:row>
 
                     <p:row>
                         <p:column>
-                            <p:outputLabel for="contactNumber" value="Contact Number "/>
+                            <p:outputLabel for="companyContactNumber" value="Contact Number "/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="contactNumber" value="#{companyManagementManagedBean.newCompanyEntity.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
+                            <p:inputText id="companyContactNumber" value="#{companyManagementManagedBean.newCompanyEntity.contactNumber}" required="true" requiredMessage="Contact Number is required" maxlength="10">
                                 <f:validateLength minimum="8" />
                             </p:inputText>
-                            <p:message for="contactNumber" />
+                            <p:message for="companyContactNumber" />
                         </p:column>
                     </p:row>
 

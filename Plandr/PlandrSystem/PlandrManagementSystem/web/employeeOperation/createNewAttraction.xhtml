@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+        <div>
+            <h3>Attraction Management</h3>
+            
+            <h:form id="formCreateNewAttraction">
+                <p:messages id="messagesCreateNewAttraction" redisplay="false" />
+
+                <p:panelGrid>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == null}">
+                        <p:column>
+                            <p:outputLabel for="attractionType" value="Attraction Type " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="attractionType" value="#{attractionManagedBean.newAttractionType}" required="true">
+                                <f:selectItem itemValue="#{null}" itemLabel="[Select One]" noSelectionOption="true" />
+                                <f:selectItems value="#{attractionManagedBean.attractionTypes}" var="attractionType" />
+                            </p:selectOneMenu>
+                            <p:message for="attractionType" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == null}">
+                        <p:column colspan="2">
+                            <p:commandButton  value="Continue" actionListener="#{attractionManagedBean.constructAttraction}" update="formCreateNewAttraction"/>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="attractionName" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="attractionName" value="#{attractionManagedBean.newAttractionEntity.name}" required="true" requiredMessage="Name is required" />
+                            <p:message for="attractionName" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="attractionDescription" value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="attractionDescription" value="#{attractionManagedBean.newAttractionEntity.description}" required="true" requiredMessage="Description is required" />
+                            <p:message for="attractionDescription" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="attractionLocation" value="Location: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="attractionLocation" value="#{attractionManagedBean.newAttractionEntity.location}"  required="true" requiredMessage="Location is required" />
+                            <p:message for="attractionLocation" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="attractionCompany" value="Company " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="attractionCompany" value="#{attractionManagedBean.companyId}" required="true">
+                                <f:selectItem itemValue="#{null}" itemLabel="[Select One]" noSelectionOption="true" />
+                                <f:selectItems value="#{attractionManagedBean.allCompanies}" var="company" itemValue="#{company.companyId}" itemLabel="#{company.name}" />
+                            </p:selectOneMenu>
+                            <p:message for="attractionCompany" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="selectTags" value="Tag(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="selectTags" value="#{attractionManagedBean.newTagIds}" showCheckbox="true">
+                                <f:selectItems value="#{attractionManagedBean.allTags}" var="tagEntity" itemValue="#{tagEntity.tagId}" itemLabel="#{tagEntity.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="selectTags" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
+                            <p:outputLabel for="selectPromotions" value="Promotion(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="selectPromotions" value="#{attractionManagedBean.newPromotionIds}" showCheckbox="true">
+                                <f:selectItems value="#{attractionManagedBean.allPromotions}" var="promotionEntity" itemValue="#{promotionEntity.promotionId}" itemLabel="#{promotionEntity.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="selectPromotions" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.event}">
+                        <p:column>
+                            <p:outputLabel for="eventStartDate" value="Start Date of Event:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="eventStartDate" value="#{attractionManagedBean.startDate}" showOn="button" required="true"/>
+                            <p:message for="eventStartDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.event}">
+                        <p:column>
+                            <p:outputLabel for="eventEndDate" value="End Date of Event:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="eventEndDate" value="#{attractionManagedBean.endDate}" showOn="button" required="true"/>
+                            <p:message for="eventEndDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
+                        <p:column colspan="2">
+                            <p:outputLabel value="For 24/7 operations, please leave opening time and closing time as 00:00" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
+                        <p:column>
+                            <p:outputLabel for="placeOpeningHour" value="Opening Time:  " />
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="placeOpeningHour" value="#{attractionManagedBean.openingHour}" min="00" max="23"/>
+                            <p:spinner id="placeOpeningMinute" value="#{attractionManagedBean.openingMinute}" min="0" max="59"/>
+                            <p:message for="placeOpeningHour" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
+                        <p:column>
+                            <p:outputLabel for="placeClosingHour" value="Closing Time:  " />
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="placeClosingHour" value="#{attractionManagedBean.closingHour}" min="0" max="23"/>
+                            <p:spinner id="placeClosingMinute" value="#{attractionManagedBean.closingMinute}" min="0" max="59"/>
+                            <p:message for="placeClosingHour" />
+                        </p:column>
+                    </p:row>
+                   
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Attraction" actionListener="#{attractionManagedBean.setNewAttraction}" update="formCreateNewAttraction" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        &nbsp;
+                        <p:column colspan="2">
+                            <p:linkButton  value="Back" outcome="/employeeOperation/attractionManagement.xhtml" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+            </h:form>
+        </div>
+        
+    </ui:define>
+                    
+</ui:composition>
+

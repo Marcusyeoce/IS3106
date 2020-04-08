@@ -70,7 +70,39 @@ public abstract class AttractionEntity implements Serializable {
         this.description = description;
         this.location = location;
     }
+    
+    public void addTag(TagEntity tagEntity)
+    {
+        if(tagEntity != null)
+        {
+            if(!this.tagEntities.contains(tagEntity))
+            {
+                this.tagEntities.add(tagEntity);
+                
+                if(!tagEntity.getAttractionEntities().contains(this))
+                {                    
+                    tagEntity.getAttractionEntities().add(this);
+                }
+            }
+        }
+    }
 
+    public void addPromotion(PromotionEntity promotionEntity)
+    {
+        if(promotionEntity != null)
+        {
+            if(!this.promotionEntities.contains(promotionEntity))
+            {
+                this.promotionEntities.add(promotionEntity);
+                
+                if(!promotionEntity.getAttractionEntities().contains(this))
+                {                    
+                    promotionEntity.getAttractionEntities().add(this);
+                }
+            }
+        }
+    }
+    
     public Long getAttractionId() {
         return attractionId;
     }

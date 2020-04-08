@@ -8,8 +8,60 @@
     
     <ui:define name="content">
         <div>
-            <h3>Staff Management</h3>
+            <h3>Attraction Management</h3>
+            
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Create New Tag" onclick="PF('dialogCreateNewTag').show()"/>
+                    <p:menuitem value="Create New Attraction" outcome="/employeeOperation/createNewAttraction.xhtml"/>
+                </p:menubar>
+                <br/>
+            </h:form>
+
+            <h:form id="formCreateNewTag">
+
+            <p:dialog id="dialogCreateNewTag" widgetVar="dialogCreateNewTag" header="Create New Tag" closable="true">
+
+                <p:messages id="messagesCreateNewTag" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="tagName" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="tagName" value="#{tagManagedBean.newTagEntity.name}" placeholder="name" required="true" requiredMessage="Name is required" />
+                            <p:message for="tagName" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="selAttractions" value="Attraction(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="selAttractions" value="#{tagManagedBean.attractionIdsNew}" showCheckbox="true">
+                                <f:selectItems value="#{tagManagedBean.attractionEntities}" var="attractionEntity" itemValue="#{attractionEntity.attractionId}" itemLabel="#{attractionEntity.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="selAttractions" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Tag" actionListener="#{tagManagedBean.createNewTag}" update="formCreateNewTag" oncomplete="PF('dialogCreateNewTag').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
         </div>
+        
     </ui:define>
                     
 </ui:composition>

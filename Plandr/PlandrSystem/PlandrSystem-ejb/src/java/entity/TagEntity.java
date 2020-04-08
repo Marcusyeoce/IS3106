@@ -40,6 +40,22 @@ public class TagEntity implements Serializable {
         
         this.name = name;
     }
+    
+    public void addAttraction(AttractionEntity attractionEntity)
+    {
+        if(attractionEntity != null)
+        {
+            if(!this.attractionEntities.contains(attractionEntity))
+            {
+                this.attractionEntities.add(attractionEntity);
+                
+                if(!attractionEntity.getTagEntities().contains(this))
+                {                    
+                    attractionEntity.getTagEntities().add(this);
+                }
+            }
+        }
+    }
 
     public List<AttractionEntity> getAttractionEntities() {
         return attractionEntities;

@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -19,14 +16,12 @@ import javax.validation.constraints.NotNull;
 public class PlaceEntity extends AttractionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @NotNull
-    private Date openingTime;
-    @Temporal(TemporalType.TIMESTAMP)
+    private Integer openingTime;
     @Column(nullable = false)
     @NotNull
-    private Date closingTime;
+    private Integer closingTime;
 
     public PlaceEntity() {
         super();
@@ -36,19 +31,19 @@ public class PlaceEntity extends AttractionEntity implements Serializable {
         super(name, description, location);
     }
 
-    public Date getOpeningTime() {
+    public Integer getOpeningTime() {
         return openingTime;
     }
 
-    public void setOpeningTime(Date openingTime) {
+    public void setOpeningTime(Integer openingTime) {
         this.openingTime = openingTime;
     }
 
-    public Date getClosingTime() {
+    public Integer getClosingTime() {
         return closingTime;
     }
 
-    public void setClosingTime(Date closingTime) {
+    public void setClosingTime(Integer closingTime) {
         this.closingTime = closingTime;
     }
 
