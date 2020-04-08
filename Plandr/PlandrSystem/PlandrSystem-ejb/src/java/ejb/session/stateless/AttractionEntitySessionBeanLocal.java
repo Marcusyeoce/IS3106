@@ -6,6 +6,8 @@
 package ejb.session.stateless;
 
 import entity.AttractionEntity;
+import entity.EventEntity;
+import entity.PlaceEntity;
 import java.util.List;
 import javax.ejb.Local;
 import util.exception.AttractionNotFoundException;
@@ -31,5 +33,9 @@ public interface AttractionEntitySessionBeanLocal {
     public void deleteAttraction(Long attractionId) throws AttractionNotFoundException;
 
     public Long createNewAttractionEntity(AttractionEntity newAttractionEntity, List<Long> tagIdsToAdd, List<Long> promotionIdsToAdd) throws InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
+
+    public List<EventEntity> retrieveAllEventAttractions();
+
+    public List<PlaceEntity> retrieveAllPlaceAttractions();
     
 }

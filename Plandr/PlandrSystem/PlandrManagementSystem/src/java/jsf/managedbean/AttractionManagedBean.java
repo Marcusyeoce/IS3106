@@ -23,7 +23,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import util.enumeration.AttractionTypeEnum;
@@ -31,7 +30,6 @@ import util.exception.CompanyNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.PromotionNotFoundException;
 import util.exception.TagNotFoundException;
-import util.exception.UnknownPersistenceException;
 
 /**
  *
@@ -64,24 +62,22 @@ public class AttractionManagedBean implements Serializable{
     private List<CompanyEntity> allCompanies;
     private List<TagEntity> allTags;
     private List<PromotionEntity> allPromotions;
+    private List<EventEntity> allEvents;
+    private List<PlaceEntity> allPlaces;
 
     private AttractionTypeEnum event;
     private Date startDate;
     private Date endDate;
     
     private AttractionTypeEnum place;
-    private Integer openingHour;
-    private Integer openingMinute;
-    private Integer closingHour;
-    private Integer closingMinute;
+    private Date openingTime;
+    private Date closingTime;
+    
+    private AttractionEntity attractionToView;
 
     public AttractionManagedBean() {
         event = AttractionTypeEnum.EVENT;
         place = AttractionTypeEnum.PLACE;
-        openingHour = 0;
-        openingMinute = 0;
-        closingHour = 0;
-        closingMinute = 0;
         attractionTypes = AttractionTypeEnum.values();
     }
     
@@ -90,6 +86,8 @@ public class AttractionManagedBean implements Serializable{
         allCompanies = companyEntitySessionBeanLocal.retrieveAllCompanies();
         allTags = tagEntitySessionBeanLocal.retrieveAllTags();
         allPromotions = promotionSessionBeanLocal.retrieveAllPromotions();
+        allEvents = attractionEntitySessionBeanLocal.retrieveAllEventAttractions();
+        allPlaces = attractionEntitySessionBeanLocal.retrieveAllPlaceAttractions();
     }
     
     public void constructAttraction(ActionEvent event)
@@ -103,18 +101,21 @@ public class AttractionManagedBean implements Serializable{
     
     public void setNewAttraction(ActionEvent event){
         if(newAttractionType.equals(AttractionTypeEnum.EVENT)){
-            ((EventEntity)newAttractionEntity).setStartDate(getStartDate());
-            ((EventEntity)newAttractionEntity).setEndDate(getEndDate());
-            createNewAttraction();
+            //Check if the timings are valid
+            if(getStartDate().after(getEndDate())){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Closing Date should be later than Opening Date!", null));
+            }else{
+                ((EventEntity)newAttractionEntity).setStartDate(getStartDate());
+                ((EventEntity)newAttractionEntity).setEndDate(getEndDate());
+                createNewAttraction();
+            }
         }else{
             //Check if the timings are valid
-            Integer openingTime = openingHour*100 + openingMinute;
-            Integer closingTime = closingHour*100 + closingMinute;
-            if(openingTime > closingTime){
+            if(getOpeningTime().after(getClosingTime())){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Closing Time should be later than Opening Time!", null));
             }else{
-                ((PlaceEntity)newAttractionEntity).setOpeningTime(openingTime);
-                ((PlaceEntity)newAttractionEntity).setClosingTime(closingTime);
+                ((PlaceEntity)newAttractionEntity).setOpeningTime(getOpeningTime());
+                ((PlaceEntity)newAttractionEntity).setClosingTime(getClosingTime());
                 createNewAttraction();
             }
         }
@@ -238,36 +239,46 @@ public class AttractionManagedBean implements Serializable{
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
-   
-    public Integer getOpeningHour() {
-        return openingHour;
+    
+    public List<EventEntity> getAllEvents() {
+        return allEvents;
     }
 
-    public void setOpeningHour(Integer openingHour) {
-        this.openingHour = openingHour;
+    public void setAllEvents(List<EventEntity> allEvents) {
+        this.allEvents = allEvents;
     }
 
-    public Integer getOpeningMinute() {
-        return openingMinute;
+    public List<PlaceEntity> getAllPlaces() {
+        return allPlaces;
     }
 
-    public void setOpeningMinute(Integer openingMinute) {
-        this.openingMinute = openingMinute;
+    public void setAllPlaces(List<PlaceEntity> allPlaces) {
+        this.allPlaces = allPlaces;
+    }
+    
+    public Date getOpeningTime() {
+        return openingTime;
     }
 
-    public Integer getClosingHour() {
-        return closingHour;
+    public void setOpeningTime(Date openingTime) {
+        this.openingTime = openingTime;
     }
 
-    public void setClosingHour(Integer closingHour) {
-        this.closingHour = closingHour;
+    public Date getClosingTime() {
+        return closingTime;
     }
 
-    public Integer getClosingMinute() {
-        return closingMinute;
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+    
+    public AttractionEntity getAttractionToView() {
+        return attractionToView;
     }
 
-    public void setClosingMinute(Integer closingMinute) {
-        this.closingMinute = closingMinute;
+    public void setAttractionToView(AttractionEntity attractionToView) {
+        this.attractionToView = attractionToView;
     }
+
+
 }

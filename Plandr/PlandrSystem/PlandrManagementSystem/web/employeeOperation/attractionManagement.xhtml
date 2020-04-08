@@ -60,6 +60,167 @@
             </p:dialog>
 
         </h:form>
+            
+        <h:form id="formViewAllEvents">
+            <p:carousel value="#{attractionManagedBean.allEvents}" headerText="Events" var="eventEntity" itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                    </f:facet>
+
+                    <h:outputText value="Attraction Id: " />
+                    <h:outputText value="#{eventEntity.attractionId}" />
+
+                    <h:outputText value="Name: " />
+                    <h:outputText value="#{eventEntity.name}" />
+
+                    <h:outputText value="Location: " />
+                    <h:outputText value="#{eventEntity.location}" />
+                    
+                    <h:outputText value="Company: " />
+                    <h:outputText value="#{eventEntity.companyEntity.name}" />
+                    
+                    <h:outputText value="Start Date: " />
+                    <h:outputText value="#{eventEntity.startDate}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="End Date: " />
+                    <h:outputText value="#{eventEntity.endDate}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    
+                    <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" title="View">
+                        <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToView}" />
+                    </p:commandButton>
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    In total there are #{attractionManagedBean.allEvents.size()} events.
+                </f:facet>
+            </p:carousel>
+        </h:form>
+        
+        <p>
+            &nbsp;
+        </p>
+            
+        <h:form id="formViewAllPlaces">
+            <p:carousel value="#{attractionManagedBean.allPlaces}" headerText="Places" var="placeEntity" itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                    </f:facet>
+
+                    <h:outputText value="Attraction Id: " />
+                    <h:outputText value="#{placeEntity.attractionId}" />
+
+                    <h:outputText value="Name: " />
+                    <h:outputText value="#{placeEntity.name}" />
+
+                    <h:outputText value="Location: " />
+                    <h:outputText value="#{placeEntity.location}" />
+                    
+                    <h:outputText value="Company: " />
+                    <h:outputText value="#{placeEntity.companyEntity.name}" />
+                    
+                    <h:outputText value="Opening Time: " />
+                    <h:outputText value="#{placeEntity.openingTime}">
+                        <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="Closing Time: " />
+                    <h:outputText value="#{placeEntity.closingTime}">
+                        <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    
+                    <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" title="View">
+                        <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToView}" />
+                    </p:commandButton>
+                </p:panelGrid>
+
+                <f:facet name="footer">
+                    In total there are #{attractionManagedBean.allPlaces.size()} places.
+                </f:facet>
+            </p:carousel>
+        </h:form>
+            
+        <h:form id="formViewAttraction">
+            <p:dialog id="dialogViewAttraction" widgetVar="dialogViewAttraction" header="View Attraction" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Attraction ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.attractionId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.name}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.description}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Location: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.location}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Tag(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{attractionManagedBean.attractionToView.tagEntities}" var="tag" type="unordered">
+                                #{tag.name}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Promotion(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{attractionManagedBean.attractionToView.promotionEntities}" var="promotion" type="unordered">
+                                #{promotion.name}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Review(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{attractionManagedBean.attractionToView.reviewEntities}" var="review" type="unordered">
+                                #{review.content}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
         </div>
         
     </ui:define>

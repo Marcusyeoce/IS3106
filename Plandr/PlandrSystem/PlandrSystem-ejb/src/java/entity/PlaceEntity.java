@@ -16,12 +16,14 @@ import javax.validation.constraints.NotNull;
 public class PlaceEntity extends AttractionEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @NotNull
-    private Integer openingTime;
+    private Date openingTime;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @NotNull
-    private Integer closingTime;
+    private Date closingTime;
 
     public PlaceEntity() {
         super();
@@ -31,19 +33,19 @@ public class PlaceEntity extends AttractionEntity implements Serializable {
         super(name, description, location);
     }
 
-    public Integer getOpeningTime() {
+    public Date getOpeningTime() {
         return openingTime;
     }
 
-    public void setOpeningTime(Integer openingTime) {
+    public void setOpeningTime(Date openingTime) {
         this.openingTime = openingTime;
     }
 
-    public Integer getClosingTime() {
+    public Date getClosingTime() {
         return closingTime;
     }
 
-    public void setClosingTime(Integer closingTime) {
+    public void setClosingTime(Date closingTime) {
         this.closingTime = closingTime;
     }
 

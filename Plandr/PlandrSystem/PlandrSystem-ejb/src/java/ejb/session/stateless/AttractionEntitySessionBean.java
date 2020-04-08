@@ -118,6 +118,36 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
         return attractionEntities;
     }
     
+    @Override
+    public List<EventEntity> retrieveAllEventAttractions()
+    {
+        Query query = em.createQuery("SELECT e FROM EventEntity e ORDER BY e.attractionId ASC");
+        List<EventEntity> eventEntities = query.getResultList();
+        
+        for(EventEntity event:eventEntities)
+        {           
+            event.getReviewEntities().size();
+            event.getTagEntities().size();
+        }
+        
+        return eventEntities;
+    }
+    
+    @Override
+     public List<PlaceEntity> retrieveAllPlaceAttractions()
+    {
+        Query query = em.createQuery("SELECT p FROM PlaceEntity p ORDER BY p.attractionId ASC");
+        List<PlaceEntity> placeEntities = query.getResultList();
+        
+        for(PlaceEntity place:placeEntities)
+        {           
+            place.getReviewEntities().size();
+            place.getTagEntities().size();
+        }
+        
+        return placeEntities;
+    }
+    
     
     @Override
     public AttractionEntity retrieveAttractionByAttractionId(Long attractionId) throws AttractionNotFoundException

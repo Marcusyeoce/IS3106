@@ -49,7 +49,7 @@
                             <p:outputLabel for="attractionDescription" value="Description: " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="attractionDescription" value="#{attractionManagedBean.newAttractionEntity.description}" required="true" requiredMessage="Description is required" />
+                            <p:inputTextarea id="attractionDescription" value="#{attractionManagedBean.newAttractionEntity.description}" required="true" requiredMessage="Description is required" />
                             <p:message for="attractionDescription" />
                         </p:column>
                     </p:row>
@@ -106,7 +106,7 @@
                             <p:outputLabel for="eventStartDate" value="Start Date of Event:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="eventStartDate" value="#{attractionManagedBean.startDate}" showOn="button" required="true"/>
+                            <p:calendar id="eventStartDate" value="#{attractionManagedBean.startDate}" required="true" timeZone="Asia/Singapore"/>
                             <p:message for="eventStartDate" />
                         </p:column>
                     </p:row>
@@ -116,36 +116,34 @@
                             <p:outputLabel for="eventEndDate" value="End Date of Event:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="eventEndDate" value="#{attractionManagedBean.endDate}" showOn="button" required="true"/>
+                            <p:calendar id="eventEndDate" value="#{attractionManagedBean.endDate}" required="true" timeZone="Asia/Singapore"/>
                             <p:message for="eventEndDate" />
                         </p:column>
                     </p:row>
                     
                     <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
                         <p:column colspan="2">
-                            <p:outputLabel value="For 24/7 operations, please leave opening time and closing time as 00:00" />
+                            <p:outputLabel value="For 24/7 operations, please leave opening time and closing time as 12:00 AM" />
                         </p:column>
                     </p:row>
                     
                     <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
                         <p:column>
-                            <p:outputLabel for="placeOpeningHour" value="Opening Time:  " />
+                            <p:outputLabel for="openingTime" value="Opening Time:  " />
                         </p:column>
                         <p:column>
-                            <p:spinner id="placeOpeningHour" value="#{attractionManagedBean.openingHour}" min="00" max="23"/>
-                            <p:spinner id="placeOpeningMinute" value="#{attractionManagedBean.openingMinute}" min="0" max="59"/>
-                            <p:message for="placeOpeningHour" />
+                            <p:calendar id="openingTime" value="#{attractionManagedBean.openingTime}" required="true" pattern="hh:mm a" timeZone="Asia/Singapore" timeOnly="true"/>
+                            <p:message for="openingTime" />
                         </p:column>
                     </p:row>
                     
                     <p:row rendered="#{attractionManagedBean.newAttractionType == attractionManagedBean.place}">
                         <p:column>
-                            <p:outputLabel for="placeClosingHour" value="Closing Time:  " />
+                            <p:outputLabel for="closingTime" value="Closing Time:  " />
                         </p:column>
                         <p:column>
-                            <p:spinner id="placeClosingHour" value="#{attractionManagedBean.closingHour}" min="0" max="23"/>
-                            <p:spinner id="placeClosingMinute" value="#{attractionManagedBean.closingMinute}" min="0" max="59"/>
-                            <p:message for="placeClosingHour" />
+                            <p:calendar id="closingTime" value="#{attractionManagedBean.closingTime}" required="true" pattern="hh:mm a" timeZone="Asia/Singapore" timeOnly="true"/>
+                            <p:message for="closingTime" />
                         </p:column>
                     </p:row>
                    
@@ -157,7 +155,6 @@
                     </p:row>
                     
                     <p:row>
-                        &nbsp;
                         <p:column colspan="2">
                             <p:linkButton  value="Back" outcome="/employeeOperation/attractionManagement.xhtml" />
                         </p:column>
