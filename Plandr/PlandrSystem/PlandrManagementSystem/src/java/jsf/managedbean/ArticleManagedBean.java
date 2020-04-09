@@ -3,6 +3,10 @@ package jsf.managedbean;
 import ejb.session.stateless.ArticleEntitySessionBeanLocal;
 import entity.ArticleEntity;
 import entity.StaffEntity;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,6 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.FileUploadEvent;
 import util.exception.ArticleNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.StaffNotFoundException;
@@ -100,6 +105,47 @@ public class ArticleManagedBean implements Serializable{
         catch(Exception ex)
         {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
+        }
+    }
+    public void handleFileUpload(FileUploadEvent event)
+    {
+        try
+        {
+            String newFilePath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("alternatedocroot_1") + System.getProperty("file.separator") + event.getFile().getFileName();
+            System.err.println("********** Demo03ManagedBean.handleFileUpload(): File name: " + event.getFile().getFileName());
+            System.err.println("********** Demo03ManagedBean.handleFileUpload(): newFilePath: " + newFilePath);
+
+            File file = new File(newFilePath);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            getNewArticleEntity().setPicture(newFilePath);
+            getArticleEntityToUpdate().setPicture(newFilePath);
+            int a;
+            int BUFFER_SIZE = 8192;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            InputStream inputStream = event.getFile().getInputstream();
+
+            while (true)
+            {
+                a = inputStream.read(buffer);
+
+                if (a < 0)
+                {
+                    break;
+                }
+
+                fileOutputStream.write(buffer, 0, a);
+                fileOutputStream.flush();
+            }
+
+            fileOutputStream.close();
+            inputStream.close();
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,  "File uploaded successfully", ""));
+        }
+        catch(IOException ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,  "File upload error: " + ex.getMessage(), ""));
         }
     }
 

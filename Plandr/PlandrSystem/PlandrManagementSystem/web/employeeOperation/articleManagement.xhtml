@@ -48,11 +48,17 @@
                     <p:row>
                         <p:column>
                             <p:outputLabel for="picture" value="Picture "/>
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="picture" value="#{articleManagedBean.newArticleEntity.picture}" required="true" requiredMessage="Picture is required">
-                            </p:inputText>
-                            <p:message for="picture" />
+                        </p:column> 
+                        <p:column> 
+                    <p:panel header="File Upload">
+                
+                        <p:messages  redisplay="false">
+                        <p:autoUpdate />
+                        </p:messages>
+      
+                        <p:fileUpload id ="picture" fileUploadListener="#{articleManagedBean.handleFileUpload}" multiple="false" />
+                
+                    </p:panel>                            
                         </p:column>
                     </p:row>
                     
@@ -106,10 +112,10 @@
                 </p:column>
 
                 <p:column headerText="Action" >
-                    <p:commandButton update="formViewArticle" oncomplete="PF('formViewArticle').show()" icon="ui-icon-document" title="View">
+                    <p:commandButton update="formViewArticle" oncomplete="PF('dialogViewArticle').show()" icon="ui-icon-document" title="View">
                         <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToView}" />
                     </p:commandButton>
-                    <p:commandButton update="formUpdateArticle" oncomplete="PF('formUpdateArticle').show()" icon="ui-icon-pencil" title="Update">
+                    <p:commandButton update="formUpdateArticle" oncomplete="PF('dialogUpdateArticle').show()" icon="ui-icon-pencil" title="Update">
                         <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToUpdate}" />
                     </p:commandButton>
                     <p:commandButton icon="ui-icon-trash" actionListener="#{articleManagedBean.deleteArticle}" update="formAllArticles:dataTableAllArticles formAllArticles:messages">
@@ -163,7 +169,7 @@
                             <h:outputLabel value="Picture: " />
                         </p:column>
                         <p:column>
-                            <img src="data:image/png;base64, #{articleManagedBean.articleEntityToView.picture}" />
+                            <p:graphicImage value ="#{articleManagedBean.articleEntityToView.picture}" />
                         </p:column>
                     </p:row>
                     
@@ -200,10 +206,11 @@
 
                     <p:row>
                         <p:column>
-                            <h:outputLabel value="Title: " />
+                            <h:outputLabel for="title" value ="Title: "/>
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{articleManagedBean.articleEntityToUpdate.title}" />
+                            <p:inputText id="title" value="#{articleManagedBean.articleEntityToUpdate.title}" required="false" requiredMessage="Content is required">
+                            </p:inputText>
                         </p:column>
                     </p:row>
 
@@ -212,7 +219,7 @@
                             <p:outputLabel for="content" value="Description: "/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="true" requiredMessage="Content is required">
+                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="false" requiredMessage="Content is required">
                             </p:inputText>
                             <p:message for="content" />
                         </p:column>
@@ -220,12 +227,18 @@
 
                     <p:row>
                         <p:column>
-                            <p:outputLabel for="picture" value="Picture" />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="picture" value="#{articleManagedBean.articleEntityToUpdate.picture}" required="true" requiredMessage="Picture is required" >
-                            </p:inputText>
-                            <p:message for="picture" />
+                            <p:outputLabel for="picture" value="Picture: "/>
+                        </p:column> 
+                        <p:column> 
+                    <p:panel header="File Upload">
+                
+                        <p:messages  redisplay="false">
+                        <p:autoUpdate />
+                        </p:messages>
+      
+                        <p:fileUpload id ="picture" fileUploadListener="#{articleManagedBean.handleFileUpload}" multiple="false" />
+                
+                    </p:panel>                            
                         </p:column>
                     </p:row>
                     <p:row>
