@@ -11,15 +11,26 @@
         
         <h:panelGroup rendered="#{sessionScope.isLogin == false}">
             <article>
-                <h3>Welcome</h3>
+                <h2>Welcome</h2>
+                <h3>Hope you have a great day at work today!</h3>
+                <p:graphicImage url="https://bit.ly/34cseOC"></p:graphicImage>
+                <p:graphicImage url="https://bit.ly/duckMeme"></p:graphicImage>
             </article>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{sessionScope.isLogin == true}">
+       <h:panelGroup rendered="#{sessionScope.isLogin == true}">
             <article>
-                <h3>You are now logged in. Today's meme</h3>
-                <p:graphicImage url="https://bit.ly/34cseOC"></p:graphicImage>
-                
+                <h3>Message Of The Day</h3>                    
+                <p>                    
+                    <ui:repeat value="#{indexManagedBean.messageOfTheDayEntities}" var="motd">
+                        
+                        <p:panel header="#{utilManagedBean.formatMotdHeader(motd.messageDate)} - #{motd.title}" toggleable="true">
+                            <p:graphicImage value ="#{motd.message}" />
+                        </p:panel>
+                        <br/>                
+
+                    </ui:repeat>                                                              
+                </p>
             </article>
         </h:panelGroup>
         

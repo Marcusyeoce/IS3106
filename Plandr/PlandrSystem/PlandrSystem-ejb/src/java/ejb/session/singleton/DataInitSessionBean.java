@@ -1,8 +1,11 @@
 package ejb.session.singleton;
 
+import ejb.session.stateless.MessageOfTheDayEntitySessionBeanLocal;
 import ejb.session.stateless.StaffEntitySessionBeanLocal;
 import entity.BookingEntity;
+import entity.MessageOfTheDayEntity;
 import entity.StaffEntity;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -26,6 +29,8 @@ public class DataInitSessionBean {
     
     @EJB(name = "StaffEntitySessionBeanLocal")
     private StaffEntitySessionBeanLocal staffEntitySessionBeanLocal;
+    @EJB
+    private MessageOfTheDayEntitySessionBeanLocal motdSessionBeanLocal;
 
     @PostConstruct
     public void postConstruct(){
@@ -44,7 +49,12 @@ public class DataInitSessionBean {
         {
             staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password", AccessRightEnum.ADMIN)); 
             staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Employee", "employee@gmail.com", "99999992", "employee", "password", AccessRightEnum.EMPLOYEE));
-            
+            Date today = new Date();
+            Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+            Date theDayAfter = new Date(tomorrow.getTime() + (1000 * 60 * 60 * 24));
+            motdSessionBeanLocal.createNewMessageOfTheDay(new MessageOfTheDayEntity("Zoom Meme","https://bit.ly/zoomMeme",today));
+            motdSessionBeanLocal.createNewMessageOfTheDay(new MessageOfTheDayEntity("Programming Meme","https://bit.ly/programmingMeme", tomorrow));
+            motdSessionBeanLocal.createNewMessageOfTheDay(new MessageOfTheDayEntity("SG-COVID Meme","https://bit.ly/pmLeememe", theDayAfter));
             
             
             
