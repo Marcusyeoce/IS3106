@@ -7,20 +7,45 @@
                 xmlns:p="http://primefaces.org/ui">
     
     <ui:define name="content">
-        
+        <index style="text-align: center;">
         
         <h:panelGroup rendered="#{sessionScope.isLogin == false}">
             <article>
-                <h2>Welcome</h2>
-                <h3>Hope you have a great day at work today!</h3>
-                <p:graphicImage url="https://bit.ly/34cseOC"></p:graphicImage>
-                <p:graphicImage url="https://bit.ly/duckMeme"></p:graphicImage>
+                <p:graphicImage url="https://bit.ly/longGreyThingV9"></p:graphicImage>
+                <h2>Welcome Back</h2>
+                
             </article>
         </h:panelGroup>
+            <h:panelGroup rendered="#{sessionScope.isLogin == false}">
+            <h:form id="loginForm">
 
+                <p:outputLabel for="username" value="Username" />&nbsp;
+                <p:inputText id="username" value="#{staffLoginManagedBean.username}" size="16" required="true" requiredMessage="Username is required" maxlength="32">
+                    <f:validateLength minimum="4" />
+                </p:inputText>
+                &nbsp;
+                <p></p>
+                <p:outputLabel for="password" value="Password" />&nbsp;
+                <p:password id="password" value="#{staffLoginManagedBean.password}" size="16" required="true" requiredMessage="Password is required" maxlength="32">
+                    <f:validateLength minimum="4" />
+                </p:password>
+                <p></p>
+                &nbsp;
+                <p:commandButton type="submit" value="Login" actionListener="#{staffLoginManagedBean.login}"  />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p:commandButton type="reset" value="Clear" />&nbsp;
+                
+
+                <p:growl>
+                    <p:autoUpdate />
+                </p:growl>
+
+            </h:form>
+        </h:panelGroup>
+        </index> 
        <h:panelGroup rendered="#{sessionScope.isLogin == true}">
             <article>
-                <h3>Message Of The Day</h3>                    
+                <h3>Meme Of The Day</h3>                    
                 <p>                    
                     <ui:repeat value="#{indexManagedBean.messageOfTheDayEntities}" var="motd">
                         

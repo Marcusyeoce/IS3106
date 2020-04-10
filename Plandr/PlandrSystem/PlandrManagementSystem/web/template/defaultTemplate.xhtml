@@ -16,15 +16,21 @@
         
         <p:layout fullPage="true">
             
-            <p:layoutUnit position="north" size="177">
+             <p:layoutUnit position="north" size="225" rendered ="#{sessionScope.isLogin == false}" >
+            <p:graphicImage url="https://bit.ly/headerV9"></p:graphicImage>
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="north" size="255" rendered ="#{sessionScope.isLogin == true}" >
                 <ui:insert name="header">
-                <p:graphicImage url="https://bit.ly/3bWX4O6"></p:graphicImage>
+                
+                    <p:graphicImage url="https://bit.ly/headerV10"></p:graphicImage>
                     <ui:include src="/header.xhtml" />
+                
                 </ui:insert>
                 
             </p:layoutUnit>
             
-            <p:layoutUnit size="250" position="west">
+            <p:layoutUnit size="240" position="west" rendered ="#{sessionScope.isLogin == true}">
                 
                 <ui:insert name="mainmenu">
                     <ui:include src="/mainmenu.xhtml" />
@@ -38,11 +44,8 @@
                 
             </p:layoutUnit>
             
-            <p:layoutUnit position="south" size="70" >
-                
-                <ui:insert name="footer">
-                    <ui:include src="/footer.xhtml" />
-                </ui:insert>
+            <p:layoutUnit position="south" size="55" style="background-color: #1a1a1a">
+                 <p:graphicImage url="https://bit.ly/footerV5"></p:graphicImage>
                 
             </p:layoutUnit>                
             
