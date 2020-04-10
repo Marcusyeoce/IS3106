@@ -170,7 +170,16 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
     }
     
     @Override
-    public void updateAttraction(AttractionEntity attraction) throws AttractionNotFoundException, InputDataValidationException {
+    public Boolean isEvent(Long attractionId){
+        AttractionEntity attractionEntity = em.find(AttractionEntity.class, attractionId);
+        if (attractionEntity instanceof EventEntity) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public void updateAttraction(AttractionEntity attraction, List<Long> tagIdsToUpdate, List<Long> promotionIdsToUpdate) throws AttractionNotFoundException, InputDataValidationException, TagNotFoundException, PromotionNotFoundException {
         if(attraction != null && attraction.getAttractionId() != null)
         {
             Set<ConstraintViolation<AttractionEntity>>constraintViolations = validator.validate(attraction);
@@ -181,20 +190,11 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 
                 attractionEntityToUpdate.setReviewEntities(attraction.getReviewEntities());
                 
-                List<TagEntity> tagEntities = attraction.getTagEntities();
-                attractionEntityToUpdate.setTagEntities(tagEntities);
-                for(TagEntity tag: tagEntities)
-                {
-                    tag.getAttractionEntities().add(attractionEntityToUpdate);
-                }
-                
-                List<PromotionEntity> promotionEntities = attraction.getPromotionEntities();
-                attractionEntityToUpdate.setPromotionEntities(promotionEntities);
-                for(PromotionEntity promotion: promotionEntities)
-                {
-                    promotion.getAttractionEntities().add(attractionEntityToUpdate);
-                }
-                
+                attractionEntityToUpdate.setName(attraction.getLocation());
+                attractionEntityToUpdate.setLocation(attraction.getLocation());
+                attractionEntityToUpdate.setDescription(attraction.getDescription());
+                attractionEntityToUpdate.setPicture(attraction.getPicture());
+                        
                 attractionEntityToUpdate.setCompanyEntity(attraction.getCompanyEntity());
                 attraction.getCompanyEntity().getAttractionsEntities().add(attractionEntityToUpdate);
                 
@@ -205,6 +205,32 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 }else{
                     ((EventEntity) attractionEntityToUpdate).setStartDate(((EventEntity) attraction).getStartDate());
                     ((EventEntity) attractionEntityToUpdate).setEndDate(((EventEntity) attraction).getEndDate());
+                }
+                
+                if(tagIdsToUpdate != null && (!tagIdsToUpdate.isEmpty()))
+                {
+                    for(Long tagId:tagIdsToUpdate)
+                    {
+                        try{
+                            TagEntity tagEntity = tagEntitySessionBeanLocal.retrieveTagByTagId(tagId);
+                            attractionEntityToUpdate.addTag(tagEntity);
+                        }catch(TagNotFoundException ex){
+                            throw new TagNotFoundException("Tag with this ID does not exist!");
+                        }
+                    }
+                }
+
+                if(promotionIdsToUpdate != null && (!promotionIdsToUpdate.isEmpty()))
+                {
+                    for(Long promotionId:promotionIdsToUpdate)
+                    {
+                        try{
+                            PromotionEntity promotionEntity = promotionSessionBeanLocal.retrievePromotionByPromotionId(promotionId);
+                            attractionEntityToUpdate.addPromotion(promotionEntity);
+                        }catch(PromotionNotFoundException ex){
+                            throw new PromotionNotFoundException("Promotion with this ID does not exist!");
+                        }
+                    }
                 }
             }
             else
@@ -223,9 +249,25 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
     {
         AttractionEntity attractionEntityToRemove = retrieveAttractionByAttractionId(attractionId);
         
-        //Disconnecting from associated relationships
+        //Disconnect tag entities
+        for(TagEntity tagEntity:attractionEntityToRemove.getTagEntities())
+        {
+            tagEntity.getAttractionEntities().remove(attractionEntityToRemove);
+        }
+        attractionEntityToRemove.getTagEntities().clear();
+
+        //Disconnect promotion entities
+        for(PromotionEntity promotionEntity : attractionEntityToRemove.getPromotionEntities())
+        {
+            promotionEntity.getAttractionEntities().remove(attractionEntityToRemove);
+        }
+        attractionEntityToRemove.getPromotionEntities().clear();
         
+        //Disconnect review entities
+        attractionEntityToRemove.getReviewEntities().clear();
+
         em.remove(attractionEntityToRemove);
+        
     }
     
     private String prepareInputDataValidationErrorsMessage(Set<ConstraintViolation<AttractionEntity>>constraintViolations)

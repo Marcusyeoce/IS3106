@@ -46,6 +46,16 @@
                     
                     <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
                         <p:column>
+                            <p:outputLabel for="attractionPicture" value="URL to picture: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="attractionPicture" value="#{attractionManagedBean.newAttractionEntity.picture}" />
+                            <p:message for="attractionPicture" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
                             <p:outputLabel for="attractionDescription" value="Description: " />
                         </p:column>
                         <p:column>

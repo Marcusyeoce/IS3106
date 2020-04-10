@@ -42,6 +42,7 @@ public abstract class AttractionEntity implements Serializable {
     @NotNull
     @Size(max = 100)
     private String location;
+    private String picture;
 
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
@@ -166,6 +167,15 @@ public abstract class AttractionEntity implements Serializable {
     public void setPromotionEntities(List<PromotionEntity> promotionEntities) {
         this.promotionEntities = promotionEntities;
     }
+    
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
 
     @Override
     public int hashCode() {

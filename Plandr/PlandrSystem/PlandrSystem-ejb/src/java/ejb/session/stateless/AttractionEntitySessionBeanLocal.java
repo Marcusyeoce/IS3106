@@ -28,8 +28,6 @@ public interface AttractionEntitySessionBeanLocal {
 
     public AttractionEntity retrieveAttractionByAttractionId(Long attractionId) throws AttractionNotFoundException;
 
-    public void updateAttraction(AttractionEntity attraction) throws AttractionNotFoundException, InputDataValidationException;
-
     public void deleteAttraction(Long attractionId) throws AttractionNotFoundException;
 
     public Long createNewAttractionEntity(AttractionEntity newAttractionEntity, List<Long> tagIdsToAdd, List<Long> promotionIdsToAdd) throws InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
@@ -37,5 +35,9 @@ public interface AttractionEntitySessionBeanLocal {
     public List<EventEntity> retrieveAllEventAttractions();
 
     public List<PlaceEntity> retrieveAllPlaceAttractions();
+
+    public Boolean isEvent(Long attractionId);
+
+    public void updateAttraction(AttractionEntity attraction, List<Long> tagIdsToUpdate, List<Long> promotionIdsToUpdate) throws AttractionNotFoundException, InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
     
 }

@@ -26,6 +26,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import util.enumeration.AttractionTypeEnum;
+import util.exception.AttractionNotFoundException;
 import util.exception.CompanyNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.PromotionNotFoundException;
@@ -74,6 +75,14 @@ public class AttractionManagedBean implements Serializable{
     private Date closingTime;
     
     private AttractionEntity attractionToView;
+    private AttractionEntity attractionToUpdate;
+    private Date updatedStartDate;
+    private Date updatedEndDate;
+    private Date updatedOpeningTime;
+    private Date updatedClosingTime;
+    private Long updatedCompanyId;
+    private List<Long> updatedTagIds;
+    private List<Long> updatedPromotionIds;
 
     public AttractionManagedBean() {
         event = AttractionTypeEnum.EVENT;
@@ -132,6 +141,109 @@ public class AttractionManagedBean implements Serializable{
         catch(InputDataValidationException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException ex)
         {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while creating the new attraction: " + ex.getMessage(), null));
+        }
+    }
+    
+    public void deleteAttraction(ActionEvent event)
+    {
+        try
+        {
+            AttractionEntity attractionEntityToDelete = (AttractionEntity)event.getComponent().getAttributes().get("attractionEntityToDelete");
+            attractionEntitySessionBeanLocal.deleteAttraction(attractionEntityToDelete.getAttractionId());
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Attraction deleted successfully", null));
+        }
+        catch(AttractionNotFoundException ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting company: " + ex.getMessage(), null));
+        }
+        catch(Exception ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
+        }
+    }
+    
+    public Boolean isEvent(long attractionId){
+        return attractionEntitySessionBeanLocal.isEvent(attractionId);
+    }
+    
+    public Date retrieveStartDate(long attractionId){
+        try{
+        EventEntity event = (EventEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+        return event.getStartDate();
+        }catch(AttractionNotFoundException ex){}
+        return new Date();
+    }
+    
+    public Date retrieveEndDate(long attractionId) {
+        try{
+        EventEntity event = (EventEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+        return event.getEndDate();
+        }catch(AttractionNotFoundException ex){}
+        return new Date();
+    }
+    
+    public Date retrieveOpeningTime(long attractionId){
+        try{
+        PlaceEntity place = (PlaceEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+        return place.getOpeningTime();
+        }catch(AttractionNotFoundException ex){}
+        return new Date();
+    }
+    
+    public Date retrieveClosingTime(long attractionId)  {
+        try{
+        PlaceEntity place = (PlaceEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+        return place.getClosingTime();
+        }catch(AttractionNotFoundException ex){}
+        return new Date();
+    }
+    
+    
+    public void updateAttraction(ActionEvent event)
+    {    
+        if(isEvent(attractionToUpdate.getAttractionId())){
+            //Check if the timings are valid
+            if(getUpdatedStartDate() != null && getUpdatedEndDate() != null && getUpdatedStartDate().after(getUpdatedEndDate())){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Closing Date should be later than Opening Date!", null));
+            }else{
+                if(getUpdatedStartDate() != null){
+                    ((EventEntity)attractionToUpdate).setStartDate(getUpdatedStartDate());
+                }else if(getUpdatedEndDate() != null){
+                    ((EventEntity)attractionToUpdate).setEndDate(getUpdatedEndDate());
+                }
+                updateAttraction();
+            }
+        }else{
+            //Check if the timings are valid
+            if(getUpdatedOpeningTime() != null && getUpdatedClosingTime() != null && getUpdatedOpeningTime().after(getUpdatedClosingTime())){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Closing Time should be later than Opening Time!", null));
+            }else{
+                if(getUpdatedOpeningTime() != null){
+                    ((PlaceEntity)attractionToUpdate).setOpeningTime(getUpdatedOpeningTime());
+                }else if(getUpdatedClosingTime() != null){
+                    ((PlaceEntity)attractionToUpdate).setClosingTime(getUpdatedClosingTime());
+                }
+                updateAttraction();
+            }
+        }
+    }
+    
+    public void updateAttraction(){
+        try
+        {
+            CompanyEntity companyEntity = companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(getUpdatedCompanyId());
+            attractionToUpdate.setCompanyEntity(companyEntity); 
+            attractionEntitySessionBeanLocal.updateAttraction(getAttractionToUpdate(), getUpdatedTagIds(), getUpdatedPromotionIds());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Attraction updated successfully", null));
+        }
+        catch(CompanyNotFoundException ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while updating attrcation: " + ex.getMessage(), null));
+        }
+        catch(AttractionNotFoundException | InputDataValidationException | PromotionNotFoundException | TagNotFoundException ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
     }
     
@@ -280,5 +392,69 @@ public class AttractionManagedBean implements Serializable{
         this.attractionToView = attractionToView;
     }
 
+    public AttractionEntity getAttractionToUpdate() {
+        return attractionToUpdate;
+    }
+
+    public void setAttractionToUpdate(AttractionEntity attractionToUpdate) {
+        this.attractionToUpdate = attractionToUpdate;
+    }
+
+    
+    public Date getUpdatedStartDate() {
+        return updatedStartDate;
+    }
+
+    public void setUpdatedStartDate(Date updatedStartDate) {
+        this.updatedStartDate = updatedStartDate;
+    }
+
+    public Date getUpdatedEndDate() {
+        return updatedEndDate;
+    }
+
+    public void setUpdatedEndDate(Date updatedEndDate) {
+        this.updatedEndDate = updatedEndDate;
+    }
+
+    public Date getUpdatedOpeningTime() {
+        return updatedOpeningTime;
+    }
+
+    public void setUpdatedOpeningTime(Date updatedOpeningTime) {
+        this.updatedOpeningTime = updatedOpeningTime;
+    }
+
+    public Date getUpdatedClosingTime() {
+        return updatedClosingTime;
+    }
+
+    public void setUpdatedClosingTime(Date updatedClosingTime) {
+        this.updatedClosingTime = updatedClosingTime;
+    }
+
+    public Long getUpdatedCompanyId() {
+        return updatedCompanyId;
+    }
+
+    public void setUpdatedCompanyId(Long updatedCompanyId) {
+        this.updatedCompanyId = updatedCompanyId;
+    }
+
+    public List<Long> getUpdatedTagIds() {
+        return updatedTagIds;
+    }
+
+    public void setUpdatedTagIds(List<Long> updatedTagIds) {
+        this.updatedTagIds = updatedTagIds;
+    }
+
+    public List<Long> getUpdatedPromotionIds() {
+        return updatedPromotionIds;
+    }
+
+    public void setUpdatedPromotionIds(List<Long> updatedPromotionIds) {
+        this.updatedPromotionIds = updatedPromotionIds;
+    }
 
 }

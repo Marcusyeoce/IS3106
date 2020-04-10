@@ -65,8 +65,9 @@
             <p:carousel value="#{attractionManagedBean.allEvents}" headerText="Events" var="eventEntity" itemStyle="text-align:center" responsive="true">
                 <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
                     <f:facet name="header">
+                        <p:graphicImage value="#{eventEntity.picture}" width="300px" height="200px"/>
                     </f:facet>
-
+                    
                     <h:outputText value="Attraction Id: " />
                     <h:outputText value="#{eventEntity.attractionId}" />
 
@@ -89,11 +90,23 @@
                         <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Asia/Singapore"/>
                     </h:outputText>
                     
-                    <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" title="View">
-                        <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToView}" />
-                    </p:commandButton>
                 </p:panelGrid>
 
+                <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                    <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToView}" />
+                </p:commandButton>
+                <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                    <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToUpdate}" />
+                </p:commandButton>
+                <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                    <f:attribute name="attractionEntityToDelete" value="#{eventEntity}" />
+                    <p:confirm header="Confirmation" message="Are you sure you want to delete #{eventEntity.name}?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                   <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                   <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+               </p:confirmDialog>
+                
                 <f:facet name="footer">
                     In total there are #{attractionManagedBean.allEvents.size()} events.
                 </f:facet>
@@ -105,9 +118,10 @@
         </p>
             
         <h:form id="formViewAllPlaces">
-            <p:carousel value="#{attractionManagedBean.allPlaces}" headerText="Places" var="placeEntity" itemStyle="text-align:center" responsive="true">
+            <p:carousel value="#{attractionManagedBean.allPlaces}" headerText="Places" var="placeEntity" itemStyle="text-align:center" responsive="true" >
                 <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
                     <f:facet name="header">
+                        <p:graphicImage value="#{placeEntity.picture}" width="300px" height="200px"/>
                     </f:facet>
 
                     <h:outputText value="Attraction Id: " />
@@ -132,10 +146,22 @@
                         <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
                     </h:outputText>
                     
-                    <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" title="View">
-                        <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToView}" />
-                    </p:commandButton>
                 </p:panelGrid>
+                
+                <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                    <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToView}" />
+                </p:commandButton>
+                <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                    <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToUpdate}" />
+                </p:commandButton>
+                <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                    <f:attribute name="attractionEntityToDelete" value="#{placeEntity}" />
+                    <p:confirm header="Confirmation" message="Are you sure you want to delete #{placeEntity.name}?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                   <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                   <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+               </p:confirmDialog>
 
                 <f:facet name="footer">
                     In total there are #{attractionManagedBean.allPlaces.size()} places.
@@ -145,8 +171,10 @@
             
         <h:form id="formViewAttraction">
             <p:dialog id="dialogViewAttraction" widgetVar="dialogViewAttraction" header="View Attraction" closable="true">
-
-                <p:panelGrid>
+                <p:panelGrid >
+                    <f:facet name="header">
+                        <p:graphicImage value="#{attractionManagedBean.attractionToView.picture}" width="300px" height="200px"  style="align-content: center"/>
+                    </f:facet>
 
                     <p:row>
                         <p:column>
@@ -216,6 +244,155 @@
                             </p:dataList>
                         </p:column>
                     </p:row>
+                    
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+            
+        <h:form id="formUpdateAttraction">
+
+            <p:dialog id="dialogUpdateAttraction" widgetVar="dialogUpdateAttraction" header="Update Attraction" closable="true">
+
+                <p:messages id="messagesUpdateAttraction" redisplay="false" />
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Attraction ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToUpdate.attractionId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionName" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="updatedAttractionName" value="#{attractionManagedBean.attractionToUpdate.name}" />
+                            <p:message for="updatedAttractionName" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionURL" value="URL of picture: "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="updatedAttractionURL" value="#{attractionManagedBean.attractionToUpdate.picture}"/>
+                            <p:message for="updatedAttractionURL" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionDescription" value="Description: "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="updatedAttractionDescription" value="#{attractionManagedBean.attractionToUpdate.description}"/>
+                            <p:message for="updatedAttractionDescription" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionLocation" value="Location: "/>
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="updatedAttractionLocation" value="#{attractionManagedBean.attractionToUpdate.location}"/>
+                            <p:message for="updatedAttractionLocation" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionCompany" value="Company: " />
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu id="updatedAttractionCompany" value="#{attractionManagedBean.updatedCompanyId}" placeholder="#{attractionManagedBean.attractionToUpdate.companyEntity.name}">
+                                <f:selectItems value="#{attractionManagedBean.allCompanies}" var="company" itemValue="#{company.companyId}" itemLabel="#{company.name}" />
+                            </p:selectOneMenu>
+                            <p:message for="updatedAttractionCompany" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionTags" value="Tag(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="updatedAttractionTags" value="#{attractionManagedBean.updatedTagIds}" showCheckbox="true">
+                                <f:selectItems value="#{attractionManagedBean.allTags}" var="tagEntity" itemValue="#{tagEntity.tagId}" itemLabel="#{tagEntity.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="updatedAttractionTags" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionPromotions" value="Promotion(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="updatedAttractionPromotions" value="#{attractionManagedBean.updatedPromotionIds}" showCheckbox="true">
+                                <f:selectItems value="#{attractionManagedBean.allPromotions}" var="promotionEntity" itemValue="#{promotionEntity.promotionId}" itemLabel="#{promotionEntity.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="updatedAttractionPromotions" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.isEvent(attractionManagedBean.attractionToUpdate.attractionId)}">
+                        <p:column>
+                            <p:outputLabel for="updatedEventStartDate" value="Start Date of Event:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedEventStartDate" value="#{attractionManagedBean.updatedStartDate}" placeholder="#{attractionManagedBean.retrieveStartDate(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore"/>
+                            <p:message for="updatedEventStartDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.isEvent(attractionManagedBean.attractionToUpdate.attractionId)}">
+                        <p:column>
+                            <p:outputLabel for="updatedEventEndDate" value="End Date of Event:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedEventEndDate" value="#{attractionManagedBean.updatedEndDate}" placeholder="#{attractionManagedBean.retrieveEndDate(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore"/>
+                            <p:message for="updatedEventEndDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{!(attractionManagedBean.isEvent(attractionManagedBean.attractionToUpdate.attractionId))}">
+                        <p:column colspan="2">
+                            <p:outputLabel value="For 24/7 operations, please leave opening time and closing time as 12:00 AM" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{!(attractionManagedBean.isEvent(attractionManagedBean.attractionToUpdate.attractionId))}">
+                        <p:column>
+                            <p:outputLabel for="updatedopeningTime" value="Opening Time:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedopeningTime" value="#{attractionManagedBean.updatedOpeningTime}" placeholder="#{attractionManagedBean.retrieveOpeningTime(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore" pattern="hh:mm a" timeOnly="true"/>
+                            <p:message for="updatedopeningTime" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{!(attractionManagedBean.isEvent(attractionManagedBean.attractionToUpdate.attractionId))}">
+                        <p:column>
+                            <p:outputLabel for="updatedClosingTime" value="Closing Time:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedClosingTime" value="#{attractionManagedBean.updatedOpeningTime}" placeholder="#{attractionManagedBean.retrieveClosingTime(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore" pattern="hh:mm a" timeOnly="true"/>
+                            <p:message for="updatedClosingTime" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton value="Update Attraction" update="formUpdateAttraction" actionListener="#{attractionManagedBean.updateAttraction}" oncomplete="PF('dialogUpdateAttraction').show();" />
+                        </p:column>
+                    </p:row>
+
                 </p:panelGrid>
 
             </p:dialog>
