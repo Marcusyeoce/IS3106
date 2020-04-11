@@ -9,6 +9,303 @@
     <ui:define name="content">
         <div>
             <h3>Promotion Management</h3>
+            
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Create New Promotion" onclick="PF('dialogCreateNewPromotion').show()"/>                                      
+                </p:menubar>
+                <br/>
+            </h:form>
+            
+            <h:form id="formCreateNewPromotion">
+
+            <p:dialog id="dialogCreateNewPromotion" widgetVar="dialogCreateNewPromotion" header="Create New Promotion" closable="true">
+
+                <p:messages id="messagesCreateNewPromotion" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="promotionName" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="promotionName" value="#{promotionManagedBean.newPromotionEntity.name}" required="true" requiredMessage="Name is required" />
+                            <p:message for="promotionName" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="promotionStartDate" value="Start Date of Promotion:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="promotionStartDate" value="#{promotionManagedBean.newPromotionEntity.startDate}" required="true" timeZone="Asia/Singapore"/>
+                            <p:message for="promotionStartDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="promotionEndDate" value="End Date of Promotion:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="promotionEndDate" value="#{promotionManagedBean.newPromotionEntity.endDate}" required="true" timeZone="Asia/Singapore"/>
+                            <p:message for="promotionEndDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="promotionDiscount" value="Discount: " />
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="promotionDiscount" value="#{promotionManagedBean.newPromotionEntity.discount}" placeholder="10.00" min="0" max="1000000" stepFactor="0.01" required="true" requiredMessage="Discount value is required" />
+                            <p:message for="promotionDiscount" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="selectAttractions" value="Attraction(s) applied: "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="selectAttractions" value="#{promotionManagedBean.attractionsToAdd}" showCheckbox="true">
+                                <f:selectItems value="#{promotionManagedBean.allAttractions}" var="attraction" itemValue="#{attraction.attractionId}" itemLabel="#{attraction.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="selectAttractions" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton type="reset" value="Clear" />&nbsp;
+                            <p:commandButton  value="Create New Promotion" actionListener="#{promotionManagedBean.createNewPromotion}" update="@form formAllPromotions:dataTableAllPromotions" oncomplete="PF('dialogCreateNewPromotion').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+            
+        <h:form id="formAllPromotions">
+            
+            <p:messages id="messages" redisplay="false" closable="true" />
+
+            <p:dataTable id="dataTableAllPromotions" widgetVar="dataTableAllPromotions" value="#{promotionManagedBean.allPromotions}" var="promotion" rowKey="#{promotion.promotionId}" rowIndexVar="row"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: right;">
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('dataTableAllPromotions').filter()" style="width:300px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Promotion Id" sortBy="#{promotion.promotionId}" filterBy="#{promotion.promotionId}" filterMatchMode="contains">
+                    <h:outputText value="#{promotion.promotionId}" />
+                </p:column>
+
+                <p:column headerText="Name" sortBy="#{promotion.name}" filterBy="#{promotion.name}" filterMatchMode="contains">
+                    <h:outputText value="#{promotion.name}" />
+                </p:column>
+
+                <p:column headerText="Start Date" filterBy="#{promotion.startDate}" filterMatchMode="contains">
+                    <h:outputText value="#{promotion.startDate}">
+                        <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                </p:column>     
+                
+                <p:column headerText="End Date" filterBy="#{promotion.endDate}" filterMatchMode="contains">
+                    <h:outputText value="#{promotion.endDate}">
+                        <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                </p:column>  
+                
+                <p:column headerText="Discount Value" sortBy="#{promotion.discount}" filterBy="#{promotion.discount}" filterMatchMode="contains" style="text-align: right;">
+                    <h:outputText value="#{promotion.discount}">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Action" >
+                    <p:commandButton update="formViewPromotion" oncomplete="PF('dialogViewPromotion').show()" icon="ui-icon-document" title="View">
+                        <f:setPropertyActionListener value="#{promotion}" target="#{promotionManagedBean.promotionToView}" />
+                    </p:commandButton>
+                    <p:commandButton update="formUpdatePromotion" oncomplete="PF('dialogUpdatePromotion').show()" icon="ui-icon-pencil" title="Update">
+                        <f:setPropertyActionListener value="#{promotion}" target="#{promotionManagedBean.promotionToUpdate}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{promotionManagedBean.deletePromotion}" update="formAllPromotions:dataTableAllPromotions formAllPromotions:messages">
+                        <f:attribute name="promotionEntityToDelete" value="#{promotion}" />
+                        <p:confirm header="Confirmation" message="Are you sure you want to delete #{promotion.name}?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+            
+            <h:form id="formViewPromotion">
+            <p:dialog id="dialogViewPromotion" widgetVar="dialogViewPromotion" header="View Promotion" closable="true">
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Promotion ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToView.promotionId}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToView.name}" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Start Date: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToView.startDate}">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="End Date: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToView.endDate}">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Discount Value: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToView.discount}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Attraction(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{promotionManagedBean.promotionToView.attractionEntities}" var="attraction" type="unordered">
+                                #{attraction.name}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+            
+            <h:form id="formUpdatePromotion">
+
+            <p:dialog id="dialogUpdatePromotion" widgetVar="dialogUpdatePromotion" header="Update Promotion" closable="true">
+
+                <p:messages id="messagesUpdatePromotion" redisplay="false" />
+
+                <p:panelGrid>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Promotion ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{promotionManagedBean.promotionToUpdate.promotionId}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedPromotionName" value="Name: " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="updatedPromotionName" value="#{promotionManagedBean.promotionToUpdate.name}" />
+                            <p:message for="updatedPromotionName" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedPromotionStartDate" value="Start Date of Promotion:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedPromotionStartDate" value="#{promotionManagedBean.promotionToUpdate.startDate}" timeZone="Asia/Singapore">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </p:calendar>
+                            <p:message for="updatedPromotionStartDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedPromotionEndDate" value="End Date of Promotion:  " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="updatedPromotionEndDate" value="#{promotionManagedBean.promotionToUpdate.startDate}" timeZone="Asia/Singapore">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </p:calendar>
+                            <p:message for="updatedPromotionEndDate" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel for="updatedPromotionDiscount" value="Discount Value: " />
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="updatedPromotionDiscount" value="#{promotionManagedBean.promotionToUpdate.discount}" placeholder="10.00" min="0" max="1000000" stepFactor="0.01"/>
+                            <p:message for="updatedPromotionDiscount" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedPromotionAttractions" value="Attraction(s) "/>
+                        </p:column>
+                        <p:column>
+                            <p:selectManyMenu id="updatedPromotionAttractions" value="#{promotionManagedBean.updateAttractionIds}" showCheckbox="true">
+                                <f:selectItems value="#{promotionManagedBean.allAttractions}" var="attraction" itemValue="#{attraction.attractionId}" itemLabel="#{attraction.name}" />
+                            </p:selectManyMenu>
+                            <p:message for="updatedPromotionAttractions" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton value="Update company" update="@form formAllPromotions:dataTableAllPromotions" actionListener="#{companyManagementManagedBean.updateCompany}" oncomplete="PF('dialogUpdateCompany').show();" />
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
         </div>
     </ui:define>
                     

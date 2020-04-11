@@ -155,7 +155,7 @@ public class AttractionManagedBean implements Serializable{
         }
         catch(AttractionNotFoundException ex)
         {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting company: " + ex.getMessage(), null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error has occurred while deleting attraction: " + ex.getMessage(), null));
         }
         catch(Exception ex)
         {

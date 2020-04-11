@@ -64,12 +64,13 @@ public abstract class AttractionEntity implements Serializable {
         promotionEntities = new ArrayList<>();
     }
 
-    public AttractionEntity(String name, String description, String location) {
+    public AttractionEntity(String name, String description, String location, String picture, CompanyEntity companyEntity) {
         this();
-        
         this.name = name;
         this.description = description;
         this.location = location;
+        this.picture = picture;
+        this.companyEntity = companyEntity;
     }
     
     public void addTag(TagEntity tagEntity)

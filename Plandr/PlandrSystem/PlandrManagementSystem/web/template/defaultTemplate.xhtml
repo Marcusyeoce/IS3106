@@ -16,14 +16,13 @@
         
         <p:layout fullPage="true">
             
-             <p:layoutUnit position="north" size="225" rendered ="#{sessionScope.isLogin == false}" >
+            <p:layoutUnit position="north" size="225" rendered ="#{sessionScope.isLogin == false}" >
             <p:graphicImage url="https://bit.ly/headerV9"></p:graphicImage>
             </p:layoutUnit>
             
-            <p:layoutUnit position="north" size="255" rendered ="#{sessionScope.isLogin == true}" >
+            <p:layoutUnit position="north" size="150" rendered ="#{sessionScope.isLogin == true}" >
                 <ui:insert name="header">
-                
-                    <p:graphicImage url="https://bit.ly/headerV10"></p:graphicImage>
+                    <p:graphicImage url="https://bit.ly/headerV9" width="100%" height="100px"/>
                     <ui:include src="/header.xhtml" />
                 
                 </ui:insert>

@@ -61,113 +61,158 @@
 
         </h:form>
             
-        <h:form id="formViewAllEvents">
-            <p:carousel value="#{attractionManagedBean.allEvents}" headerText="Events" var="eventEntity" itemStyle="text-align:center" responsive="true">
-                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-                    <f:facet name="header">
-                        <p:graphicImage value="#{eventEntity.picture}" width="300px" height="200px"/>
-                    </f:facet>
-                    
-                    <h:outputText value="Attraction Id: " />
-                    <h:outputText value="#{eventEntity.attractionId}" />
+        <h:form id="formViewEvents">
+            <p:dataView var="event" value="#{attractionManagedBean.allEvents}" gridIcon="pi pi-th-large" listIcon="pi pi-bar" >
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: left;">
+                        <h:outputText value="Events" style="font-weight: bold;" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:dataViewGridItem >
+                    <p:panel header="#{event.name}" style="text-align:center" >
+                        <h:panelGrid columns="1" style="width:100%" >
+                            <p:graphicImage value="#{event.picture}" width="300px" height="200px"/> 
 
-                    <h:outputText value="Name: " />
-                    <h:outputText value="#{eventEntity.name}" />
+                            <h:outputText value="#{event.location}" />
+                            <h:outputText value="#{event.description}" />
 
-                    <h:outputText value="Location: " />
-                    <h:outputText value="#{eventEntity.location}" />
-                    
-                    <h:outputText value="Company: " />
-                    <h:outputText value="#{eventEntity.companyEntity.name}" />
-                    
-                    <h:outputText value="Start Date: " />
-                    <h:outputText value="#{eventEntity.startDate}">
-                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Asia/Singapore"/>
-                    </h:outputText>
-                    
-                    <h:outputText value="End Date: " />
-                    <h:outputText value="#{eventEntity.endDate}">
-                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Asia/Singapore"/>
-                    </h:outputText>
-                    
-                </p:panelGrid>
+                        </h:panelGrid>
+                        <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{event}" target="#{attractionManagedBean.attractionToView}" />
+                        </p:commandButton>
+                        <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                            <f:setPropertyActionListener value="#{event}" target="#{attractionManagedBean.attractionToUpdate}" />
+                        </p:commandButton>
+                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                            <f:attribute name="attractionEntityToDelete" value="#{event}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{event.name}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>
+                    </p:panel>
+                </p:dataViewGridItem>
 
-                <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
-                    <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToView}" />
-                </p:commandButton>
-                <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
-                    <f:setPropertyActionListener value="#{eventEntity}" target="#{attractionManagedBean.attractionToUpdate}" />
-                </p:commandButton>
-                <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
-                    <f:attribute name="attractionEntityToDelete" value="#{eventEntity}" />
-                    <p:confirm header="Confirmation" message="Are you sure you want to delete #{eventEntity.name}?" icon="ui-icon-alert" />
-                </p:commandButton>
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                   <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                   <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-               </p:confirmDialog>
-                
+                <p:dataViewListItem>
+                    <h:panelGrid columns="5" style="width:100%" columnClasses="picture,detail">
+                        <p:graphicImage value="#{event.picture}" width="300px" height="200px" /> 
+
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Attraction Id: " />
+                                <h:outputText value="#{event.attractionId}" style="font-weight: bold"/>
+
+                                <h:outputText value="Name: " />
+                                <h:outputText value="#{event.name}" style="font-weight: bold"/>
+
+                                <h:outputText value="Description: " />
+                                <h:outputText value="#{event.description}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="Location:" />
+                                <h:outputText value="#{event.location}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                        <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{event}" target="#{attractionManagedBean.attractionToView}" />
+                        </p:commandButton>
+                        <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                            <f:setPropertyActionListener value="#{event}" target="#{attractionManagedBean.attractionToUpdate}" />
+                        </p:commandButton>
+                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                            <f:attribute name="attractionEntityToDelete" value="#{event}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{events.name}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>
+                    </h:panelGrid>
+                </p:dataViewListItem>
+
                 <f:facet name="footer">
                     In total there are #{attractionManagedBean.allEvents.size()} events.
                 </f:facet>
-            </p:carousel>
+            </p:dataView>
         </h:form>
         
         <p>
             &nbsp;
         </p>
             
-        <h:form id="formViewAllPlaces">
-            <p:carousel value="#{attractionManagedBean.allPlaces}" headerText="Places" var="placeEntity" itemStyle="text-align:center" responsive="true" >
-                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-                    <f:facet name="header">
-                        <p:graphicImage value="#{placeEntity.picture}" width="300px" height="200px"/>
-                    </f:facet>
+        <h:form id="formViewPlaces">
+            <p:dataView var="place" value="#{attractionManagedBean.allPlaces}" gridIcon="pi pi-th-large" listIcon="pi pi-bar" >
+                <f:facet name="header">
+                    <p:outputPanel style="text-align: left;">
+                        <h:outputText value="Places" style="font-weight: bold;" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:dataViewGridItem >
+                    <p:panel header="#{place.attractionId}" style="text-align:center" >
+                        <h:panelGrid columns="1" style="width:100%" >
+                            <p:graphicImage value="#{place.picture}" width="300px" height="200px"/> 
 
-                    <h:outputText value="Attraction Id: " />
-                    <h:outputText value="#{placeEntity.attractionId}" />
+                            <h:outputText value="#{place.name}" />
 
-                    <h:outputText value="Name: " />
-                    <h:outputText value="#{placeEntity.name}" />
+                        </h:panelGrid>
+                        <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{place}" target="#{attractionManagedBean.attractionToView}" />
+                        </p:commandButton>
+                        <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                            <f:setPropertyActionListener value="#{place}" target="#{attractionManagedBean.attractionToUpdate}" />
+                        </p:commandButton>
+                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                            <f:attribute name="attractionEntityToDelete" value="#{place}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{place.name}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>
+                    </p:panel>
+                </p:dataViewGridItem>
 
-                    <h:outputText value="Location: " />
-                    <h:outputText value="#{placeEntity.location}" />
-                    
-                    <h:outputText value="Company: " />
-                    <h:outputText value="#{placeEntity.companyEntity.name}" />
-                    
-                    <h:outputText value="Opening Time: " />
-                    <h:outputText value="#{placeEntity.openingTime}">
-                        <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
-                    </h:outputText>
-                    
-                    <h:outputText value="Closing Time: " />
-                    <h:outputText value="#{placeEntity.closingTime}">
-                        <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
-                    </h:outputText>
-                    
-                </p:panelGrid>
-                
-                <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
-                    <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToView}" />
-                </p:commandButton>
-                <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
-                    <f:setPropertyActionListener value="#{placeEntity}" target="#{attractionManagedBean.attractionToUpdate}" />
-                </p:commandButton>
-                <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
-                    <f:attribute name="attractionEntityToDelete" value="#{placeEntity}" />
-                    <p:confirm header="Confirmation" message="Are you sure you want to delete #{placeEntity.name}?" icon="ui-icon-alert" />
-                </p:commandButton>
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                   <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                   <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-               </p:confirmDialog>
+                <p:dataViewListItem>
+                    <h:panelGrid columns="5" style="width:100%" columnClasses="picture,detail">
+                        <p:graphicImage value="#{place.picture}" width="300px" height="200px" /> 
+
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Attraction Id: " />
+                                <h:outputText value="#{place.attractionId}" style="font-weight: bold"/>
+
+                                <h:outputText value="Name: " />
+                                <h:outputText value="#{place.name}" style="font-weight: bold"/>
+
+                                <h:outputText value="Description: " />
+                                <h:outputText value="#{place.description}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="Location:" />
+                                <h:outputText value="#{place.location}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                        <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{place}" target="#{attractionManagedBean.attractionToView}" />
+                        </p:commandButton>
+                        <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
+                            <f:setPropertyActionListener value="#{place}" target="#{attractionManagedBean.attractionToUpdate}" />
+                        </p:commandButton>
+                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                            <f:attribute name="attractionEntityToDelete" value="#{place}" />
+                            <p:confirm header="Confirmation" message="Are you sure you want to delete #{place.name}?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>
+                    </h:panelGrid>
+                </p:dataViewListItem>
 
                 <f:facet name="footer">
                     In total there are #{attractionManagedBean.allPlaces.size()} places.
                 </f:facet>
-            </p:carousel>
-        </h:form>
+            </p:dataView>
+        </h:form>    
             
         <h:form id="formViewAttraction">
             <p:dialog id="dialogViewAttraction" widgetVar="dialogViewAttraction" header="View Attraction" closable="true">
@@ -202,6 +247,15 @@
                             <h:outputText value="#{attractionManagedBean.attractionToView.description}" />
                         </p:column>
                     </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Company: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.companyEntity.name}" />
+                        </p:column>
+                    </p:row>
 
                     <p:row>
                         <p:column>
@@ -211,7 +265,51 @@
                             <h:outputText value="#{attractionManagedBean.attractionToView.location}" />
                         </p:column>
                     </p:row>
-
+                    
+                    <p:row rendered="#{!(attractionManagedBean.isEvent(attractionManagedBean.attractionToView.attractionId))}">
+                        <p:column>
+                            <h:outputLabel value="Opening Time: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.retrieveOpeningTime(attractionManagedBean.attractionToView.attractionId)}">
+                                <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{!(attractionManagedBean.isEvent(attractionManagedBean.attractionToView.attractionId))}">
+                        <p:column>
+                            <h:outputLabel value="Closing Time: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.retrieveClosingTime(attractionManagedBean.attractionToView.attractionId)}">
+                                <f:convertDateTime type="date" pattern="hh:mm a" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.isEvent(attractionManagedBean.attractionToView.attractionId)}">
+                        <p:column>
+                            <h:outputLabel value="Start Date: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.retrieveStartDate(attractionManagedBean.attractionToView.attractionId)}">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.isEvent(attractionManagedBean.attractionToView.attractionId)}">
+                        <p:column>
+                            <h:outputLabel value="End Date: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.retrieveEndDate(attractionManagedBean.attractionToView.attractionId)}">
+                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Tag(s): " />
@@ -244,6 +342,7 @@
                             </p:dataList>
                         </p:column>
                     </p:row>
+                    
                     
                 </p:panelGrid>
             </p:dialog>

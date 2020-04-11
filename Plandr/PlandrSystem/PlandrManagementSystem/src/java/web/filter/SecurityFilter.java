@@ -109,7 +109,8 @@ public class SecurityFilter implements Filter {
             if(path.equals("/employeeOperation/companyManagement.xhtml") ||
                     path.equals("/employeeOperation/articleManagement.xhtml") ||
                     path.equals("/employeeOperation/attractionManagement.xhtml") ||
-                    path.equals("/employeeOperation/createNewAttraction.xhtml"))
+                    path.equals("/employeeOperation/createNewAttraction.xhtml") ||
+                    path.equals("/employeeOperation/promotionManagement.xhtml"))
             {
                 return true;
             }

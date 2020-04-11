@@ -3,16 +3,48 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/template/defaultTemplate.xhtml">
+                template="/template/defaultTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
         
-        <article style="color: red;">
-            <h3>Access Denied</h3>
-            <p>
-                Sorry, you have not login or do not have the required access right to access the protected resource.
-            </p>                
-        </article>
+        <index style="text-align: center;">
+
+            <article style="color: red;">
+                <h3>Access Denied</h3>
+                <p>
+                    Sorry, you have not login or do not have the required access right to access the protected resource.
+                </p>                
+            </article>
+            
+            <h:panelGroup rendered="#{sessionScope.isLogin == false}">
+            <h:form id="loginForm">
+
+            <p:outputLabel for="username" value="Username" />&nbsp;
+                <p:inputText id="username" value="#{staffLoginManagedBean.username}" size="16" required="true" requiredMessage="Username is required" maxlength="32">
+                    <f:validateLength minimum="4" />
+                </p:inputText>
+                
+                <p>&nbsp;</p>
+                <p:outputLabel for="password" value="Password" />&nbsp;
+                <p:password id="password" value="#{staffLoginManagedBean.password}" size="16" required="true" requiredMessage="Password is required" maxlength="32">
+                    <f:validateLength minimum="4" />
+                </p:password>
+                <p>&nbsp;</p>
+                
+                <p:commandButton type="submit" value="Login" actionListener="#{staffLoginManagedBean.login}"  />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p:commandButton type="reset" value="Clear" />&nbsp;
+                
+
+                <p:growl>
+                    <p:autoUpdate />
+                </p:growl>
+
+            </h:form>
+        </h:panelGroup>
+        </index>
+        
         
     </ui:define>
 

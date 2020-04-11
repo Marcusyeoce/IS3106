@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -29,9 +30,12 @@ public class PlaceEntity extends AttractionEntity implements Serializable {
         super();
     }
 
-    public PlaceEntity(String name, String description, String location) {
-        super(name, description, location);
+    public PlaceEntity(Date openingTime, Date closingTime, String name, String description, String location, String picture, CompanyEntity companyEntity) {
+        super(name, description, location, picture, companyEntity);
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
     }
+
 
     public Date getOpeningTime() {
         return openingTime;
