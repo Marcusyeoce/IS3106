@@ -190,7 +190,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 
                 attractionEntityToUpdate.setReviewEntities(attraction.getReviewEntities());
                 
-                attractionEntityToUpdate.setName(attraction.getLocation());
+                attractionEntityToUpdate.setName(attraction.getName());
                 attractionEntityToUpdate.setLocation(attraction.getLocation());
                 attractionEntityToUpdate.setDescription(attraction.getDescription());
                 attractionEntityToUpdate.setPicture(attraction.getPicture());
@@ -209,6 +209,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 
                 if(tagIdsToUpdate != null && (!tagIdsToUpdate.isEmpty()))
                 {
+                    attractionEntityToUpdate.getTagEntities().clear();
                     for(Long tagId:tagIdsToUpdate)
                     {
                         try{
@@ -222,6 +223,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
 
                 if(promotionIdsToUpdate != null && (!promotionIdsToUpdate.isEmpty()))
                 {
+                    attractionEntityToUpdate.getPromotionEntities().clear();
                     for(Long promotionId:promotionIdsToUpdate)
                     {
                         try{

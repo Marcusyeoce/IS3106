@@ -16,6 +16,7 @@ import entity.PlaceEntity;
 import entity.PromotionEntity;
 import entity.TagEntity;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -167,36 +168,40 @@ public class AttractionManagedBean implements Serializable{
         return attractionEntitySessionBeanLocal.isEvent(attractionId);
     }
     
-    public Date retrieveStartDate(long attractionId){
+    public String retrieveStartDate(long attractionId){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-YYYY");
         try{
         EventEntity event = (EventEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
-        return event.getStartDate();
+        return simpleDateFormat.format(event.getStartDate());
         }catch(AttractionNotFoundException ex){}
-        return new Date();
+        return simpleDateFormat.format(new Date());
     }
     
-    public Date retrieveEndDate(long attractionId) {
+    public String retrieveEndDate(long attractionId) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-YYYY");
         try{
         EventEntity event = (EventEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
-        return event.getEndDate();
+        return simpleDateFormat.format(event.getEndDate());
         }catch(AttractionNotFoundException ex){}
-        return new Date();
+        return simpleDateFormat.format(new Date());
     }
     
-    public Date retrieveOpeningTime(long attractionId){
+    public String retrieveOpeningTime(long attractionId){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         try{
         PlaceEntity place = (PlaceEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
-        return place.getOpeningTime();
+        return simpleDateFormat.format(place.getOpeningTime());
         }catch(AttractionNotFoundException ex){}
-        return new Date();
+        return simpleDateFormat.format(new Date());
     }
     
-    public Date retrieveClosingTime(long attractionId)  {
+    public String retrieveClosingTime(long attractionId)  {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
         try{
         PlaceEntity place = (PlaceEntity)attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
-        return place.getClosingTime();
+        return simpleDateFormat.format(place.getClosingTime());
         }catch(AttractionNotFoundException ex){}
-        return new Date();
+        return simpleDateFormat.format(new Date());
     }
     
     
@@ -209,7 +214,8 @@ public class AttractionManagedBean implements Serializable{
             }else{
                 if(getUpdatedStartDate() != null){
                     ((EventEntity)attractionToUpdate).setStartDate(getUpdatedStartDate());
-                }else if(getUpdatedEndDate() != null){
+                }
+                if(getUpdatedEndDate() != null){
                     ((EventEntity)attractionToUpdate).setEndDate(getUpdatedEndDate());
                 }
                 updateAttraction();
@@ -221,7 +227,8 @@ public class AttractionManagedBean implements Serializable{
             }else{
                 if(getUpdatedOpeningTime() != null){
                     ((PlaceEntity)attractionToUpdate).setOpeningTime(getUpdatedOpeningTime());
-                }else if(getUpdatedClosingTime() != null){
+                }
+                if(getUpdatedClosingTime() != null){
                     ((PlaceEntity)attractionToUpdate).setClosingTime(getUpdatedClosingTime());
                 }
                 updateAttraction();

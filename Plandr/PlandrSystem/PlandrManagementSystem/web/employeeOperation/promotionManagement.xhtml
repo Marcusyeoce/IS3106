@@ -254,9 +254,7 @@
                             <p:outputLabel for="updatedPromotionStartDate" value="Start Date of Promotion:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="updatedPromotionStartDate" value="#{promotionManagedBean.promotionToUpdate.startDate}" timeZone="Asia/Singapore">
-                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
-                            </p:calendar>
+                            <p:calendar id="updatedPromotionStartDate" value="#{promotionManagedBean.promotionToUpdate.startDate}" timeZone="Asia/Singapore"/>
                             <p:message for="updatedPromotionStartDate" />
                         </p:column>
                     </p:row>
@@ -266,9 +264,7 @@
                             <p:outputLabel for="updatedPromotionEndDate" value="End Date of Promotion:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="updatedPromotionEndDate" value="#{promotionManagedBean.promotionToUpdate.startDate}" timeZone="Asia/Singapore">
-                                <f:convertDateTime type="date" pattern="dd-MMM-YYYY" timeZone="Asia/Singapore"/>
-                            </p:calendar>
+                            <p:calendar id="updatedPromotionEndDate" value="#{promotionManagedBean.promotionToUpdate.endDate}" timeZone="Asia/Singapore"/>
                             <p:message for="updatedPromotionEndDate" />
                         </p:column>
                     </p:row>
@@ -297,7 +293,7 @@
 
                     <p:row>
                         <p:column colspan="2">
-                            <p:commandButton value="Update company" update="@form formAllPromotions:dataTableAllPromotions" actionListener="#{companyManagementManagedBean.updateCompany}" oncomplete="PF('dialogUpdateCompany').show();" />
+                            <p:commandButton value="Update Promotion" update="@form formAllPromotions:dataTableAllPromotions" actionListener="#{promotionManagedBean.updatePromotion}" oncomplete="PF('dialogUpdatePromotion').show();" />
                         </p:column>
                     </p:row>
 

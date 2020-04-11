@@ -108,7 +108,7 @@ public class DataInitSessionBean {
             attractionEntitySessionBeanLocal.createNewAttractionEntity(new EventEntity(new Date(120, 05, 07), new Date(120, 06, 04), "Wartime Artists of Veitnam Exhibition", "FREE", "50 Kent Ridge Cres", "https://i.ibb.co/ZWx882x/wartime.jpg", companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(2l)), tags, promotions);
             tags = new ArrayList<>();
             tags.add(tag2.getTagId()); 
-            attractionEntitySessionBeanLocal.createNewAttractionEntity(new PlaceEntity(new Date(120, 00, 01, 9, 30), new Date(120, 00, 01, 18, 30), "Pusheen Cafe", "$$", "8 Jln Klapa, Singapore 199320", "https://i.ibb.co/ZGm1f2V/pusheen.jpg", companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(1l)), tags, promotions);
+            attractionEntitySessionBeanLocal.createNewAttractionEntity(new PlaceEntity(new Date(120, 00, 01, 9, 0), new Date(120, 00, 01, 18, 0), "Pusheen Cafe", "$$", "8 Jln Klapa, Singapore 199320", "https://i.ibb.co/ZGm1f2V/pusheen.jpg", companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(1l)), tags, promotions);
             tags = new ArrayList<>();
             attractionEntitySessionBeanLocal.createNewAttractionEntity(new PlaceEntity(new Date(120, 00, 01, 12, 0), new Date(120, 00, 01, 21, 0), "Odette Restaurant", "$$$", "1 St Andrew's Rd, Singapore 178957", "https://i.ibb.co/st23zkP/odette.jpg", companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(3l)), tags, promotions);
           

@@ -118,10 +118,18 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
                 promotionEntityToUpdate.setStartDate(promotionEntity.getStartDate());
                 promotionEntityToUpdate.setEndDate(promotionEntity.getEndDate());
                 
+                //Remove related promotions if have
+                List<AttractionEntity> currentAttractions = promotionEntityToUpdate.getAttractionEntities();
+                if(!currentAttractions.isEmpty()){
+                    for(AttractionEntity attraction: currentAttractions){
+                        attraction.removePromotion(promotionEntity);
+                    }
+                }
+                
                 if(attractionIdsToUpdate != null && (!attractionIdsToUpdate.isEmpty()))
                 {
+                    promotionEntityToUpdate.getAttractionEntities().clear();
                     try{
-                        promotionEntityToUpdate.getAttractionEntities().clear();
                         for(Long attractionId:attractionIdsToUpdate)
                         {
                             AttractionEntity attractionEntity = attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
@@ -131,12 +139,6 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
                         throw new AttractionNotFoundException("Attraction cannot be found with this Id!");
                     }
                 }
-                List<AttractionEntity> attractionEntities = promotionEntity.getAttractionEntities();
-                promotionEntityToUpdate.setAttractionEntities(attractionEntities);
-                for(AttractionEntity attraction: attractionEntities)
-                {
-                    attraction.getPromotionEntities().add(promotionEntityToUpdate);
-                }                            
             }
             else
             {

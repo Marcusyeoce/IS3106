@@ -148,11 +148,12 @@
                     </p:outputPanel>
                 </f:facet>
                 <p:dataViewGridItem >
-                    <p:panel header="#{place.attractionId}" style="text-align:center" >
+                    <p:panel header="#{place.name}" style="text-align:center" >
                         <h:panelGrid columns="1" style="width:100%" >
                             <p:graphicImage value="#{place.picture}" width="300px" height="200px"/> 
 
-                            <h:outputText value="#{place.name}" />
+                            <h:outputText value="#{place.location}" />
+                            <h:outputText value="#{place.description}" />
 
                         </h:panelGrid>
                         <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
@@ -445,7 +446,7 @@
                             <p:outputLabel for="updatedEventStartDate" value="Start Date of Event:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="updatedEventStartDate" value="#{attractionManagedBean.updatedStartDate}" placeholder="#{attractionManagedBean.retrieveStartDate(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore"/>
+                            <p:calendar id="updatedEventStartDate" value="#{attractionManagedBean.updatedStartDate}" placeholder="#{attractionManagedBean.retrieveStartDate(attractionManagedBean.attractionToUpdate.attractionId)}"  timeZone="Asia/Singapore"/>
                             <p:message for="updatedEventStartDate" />
                         </p:column>
                     </p:row>
@@ -455,7 +456,7 @@
                             <p:outputLabel for="updatedEventEndDate" value="End Date of Event:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="updatedEventEndDate" value="#{attractionManagedBean.updatedEndDate}" placeholder="#{attractionManagedBean.retrieveEndDate(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore"/>
+                            <p:calendar id="updatedEventEndDate" value="#{attractionManagedBean.updatedEndDate}" placeholder="#{attractionManagedBean.retrieveEndDate(attractionManagedBean.attractionToUpdate.attractionId)}"  timeZone="Asia/Singapore"/>
                             <p:message for="updatedEventEndDate" />
                         </p:column>
                     </p:row>
@@ -481,7 +482,7 @@
                             <p:outputLabel for="updatedClosingTime" value="Closing Time:  " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="updatedClosingTime" value="#{attractionManagedBean.updatedOpeningTime}" placeholder="#{attractionManagedBean.retrieveClosingTime(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore" pattern="hh:mm a" timeOnly="true"/>
+                            <p:calendar id="updatedClosingTime" value="#{attractionManagedBean.updatedClosingTime}" placeholder="#{attractionManagedBean.retrieveClosingTime(attractionManagedBean.attractionToUpdate.attractionId)}" timeZone="Asia/Singapore" pattern="hh:mm a" timeOnly="true"/>
                             <p:message for="updatedClosingTime" />
                         </p:column>
                     </p:row>

@@ -105,6 +105,22 @@ public abstract class AttractionEntity implements Serializable {
         }
     }
     
+     public void removePromotion(PromotionEntity promotionEntity)
+    {
+        if(promotionEntity != null)
+        {
+            if(this.promotionEntities.contains(promotionEntity))
+            {
+                this.promotionEntities.remove(promotionEntity);
+                
+                if(promotionEntity.getAttractionEntities().contains(this))
+                {
+                    promotionEntity.getAttractionEntities().remove(this);
+                }
+            }
+        }
+    }
+    
     public Long getAttractionId() {
         return attractionId;
     }
