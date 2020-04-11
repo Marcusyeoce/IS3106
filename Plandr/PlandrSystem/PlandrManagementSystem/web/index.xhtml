@@ -50,7 +50,7 @@
                     <ui:repeat value="#{indexManagedBean.messageOfTheDayEntities}" var="motd">
                         
                         <p:panel header="#{utilManagedBean.formatMotdHeader(motd.messageDate)} - #{motd.title}" toggleable="true">
-                            <p:graphicImage value ="#{motd.message}" width="400px" height ="300px" />
+                            <p:graphicImage value ="#{motd.message}" />
                         </p:panel>
                         <br/>                
 

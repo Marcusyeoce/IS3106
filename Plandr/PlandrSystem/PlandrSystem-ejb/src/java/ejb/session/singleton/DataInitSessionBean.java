@@ -118,9 +118,9 @@ public class DataInitSessionBean {
             attractions.add(3l);
             attractions.add(4l);
             promotionSessionBeanLocal.createNewPromotionEntity(new PromotionEntity("First Time Users $5 OFF", new Date(120, 00, 01), new Date(121, 00, 01), new BigDecimal(5)), attractions);
-           articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title1","https://bit.ly/tanjirooo","content1",today));
-            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title2","https://bit.ly/helloWorld1","content2",tomorrow));
-            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title3","https://bit.ly/articleV1","content3",theDayAfter));
+            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Top 10 Cafes in Singapore","https://bit.ly/tolido","Looking for a cafe date with your friends or girlfriend? Tolido's Espresso Nook is the place to go! Great little cafe which serves tremendous coffee and very tasty breakfast options.",today));
+            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Top 10 Waffle Ice Cream in Singapore","https://bit.ly/sundayFolks","Hot and sweating? Look no further because Sunday Folks is here to cool you down! Offering amazing waffle ice cream with an array of flavours is sure to satisfy your cravings!",tomorrow));
+            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Gardens By The Bay Singapore","https://bit.ly/gardensbtb","With their many themed gardens, it never gets boring at gardens by the bay! Now their flower dome tickets are 1 for 1. Take this chance to bring someone along to admire the pretty flowers with you.",theDayAfter));
         }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException | StaffNotFoundException ex){
             ex.printStackTrace();
         }
