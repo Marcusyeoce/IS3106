@@ -107,7 +107,7 @@ public class ArticleManagedBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An unexpected error has occurred: " + ex.getMessage(), null));
         }
     }
-    public void handleFileUpload(FileUploadEvent event)
+    /*public void handleFileUpload(FileUploadEvent event)
     {
         try
         {
@@ -147,7 +147,7 @@ public class ArticleManagedBean implements Serializable{
         {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,  "File upload error: " + ex.getMessage(), ""));
         }
-    }
+    }*/
 
     /**
      * @return the author

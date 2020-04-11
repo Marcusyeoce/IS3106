@@ -1,11 +1,13 @@
 package ejb.session.singleton;
 
+import ejb.session.stateless.ArticleEntitySessionBeanLocal;
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import ejb.session.stateless.MessageOfTheDayEntitySessionBeanLocal;
 import ejb.session.stateless.PromotionSessionBeanLocal;
 import ejb.session.stateless.StaffEntitySessionBeanLocal;
 import ejb.session.stateless.TagEntitySessionBeanLocal;
+import entity.ArticleEntity;
 import entity.CompanyEntity;
 import entity.EventEntity;
 import entity.MessageOfTheDayEntity;
@@ -60,6 +62,8 @@ public class DataInitSessionBean {
     private StaffEntitySessionBeanLocal staffEntitySessionBeanLocal;
     @EJB
     private MessageOfTheDayEntitySessionBeanLocal motdSessionBeanLocal;
+    @EJB(name ="ArticleEntitySessionBeanLocal")
+    private ArticleEntitySessionBeanLocal articleEntitySessionBeanLocal;
 
     @PostConstruct
     public void postConstruct(){
@@ -114,7 +118,10 @@ public class DataInitSessionBean {
             attractions.add(3l);
             attractions.add(4l);
             promotionSessionBeanLocal.createNewPromotionEntity(new PromotionEntity("First Time Users $5 OFF", new Date(120, 00, 01), new Date(121, 00, 01), new BigDecimal(5)), attractions);
-        }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException ex){
+           articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title1","https://bit.ly/tanjirooo","content1",today));
+            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title2","https://bit.ly/helloWorld1","content2",tomorrow));
+            articleEntitySessionBeanLocal.createNewArticle(staffEntitySessionBeanLocal.retrieveStaffByStaffId(2L).getStaffId(), new ArticleEntity("Title3","https://bit.ly/articleV1","content3",theDayAfter));
+        }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException | StaffNotFoundException ex){
             ex.printStackTrace();
         }
     }
