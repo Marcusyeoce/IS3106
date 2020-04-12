@@ -25,9 +25,9 @@ public class ArticleEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long articleId;
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 2048)
     @NotNull
-    @Size(max = 32)
+    @Size(max = 2048)
     private String title;
     @NotNull
     private String picture; //save the file path as a string

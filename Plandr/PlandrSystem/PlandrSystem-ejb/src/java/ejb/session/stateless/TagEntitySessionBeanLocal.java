@@ -21,8 +21,6 @@ import util.exception.UpdateTagException;
 @Local
 public interface TagEntitySessionBeanLocal {
 
-    public Long createNewTagEntity(TagEntity newTagEntity) throws InputDataValidationException, UnknownPersistenceException, CreateNewTagException;
-
     public List<TagEntity> retrieveAllTags();
 
     public TagEntity retrieveTagByTagId(Long tagId) throws TagNotFoundException;
@@ -30,5 +28,7 @@ public interface TagEntitySessionBeanLocal {
     public void updateTag(TagEntity tagEntity) throws InputDataValidationException, TagNotFoundException, UpdateTagException;
 
     public void deleteTag(Long tagId) throws TagNotFoundException;
+
+    public Long createNewTagEntity(TagEntity newTagEntity, List<Long> attractionIdsToAdd) throws InputDataValidationException, UnknownPersistenceException, CreateNewTagException;
     
 }

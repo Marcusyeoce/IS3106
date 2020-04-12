@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,9 +33,12 @@ public class EventEntity extends AttractionEntity implements Serializable {
         super();
     }
 
-    public EventEntity(String name, String description, String location) {
-        super(name, description, location);
+    public EventEntity(Date startDate, Date endDate, String name, String description, String location, String picture, CompanyEntity companyEntity) {
+        super(name, description, location, picture, companyEntity);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
+
 
     public Date getStartDate() {
         return startDate;

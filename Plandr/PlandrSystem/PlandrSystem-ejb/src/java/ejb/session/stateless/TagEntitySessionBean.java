@@ -4,6 +4,7 @@ import entity.AttractionEntity;
 import entity.TagEntity;
 import java.util.List;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,9 @@ import util.exception.UpdateTagException;
 @Stateless
 public class TagEntitySessionBean implements TagEntitySessionBeanLocal {
 
+    @EJB(name = "AttractionEntitySessionBeanLocal")
+    private AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;
+
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;
     
@@ -41,7 +45,7 @@ public class TagEntitySessionBean implements TagEntitySessionBeanLocal {
     
     
     @Override
-    public Long createNewTagEntity(TagEntity newTagEntity) throws InputDataValidationException, UnknownPersistenceException, CreateNewTagException
+    public Long createNewTagEntity(TagEntity newTagEntity, List<Long> attractionIdsToAdd) throws InputDataValidationException, UnknownPersistenceException, CreateNewTagException
     {
         Set<ConstraintViolation<TagEntity>>constraintViolations = validator.validate(newTagEntity);
         
@@ -50,6 +54,14 @@ public class TagEntitySessionBean implements TagEntitySessionBeanLocal {
             try
             {
                 em.persist(newTagEntity);
+                if(attractionIdsToAdd != null && (!attractionIdsToAdd.isEmpty()))
+                {
+                    for(Long attractionId:attractionIdsToAdd)
+                    {
+                        AttractionEntity attractionEntity = attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+                        newTagEntity.addAttraction(attractionEntity);
+                    }
+                }
                 em.flush();
 
                 return newTagEntity.getTagId();

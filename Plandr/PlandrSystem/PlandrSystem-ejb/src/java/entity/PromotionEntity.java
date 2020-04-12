@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -50,14 +51,32 @@ public class PromotionEntity implements Serializable {
     private List<AttractionEntity> attractionEntities;
     
     public PromotionEntity() {
+        attractionEntities = new ArrayList<>();
     }
 
-    public PromotionEntity(String name, Date startDate, BigDecimal discount, List<AttractionEntity> attractionEntities) {
+    public PromotionEntity(String name, Date startDate, Date endDate, BigDecimal discount) {
         this();
         this.name = name;
         this.startDate = startDate;
+        this.endDate = endDate;
         this.discount = discount;
-        this.attractionEntities = attractionEntities;
+    }
+
+    
+    public void addAttraction(AttractionEntity attractionEntity)
+    {
+        if(attractionEntity != null)
+        {
+            if(!this.attractionEntities.contains(attractionEntity))
+            {
+                this.attractionEntities.add(attractionEntity);
+                
+                if(!attractionEntity.getPromotionEntities().contains(this))
+                {                    
+                    attractionEntity.getPromotionEntities().add(this);
+                }
+            }
+        }
     }
 
     public Long getPromotionId() {

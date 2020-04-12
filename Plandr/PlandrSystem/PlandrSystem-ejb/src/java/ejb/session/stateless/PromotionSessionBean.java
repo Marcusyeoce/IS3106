@@ -4,6 +4,7 @@ import entity.AttractionEntity;
 import entity.PromotionEntity;
 import java.util.List;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import util.exception.AttractionNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.PromotionNotFoundException;
 
@@ -21,6 +23,9 @@ import util.exception.PromotionNotFoundException;
  */
 @Stateless
 public class PromotionSessionBean implements PromotionSessionBeanLocal {
+
+    @EJB(name = "AttractionEntitySessionBeanLocal")
+    private AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;
 
     @PersistenceContext(unitName = "PlandrSystem-ejbPU")
     private EntityManager em;
@@ -35,23 +40,29 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
     }
     
     @Override
-     public Long createNewPromotionEntity(PromotionEntity newPromotionEntity) throws InputDataValidationException
+     public Long createNewPromotionEntity(PromotionEntity newPromotionEntity, List<Long> attractionIdsToAdd) throws InputDataValidationException, AttractionNotFoundException
     {
         Set<ConstraintViolation<PromotionEntity>>constraintViolations = validator.validate(newPromotionEntity);
         
         if(constraintViolations.isEmpty())
-        {
-            List<AttractionEntity> attractionEntities = newPromotionEntity.getAttractionEntities();
-            for(AttractionEntity attraction: attractionEntities)
+        {          
+            try
             {
-                attraction.getPromotionEntities().add(newPromotionEntity);
-            }
-            
-            em.persist(newPromotionEntity);
-            em.flush();
+                em.persist(newPromotionEntity);
+                if(attractionIdsToAdd != null && (!attractionIdsToAdd.isEmpty()))
+                    {
+                        for(Long attractionId:attractionIdsToAdd)
+                        {
+                            AttractionEntity attractionEntity = attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+                            newPromotionEntity.addAttraction(attractionEntity);
+                        }
+                    }
+                em.flush();
 
-            return newPromotionEntity.getPromotionId();
-            
+                return newPromotionEntity.getPromotionId();
+            }catch(AttractionNotFoundException ex){
+                throw new AttractionNotFoundException("Attraction cannot be found!");
+            }
         }
         else
         {
@@ -92,7 +103,7 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
     }
     
     @Override
-    public void updatePromotion(PromotionEntity promotionEntity) throws InputDataValidationException, PromotionNotFoundException
+    public void updatePromotion(PromotionEntity promotionEntity, List<Long> attractionIdsToUpdate) throws InputDataValidationException, PromotionNotFoundException, AttractionNotFoundException
     {
         Set<ConstraintViolation<PromotionEntity>>constraintViolations = validator.validate(promotionEntity);
         
@@ -102,17 +113,32 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
             {
                 PromotionEntity promotionEntityToUpdate = retrievePromotionByPromotionId(promotionEntity.getPromotionId());
                 
-                
+                promotionEntityToUpdate.setName(promotionEntity.getName());
                 promotionEntityToUpdate.setDiscount(promotionEntity.getDiscount());
                 promotionEntityToUpdate.setStartDate(promotionEntity.getStartDate());
                 promotionEntityToUpdate.setEndDate(promotionEntity.getEndDate());
                 
-                List<AttractionEntity> attractionEntities = promotionEntity.getAttractionEntities();
-                promotionEntityToUpdate.setAttractionEntities(attractionEntities);
-                for(AttractionEntity attraction: attractionEntities)
+                //Remove related promotions if have
+                List<AttractionEntity> currentAttractions = promotionEntityToUpdate.getAttractionEntities();
+                if(!currentAttractions.isEmpty()){
+                    for(AttractionEntity attraction: currentAttractions){
+                        attraction.removePromotion(promotionEntity);
+                    }
+                }
+                
+                if(attractionIdsToUpdate != null && (!attractionIdsToUpdate.isEmpty()))
                 {
-                    attraction.getPromotionEntities().add(promotionEntityToUpdate);
-                }                            
+                    promotionEntityToUpdate.getAttractionEntities().clear();
+                    try{
+                        for(Long attractionId:attractionIdsToUpdate)
+                        {
+                            AttractionEntity attractionEntity = attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+                            promotionEntityToUpdate.addAttraction(attractionEntity);
+                        }
+                    }catch(AttractionNotFoundException ex){
+                        throw new AttractionNotFoundException("Attraction cannot be found with this Id!");
+                    }
+                }
             }
             else
             {

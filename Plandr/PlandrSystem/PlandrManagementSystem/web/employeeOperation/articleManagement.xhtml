@@ -7,7 +7,6 @@
                 xmlns:p="http://primefaces.org/ui">
     
     <ui:define name="content">
-        <div>
             <h3>Article Management</h3>
             
             <h:form>
@@ -46,13 +45,24 @@
                     </p:row>
 
                     <p:row>
-                        <p:column>
+                     <!--   <p:column>
                             <p:outputLabel for="picture" value="Picture "/>
+                        </p:column> 
+                        <p:column> 
+                    <p:panel header="File Upload">
+                        <p:messages  redisplay="false">
+                        <p:autoUpdate />
+                        </p:messages>
+                        <p:fileUpload id ="picture" fileUploadListener="" multiple="false" />
+                        </p:panel>                          
+                        </p:column>-->
+                        <p:column>
+                            <p:outputLabel for="articlePicture" value="URL to picture: " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="picture" value="#{articleManagedBean.newArticleEntity.picture}" required="true" requiredMessage="Picture is required">
-                            </p:inputText>
-                            <p:message for="picture" />
+                            <p:inputText id="articlePicture" value="#{articleManagedBean.newArticleEntity.picture}" required="true" requiredMessage="Picture is required">
+                        </p:inputText>
+                            <p:message for="articlePicture" />
                         </p:column>
                     </p:row>
                     
@@ -69,7 +79,7 @@
                     <p:row>
                         <p:column colspan="2">
                             <p:commandButton type="reset" value="Clear" />&nbsp;
-                            <p:commandButton  value="Create New Article" actionListener="#{articleManagedBean.createNewArticle}" update="@form formAllArticles:dataTableAllArticles" oncomplete="PF('dialogCreateNewArticle').show();" />
+                            <p:commandButton  value="Create New Article" actionListener="#{articleManagedBean.createNewArticle}" update="formCreateNewArticle" oncomplete="PF('dialogCreateNewArticle').show();" />
                         </p:column>
                     </p:row>
 
@@ -80,52 +90,38 @@
         </h:form>
             
         <h:form id="formAllArticles">
-            
-            <p:messages id="messages" redisplay="false" closable="true" />
-
-            <p:dataTable id="dataTableAllArticles" widgetVar="dataTableAllArticles" value="#{articleManagedBean.allArticleEntities}" var="articleEntity" rowKey="#{articleEntity.articleId}" rowIndexVar="row"
-                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
-
-                <f:facet name="header">
-                    <p:outputPanel style="text-align: right;">
-                        <h:outputText value="Search all fields:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('dataTableAllArticles').filter()" style="width:300px" placeholder="Enter keyword"/>
-                    </p:outputPanel>
-                </f:facet>
-
-                <p:column headerText="Title" sortBy="#{articleEntity.title}" filterBy="#{articleEntity.title}" filterMatchMode="contains">
-                    <h:outputText value="#{articleEntity.title}" />
-                </p:column>
-
-                <p:column headerText="Content" sortBy="#{articleEntity.content}" filterBy="#{articleEntity.content}" filterMatchMode="contains">
-                    <h:outputText value="#{articleEntity.content}" />
-                </p:column>
+            <p:carousel value="#{articleManagedBean.allArticleEntities}" var="articleEntity" headerText="Articles" numVisible="1"  effect="easeInStrong" style="width:1020px" circular="true" >
+            <h:panelGrid columns="6" style="width:100%" columnClasses="picture,detail">
                 
-                <p:column headerText="Published Till" sortBy="#{articleEntity.publishedDate}" filterBy="#{articleEntity.date}" filterMatchMode="contains">
-                    <h:outputText value="#{articleEntity.publishedDate}" />
-                </p:column>
-
-                <p:column headerText="Action" >
-                    <p:commandButton update="formViewArticle" oncomplete="PF('formViewArticle').show()" icon="ui-icon-document" title="View">
+                <p:graphicImage value="#{articleEntity.picture}" width="300px" height="200px" />
+                
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="" style="font-weight: bold"/>
+                    <h:outputText value="#{articleEntity.title}" style="font-weight: bold;font-size: 40px" />
+ 
+                    <h:outputText value="                     " />
+                    <h:outputText value="#{articleEntity.content}" />
+                </h:panelGrid>
+            </p:outputPanel>
+                    <p:commandButton update="formViewArticle" oncomplete="PF('dialogViewArticle').show()" icon="ui-icon-document" title="View">
                         <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToView}" />
                     </p:commandButton>
-                    <p:commandButton update="formUpdateArticle" oncomplete="PF('formUpdateArticle').show()" icon="ui-icon-pencil" title="Update">
+                    <p:commandButton update="formUpdateArticle" oncomplete="PF('dialogUpdateArticle').show()" icon="ui-icon-pencil" title="Update">
                         <f:setPropertyActionListener value="#{articleEntity}" target="#{articleManagedBean.articleEntityToUpdate}" />
                     </p:commandButton>
-                    <p:commandButton icon="ui-icon-trash" actionListener="#{articleManagedBean.deleteArticle}" update="formAllArticles:dataTableAllArticles formAllArticles:messages">
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{articleManagedBean.deleteArticle}" title="Delete">
                         <f:attribute name="articleEntityToDelete" value="#{articleEntity}" />
                         <p:confirm header="Confirmation" message="Are you sure you want to delete #{articleEntity.title}?" icon="ui-icon-alert" />
                     </p:commandButton>
-                </p:column>
-
-            </p:dataTable>
-
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
-
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+        </h:panelGrid>
+        </p:carousel> 
         </h:form>
+            
         <h:form id="formViewArticle">
             <p:dialog id="dialogViewArticle" widgetVar="dialogViewArticle" header="View Article" closable="true">
 
@@ -148,7 +144,14 @@
                             <h:outputText value="#{articleManagedBean.articleEntityToView.title}" />
                         </p:column>
                     </p:row>
-
+                     <p:row>
+                        <p:column>
+                            <h:outputLabel value="Written By: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{articleManagedBean.articleEntityToView.staffEntity.name}" />
+                        </p:column>
+                    </p:row>
                     <p:row>
                         <p:column>
                             <h:outputLabel value="Description: " />
@@ -160,10 +163,12 @@
 
                     <p:row>
                         <p:column>
-                            <h:outputLabel value="Picture: " />
+                            <p:outputLabel value="URL to picture: " />
                         </p:column>
                         <p:column>
-                            <img src="data:image/png;base64, #{articleManagedBean.articleEntityToView.picture}" />
+                            
+                            <p:graphicImage value="#{articleManagedBean.articleEntityToView.picture}" width="300px" height="200px" />
+                            
                         </p:column>
                     </p:row>
                     
@@ -200,10 +205,11 @@
 
                     <p:row>
                         <p:column>
-                            <h:outputLabel value="Title: " />
+                            <h:outputLabel for="title" value ="Title: "/>
                         </p:column>
                         <p:column>
-                            <h:outputText value="#{articleManagedBean.articleEntityToUpdate.title}" />
+                            <p:inputText id="title" value="#{articleManagedBean.articleEntityToUpdate.title}" required="false" requiredMessage="Content is required">
+                            </p:inputText>
                         </p:column>
                     </p:row>
 
@@ -212,25 +218,37 @@
                             <p:outputLabel for="content" value="Description: "/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="true" requiredMessage="Content is required">
+                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="false" requiredMessage="Content is required">
                             </p:inputText>
                             <p:message for="content" />
                         </p:column>
                     </p:row>
 
                     <p:row>
+                        <!--<p:column>
+                            <p:outputLabel for="picture" value="Picture: "/>
+                        </p:column> 
+                        <p:column> 
+                    <p:panel header="File Upload">
+                        <p:messages  redisplay="false">
+                        <p:autoUpdate />
+                        </p:messages>
+                           <p:fileUpload id ="picture" fileUploadListener="" multiple="false" />
+                         </p:panel>
+                        </p:column>-->
                         <p:column>
-                            <p:outputLabel for="picture" value="Picture" />
+                            <p:outputLabel for="articlePicture" value="URL to picture: " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="picture" value="#{articleManagedBean.articleEntityToUpdate.picture}" required="true" requiredMessage="Picture is required" >
-                            </p:inputText>
-                            <p:message for="picture" />
+                            <p:inputText id="articlePicture" value="#{articleManagedBean.articleEntityToUpdate.picture}" required="false" requiredMessage="Picture is required">
+                        </p:inputText>
+                            <p:message for="articlePicture" />
                         </p:column>
                     </p:row>
+                    
                     <p:row>
                         <p:column colspan="2">
-                            <p:commandButton value="Update Article" update="@form formAllArticles:dataTableAllArticles" actionListener="#{articleManagedBean.updateArticle}" oncomplete="PF('dialogUpdateArticle').show();" />
+                            <p:commandButton value="Update Article" update="formUpdateArticle" actionListener="#{articleManagedBean.updateArticle}" oncomplete="PF('dialogUpdateArticle').show();" />
                         </p:column>
                     </p:row>
 
@@ -239,7 +257,7 @@
             </p:dialog>
 
         </h:form>     
-        </div>
+
     </ui:define>
                     
 </ui:composition>

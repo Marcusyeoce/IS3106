@@ -30,18 +30,19 @@ public abstract class AttractionEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attractionId;
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 52)
     @NotNull
-    @Size(max = 32)
+    @Size(max = 52)
     private String name;
     @Column(nullable = false, length = 2048)
     @NotNull
     @Size(max = 2048)
     private String description;
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 100)
     @NotNull
-    @Size(max = 32)
+    @Size(max = 100)
     private String location;
+    private String picture;
 
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
@@ -63,14 +64,63 @@ public abstract class AttractionEntity implements Serializable {
         promotionEntities = new ArrayList<>();
     }
 
-    public AttractionEntity(String name, String description, String location) {
+    public AttractionEntity(String name, String description, String location, String picture, CompanyEntity companyEntity) {
         this();
-        
         this.name = name;
         this.description = description;
         this.location = location;
+        this.picture = picture;
+        this.companyEntity = companyEntity;
+    }
+    
+    public void addTag(TagEntity tagEntity)
+    {
+        if(tagEntity != null)
+        {
+            if(!this.tagEntities.contains(tagEntity))
+            {
+                this.tagEntities.add(tagEntity);
+                
+                if(!tagEntity.getAttractionEntities().contains(this))
+                {                    
+                    tagEntity.getAttractionEntities().add(this);
+                }
+            }
+        }
     }
 
+    public void addPromotion(PromotionEntity promotionEntity)
+    {
+        if(promotionEntity != null)
+        {
+            if(!this.promotionEntities.contains(promotionEntity))
+            {
+                this.promotionEntities.add(promotionEntity);
+                
+                if(!promotionEntity.getAttractionEntities().contains(this))
+                {                    
+                    promotionEntity.getAttractionEntities().add(this);
+                }
+            }
+        }
+    }
+    
+     public void removePromotion(PromotionEntity promotionEntity)
+    {
+        if(promotionEntity != null)
+        {
+            if(this.promotionEntities.contains(promotionEntity))
+            {
+                this.promotionEntities.remove(promotionEntity);
+                
+                if(promotionEntity.getAttractionEntities().contains(this))
+                {
+                    promotionEntity.getAttractionEntities().remove(this);
+                }
+            }
+        }
+    }
+    
     public Long getAttractionId() {
         return attractionId;
     }
@@ -134,6 +184,15 @@ public abstract class AttractionEntity implements Serializable {
     public void setPromotionEntities(List<PromotionEntity> promotionEntities) {
         this.promotionEntities = promotionEntities;
     }
+    
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
 
     @Override
     public int hashCode() {

@@ -2,9 +2,6 @@ package web.filter;
 
 import entity.StaffEntity;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -98,10 +95,7 @@ public class SecurityFilter implements Filter {
     {        
         if(accessRight.equals(AccessRightEnum.ADMIN))
         {            
-            if(path.equals("/systemAdministration/staffManagement.xhtml") ||
-               path.equals("/systemAdministration/createNewCompany.xhtml") ||
-               path.equals("/systemAdministration/viewAllCompany.xhtml") ||
-               path.equals("/systemAdministration/deleteCompany.xhtml"))
+            if(path.equals("/systemAdministration/staffManagement.xhtml"))
             {
                 return true;
             }
@@ -113,7 +107,10 @@ public class SecurityFilter implements Filter {
         else if(accessRight.equals(AccessRightEnum.EMPLOYEE))
         {
             if(path.equals("/employeeOperation/companyManagement.xhtml") ||
-                    path.equals("/employeeOperation/articleManagement.xhtml"))
+                    path.equals("/employeeOperation/articleManagement.xhtml") ||
+                    path.equals("/employeeOperation/attractionManagement.xhtml") ||
+                    path.equals("/employeeOperation/createNewAttraction.xhtml") ||
+                    path.equals("/employeeOperation/promotionManagement.xhtml"))
             {
                 return true;
             }

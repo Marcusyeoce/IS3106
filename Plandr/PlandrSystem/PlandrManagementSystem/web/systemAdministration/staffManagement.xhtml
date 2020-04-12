@@ -41,7 +41,6 @@
                         </p:column>
                         <p:column>
                             <p:inputText id="email" value="#{staffManagementManagedBean.newStaffEntity.email}" required="true" requiredMessage="Email is required" validatorMessage="Invalid email format" >
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
                             <p:message for="email" />
                         </p:column>
@@ -89,6 +88,7 @@
                         </p:column>
                         <p:column>
                             <p:selectOneMenu id="accessRight" value="#{staffManagementManagedBean.newStaffEntity.accessRightEnum}" required="true">
+                                <f:selectItem itemValue="#{null}" itemLabel="[Select One]" noSelectionOption="true" />
                                 <f:selectItems value="#{staffManagementManagedBean.accessRight}" var="accessRight" />
                             </p:selectOneMenu>
                             <p:message for="accessRight" />

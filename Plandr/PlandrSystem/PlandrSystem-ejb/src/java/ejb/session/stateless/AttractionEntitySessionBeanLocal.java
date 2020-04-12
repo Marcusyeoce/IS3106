@@ -6,10 +6,14 @@
 package ejb.session.stateless;
 
 import entity.AttractionEntity;
+import entity.EventEntity;
+import entity.PlaceEntity;
 import java.util.List;
 import javax.ejb.Local;
 import util.exception.AttractionNotFoundException;
 import util.exception.InputDataValidationException;
+import util.exception.PromotionNotFoundException;
+import util.exception.TagNotFoundException;
 
 /**
  *
@@ -24,10 +28,16 @@ public interface AttractionEntitySessionBeanLocal {
 
     public AttractionEntity retrieveAttractionByAttractionId(Long attractionId) throws AttractionNotFoundException;
 
-    public Long createNewAttractionEntity(AttractionEntity newAttractionEntity) throws InputDataValidationException;
-
-    public void updateAttraction(AttractionEntity attraction) throws AttractionNotFoundException, InputDataValidationException;
-
     public void deleteAttraction(Long attractionId) throws AttractionNotFoundException;
+
+    public Long createNewAttractionEntity(AttractionEntity newAttractionEntity, List<Long> tagIdsToAdd, List<Long> promotionIdsToAdd) throws InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
+
+    public List<EventEntity> retrieveAllEventAttractions();
+
+    public List<PlaceEntity> retrieveAllPlaceAttractions();
+
+    public Boolean isEvent(Long attractionId);
+
+    public void updateAttraction(AttractionEntity attraction, List<Long> tagIdsToUpdate, List<Long> promotionIdsToUpdate) throws AttractionNotFoundException, InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
     
 }
