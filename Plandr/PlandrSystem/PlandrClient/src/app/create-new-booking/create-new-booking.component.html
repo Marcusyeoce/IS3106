@@ -1,0 +1,64 @@
+<h2>Create New Booking</h2>
+
+<form #createBookingForm="ngForm" (ngSubmit)="create(createBookingForm)">
+
+    <table>
+
+        <tr>
+            <td>Booking ID</td>
+            <td><input id="bookingId" name="bookingId" #bookingId="ngModel" type="text" [(ngModel)]="newBooking.bookingId" required="true" /></td>
+            <td>
+                <div *ngIf="bookingId.invalid && (bookingId.dirty || bookingId.touched || submitted)" style="color: red;">
+                    <div *ngIf ="bookingId.errors.required">
+                        Booking ID is required
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Booking Date</td>
+            <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+            <td>
+                <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
+                    <div *ngIf ="bookingDate.errors.required">
+                        Booking Date is required
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Total Price</td>
+            <td><input id="totalPrice" name="totalPrice" #totalPrice="ngModel" type="text" [(ngModel)]="newBooking.totalPrice" required="true" /></td>
+            <td>
+                <div *ngIf="totalPrice.invalid && (totalPrice.dirty || totalPrice.touched || submitted)" style="color: red;">
+                    <div *ngIf ="totalPrice.errors.required">
+                        Total Price is required
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Booking Description</td>
+            <td><input id="bookingDescription" name="bookingDescription" #bookingDescription="ngModel" type="text" [(ngModel)]="newBooking.bookingDescription" required="true" /></td>
+            <td>
+                <div *ngIf="bookingDescription.invalid && (bookingDescription.dirty || bookingDescription.touched || submitted)" style="color: red;">
+                    <div *ngIf ="bookingDescription.errors.required">
+                        Booking Description is required
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <button (click)="clear()">Clear</button>
+                <input type="submit" value="Create New Booking" />
+            </td>
+        </tr>
+
+    </table>
+
+</form>

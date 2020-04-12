@@ -1,0 +1,19 @@
+<h2>View All Bookings</h2>
+
+<table>
+    <thead>
+        <th>Booking ID</th>
+        <th>Booking Date</th>
+        <th>Total Price</th>
+        <th>Booking Description</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let booking of bookings">
+            <td>{{booking.bookingId}}</td>
+            <td>{{booking.bookingDate}}</td>
+            <td>{{booking.totalPrice}}</td>
+            <td>{{booking.bookingDescription}}</td>
+        </tr>
+    </tbody>
+</table>
+
