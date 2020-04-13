@@ -1,4 +1,14 @@
 <div>
-    <button pButton type="button" label="Register"></button> 
-    <button pButton type="button" label="Log In"></button> 
+    <h1>Welcome to Plandr!</h1>
+    <button pButton type="button" label="Home" (click)="redirectToMain()"></button> 
+    <button pButton type="button" label="Register" (click)="redirectToRegister()"></button> 
+    <button pButton type="button" label="Log In" (click)="redirectToLogin()"></button> 
+</div>
+
+<div>
+    <button pButton type="button" label="Articles"(click)="redirectToArticles()"></button> 
+    <button pButton type="button" label="Attractions" (click)="redirectToAttractions()"></button> 
+    <button pButton type="button" label="Make Booking" (click)="redirectToBookings()"></button> 
+    <button pButton type="button" label="My Profile" (click)="redirectToProfile()"></button> 
+    <button pButton type="button" label="FAQ" (click)="redirectToFaq()"></button> 
 </div>
