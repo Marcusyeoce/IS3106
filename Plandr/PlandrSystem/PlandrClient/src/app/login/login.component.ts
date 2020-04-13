@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { MemberService } from '../member.service';
+import { Member } from '../member';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,9 +13,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  submitted: boolean;
+  loginMember: Member;
 
-  ngOnInit() {
+  constructor(private router: Router, private memberService: MemberService) 
+  {
+    this.submitted = false;
+    this.loginMember = new Member();
+  }
+
+  clear()
+  {
+    this.submitted = false;
+    this.loginMember = new Member();
+  }
+
+  ngOnInit() 
+  {
+  }
+
+  login(loginForm: NgForm) 
+  {
   }
 
 }

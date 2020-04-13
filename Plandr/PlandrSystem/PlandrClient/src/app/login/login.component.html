@@ -1,1 +1,23 @@
-<p>login works!</p>
+<h2>Log In</h2>
+
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+
+    <tr>
+        <td>Username</td>
+        <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="loginMember.username" required="true" /></td>
+    </tr>
+
+    <tr>
+        <td>Password</td>
+        <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="loginMember.password" required="true" /></td>
+    </tr>
+
+    <tr>
+        <td colspan="3">
+            <button (click)="clear()">Clear</button>
+            <input type="submit" value="Log In" />
+        </td>
+    </tr>
+
+</form>
+
