@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { MemberService } from '../member.service';
+import { Member } from '../member';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -7,9 +14,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  submitted: boolean;
+  newMember: Member;
 
-  ngOnInit() {
+  constructor(private router: Router, private memberService: MemberService)
+  { 
+    this.submitted = false;
+    this.newMember = new Member();
+  }
+
+  ngOnInit() 
+  {
+  }
+
+  clear()
+  {
+    this.submitted = false;
+    this.newMember = new Member();
+  }
+
+  create(registerForm: NgForm) 
+  {
+    this.submitted = true;
+
+    if (registerForm.valid) 
+    {
+      this.memberService.createNewMember(this.newMember);
+      //route to main page?
+    }
   }
 
 }

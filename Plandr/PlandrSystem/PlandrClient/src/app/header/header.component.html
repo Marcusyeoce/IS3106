@@ -1,14 +1,24 @@
-<div>
-    <h1>Welcome to Plandr!</h1>
-    <button pButton type="button" label="Home" (click)="redirectToMain()"></button> 
-    <button pButton type="button" label="Register" (click)="redirectToRegister()"></button> 
-    <button pButton type="button" label="Log In" (click)="redirectToLogin()"></button> 
+<div style="background-color:lavender;">
+    <div>
+        <h1>Welcome to Plandr!</h1>
+        <div>
+            <button pButton type="button" label="Home" (click)="redirectToMain()"></button> 
+            <button pButton type="button" label="Register" (click)="redirectToRegister()"></button> 
+            <button pButton type="button" label="Log In" (click)="redirectToLogin()"></button> 
+        </div>
+    </div>
+    
+    <br/><br/>
+    
+    <div>
+        <button pButton type="button" label="Articles"(click)="redirectToArticles()"></button> 
+        <button pButton type="button" label="Attractions" (click)="redirectToAttractions()"></button> 
+        <button pButton type="button" label="Make Booking" (click)="redirectToBookings()"></button> 
+        <button pButton type="button" label="My Profile" (click)="redirectToProfile()"></button> 
+        <button pButton type="button" label="FAQ" (click)="redirectToFaq()"></button> 
+    </div>
+
+    <br/><br/>
+
 </div>
 
-<div>
-    <button pButton type="button" label="Articles"(click)="redirectToArticles()"></button> 
-    <button pButton type="button" label="Attractions" (click)="redirectToAttractions()"></button> 
-    <button pButton type="button" label="Make Booking" (click)="redirectToBookings()"></button> 
-    <button pButton type="button" label="My Profile" (click)="redirectToProfile()"></button> 
-    <button pButton type="button" label="FAQ" (click)="redirectToFaq()"></button> 
-</div>
