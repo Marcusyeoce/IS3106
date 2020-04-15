@@ -1,23 +1,36 @@
 <h2>Log In</h2>
 
-<form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+<div>
 
-    <tr>
-        <td>Username</td>
-        <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="loginMember.username" required="true" /></td>
-    </tr>
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
 
-    <tr>
-        <td>Password</td>
-        <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="loginMember.password" required="true" /></td>
-    </tr>
+        <tr>
+            <td>Username</td>
+            <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="loginMember.username" required="true" /></td>
+        </tr>
+    
+        <tr>
+            <td>Password</td>
+            <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="loginMember.password" required="true" /></td>
+        </tr>
 
-    <tr>
-        <td colspan="3">
-            <button (click)="clear()">Clear</button>
-            <input type="submit" value="Log In" />
-        </td>
-    </tr>
+        &nbsp;
+    
+        <tr>
+            <td colspan="3">
+                <button (click)="clear()">Clear</button>
+                <input type="submit" value="Log In" />
+            </td>
+        </tr>
+    
+    </form>
 
-</form>
+
+    <div>
+        <a routerLink="/register">Don't have an account? Create one now!</a>
+    </div>
+    
+
+</div>
+
 

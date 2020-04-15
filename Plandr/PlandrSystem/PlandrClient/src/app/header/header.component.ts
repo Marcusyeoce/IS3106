@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
 
   redirectToBookings() 
   { 
-    this.router.navigate(["/viewAllBookings"]);
+    this.router.navigate(["/makeBooking"]);
   }
 
   redirectToProfile() 

@@ -9,10 +9,9 @@ import { ViewAllArticlesComponent } from './view-all-articles/view-all-articles.
 import { ViewArticleComponent } from './view-article/view-article.component';
 import { ViewAllAttractionsComponent } from './view-all-attractions/view-all-attractions.component';
 import { ViewAttractionComponent } from './view-attraction/view-attraction.component'; 
-import { ViewAllBookingsComponent } from './view-all-bookings/view-all-bookings.component';
-import { CreateNewBookingComponent } from './create-new-booking/create-new-booking.component';
 import { PaymentComponent } from './payment/payment.component';
 import { FaqComponent } from './faq/faq.component';
+import { MakeBookingComponent } from './make-booking/make-booking.component';
 
 
 const routes: Routes = [
@@ -25,8 +24,7 @@ const routes: Routes = [
   { path: 'viewArticle/:id', component: ViewArticleComponent },
   { path: 'viewAllAttractions', component: ViewAllAttractionsComponent},
   { path: 'viewAttraction/:id', component: ViewAttractionComponent },
-  { path: 'viewAllBookings', component: ViewAllBookingsComponent},
-  { path: 'createNewBooking', component: CreateNewBookingComponent},
+  { path: 'makeBooking', component: MakeBookingComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'faq', component: FaqComponent },
 ];

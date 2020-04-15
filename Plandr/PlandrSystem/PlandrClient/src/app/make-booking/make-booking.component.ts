@@ -7,11 +7,11 @@ import { BookingService } from '../booking.service';
 import { Booking } from '../booking';
 
 @Component({
-  selector: 'app-create-new-booking',
-  templateUrl: './create-new-booking.component.html',
-  styleUrls: ['./create-new-booking.component.css']
+  selector: 'app-make-booking',
+  templateUrl: './make-booking.component.html',
+  styleUrls: ['./make-booking.component.css']
 })
-export class CreateNewBookingComponent implements OnInit {
+export class MakeBookingComponent implements OnInit {
 
   submitted: boolean;
   newBooking: Booking;
@@ -39,8 +39,7 @@ export class CreateNewBookingComponent implements OnInit {
     if (createBookingForm.valid) 
     {
       this.bookingService.createNewBooking(this.newBooking);
-      this.router.navigate(["/viewAllBookings"]);
+      this.router.navigate(["/profile"]);
     }
   }
-
 }

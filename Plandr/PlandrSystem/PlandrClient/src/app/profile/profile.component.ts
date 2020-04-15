@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BookingService } from '../booking.service';
+import { Booking } from '../booking';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  bookings: Booking[];
 
-  ngOnInit() {
+  constructor(private bookingService: BookingService) 
+  { 
+  }
+
+  ngOnInit() 
+  {
+    this.bookings = this.bookingService.getBookings();
   }
 
 }
