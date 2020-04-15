@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-attraction',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewAttractionComponent implements OnInit {
 
-  constructor() { }
+  id: string;
+
+  constructor(private activatedRoute: ActivatedRoute) 
+  { 
+  }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
 }
