@@ -14,8 +14,6 @@ import java.util.List;
  * @author Pham The Dzung
  */
 public class SearchAttractionsReq {
-    private String username;
-    private String password;
     private List<Long> tagIds;
     private BigDecimal priceLimit;
     private Date visitDate;
@@ -24,29 +22,11 @@ public class SearchAttractionsReq {
     public SearchAttractionsReq() {
     }
     
-    public SearchAttractionsReq(String username, String password, List<Long> tagIds, BigDecimal priceLimit, Date visitDate, Date visitTime) {
-        this.username = username;
-        this.password = password;
+    public SearchAttractionsReq(List<Long> tagIds, BigDecimal priceLimit, Date visitDate, Date visitTime) {
         this.tagIds = tagIds;
         this.priceLimit = priceLimit;
         this.visitDate = visitDate;
         this.visitTime = visitTime;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Long> getTagIds() {

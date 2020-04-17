@@ -5,6 +5,7 @@
  */
 package ws.restful.model;
 
+import entity.BookingEntity;
 import java.util.List;
 
 /**
@@ -14,15 +15,17 @@ import java.util.List;
 public class CreateBookingReq {
     private String username;
     private String password;
+    private BookingEntity booking;
     private List<Long> attractionIds;
     private List<Long> promotionIds;
 
     public CreateBookingReq() {
     }
 
-    public CreateBookingReq(String username, String password, List<Long> attractionIds, List<Long> promotionIds) {
+    public CreateBookingReq(String username, String password, BookingEntity booking, List<Long> attractionIds, List<Long> promotionIds) {
         this.username = username;
         this.password = password;
+        this.booking = booking;
         this.attractionIds = attractionIds;
         this.promotionIds = promotionIds;
     }
@@ -57,6 +60,14 @@ public class CreateBookingReq {
 
     public void setPromotionIds(List<Long> promotionIds) {
         this.promotionIds = promotionIds;
+    }
+
+    public BookingEntity getBooking() {
+        return booking;
+    }
+
+    public void setBooking(BookingEntity booking) {
+        this.booking = booking;
     }
     
     

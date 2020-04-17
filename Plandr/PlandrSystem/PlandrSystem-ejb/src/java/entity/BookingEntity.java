@@ -45,6 +45,9 @@ public class BookingEntity implements Serializable {
     @NotNull
     @Size(max = 2048)
     private String description;
+    @Column(nullable = false)
+    @NotNull
+    private boolean cancelled;
     
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
@@ -56,6 +59,8 @@ public class BookingEntity implements Serializable {
     
     public BookingEntity() {
         attractionEntities = new ArrayList<>();
+        
+        cancelled = false;
     }
 
     public BookingEntity(BigDecimal totalPrice, Date bookingDate, String description) {
@@ -113,6 +118,14 @@ public class BookingEntity implements Serializable {
 
     public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
+    }
+    
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     @Override
