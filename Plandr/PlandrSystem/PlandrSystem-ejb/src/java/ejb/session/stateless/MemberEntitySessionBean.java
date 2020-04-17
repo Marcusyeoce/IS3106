@@ -210,9 +210,9 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
     }
 
     @Override
-    public void memberSubscribe(Long memberId, int subPackage) throws MemberNotFoundException {
+    public void memberSubscribe(String username, int subPackage) throws MemberNotFoundException {
         try {
-            MemberEntity member = retrieveMemberById(memberId);
+            MemberEntity member = retrieveMemberByUsername(username);
             
             Calendar c = Calendar.getInstance();
             member.setSubscribed(true);
@@ -245,7 +245,7 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
                 }
             }
         } catch (MemberNotFoundException ex) {
-            throw new MemberNotFoundException("Member ID " + memberId + " does not exist!");
+            throw new MemberNotFoundException("Member does not exist!");
         }
     }
     

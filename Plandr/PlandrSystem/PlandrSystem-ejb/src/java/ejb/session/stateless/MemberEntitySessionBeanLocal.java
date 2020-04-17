@@ -34,6 +34,6 @@ public interface MemberEntitySessionBeanLocal {
 
     void updateMemberPassword(Long memberId, String oldPassword, String newPassword, String reenteredNewPassword) throws MemberNotFoundException, PasswordMismatchException;
 
-    void memberSubscribe(Long memberId, int subPackage) throws MemberNotFoundException;
+    void memberSubscribe(String username, int subPackage) throws MemberNotFoundException;
     
 }
