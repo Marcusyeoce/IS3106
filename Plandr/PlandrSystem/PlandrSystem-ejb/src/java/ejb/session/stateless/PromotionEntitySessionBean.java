@@ -22,7 +22,7 @@ import util.exception.PromotionNotFoundException;
  * @author oimun
  */
 @Stateless
-public class PromotionSessionBean implements PromotionSessionBeanLocal {
+public class PromotionEntitySessionBean implements PromotionEntitySessionBeanLocal {
 
     @EJB(name = "AttractionEntitySessionBeanLocal")
     private AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;
@@ -33,7 +33,7 @@ public class PromotionSessionBean implements PromotionSessionBeanLocal {
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
     
-    public PromotionSessionBean()
+    public PromotionEntitySessionBean()
     {
         validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();

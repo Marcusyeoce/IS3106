@@ -30,7 +30,7 @@ import util.exception.TagNotFoundException;
 public class AttractionEntitySessionBean implements AttractionEntitySessionBeanLocal {
 
     @EJB(name = "PromotionSessionBeanLocal")
-    private PromotionSessionBeanLocal promotionSessionBeanLocal;
+    private PromotionEntitySessionBeanLocal promotionSessionBeanLocal;
 
     @EJB(name = "TagEntitySessionBeanLocal")
     private TagEntitySessionBeanLocal tagEntitySessionBeanLocal;

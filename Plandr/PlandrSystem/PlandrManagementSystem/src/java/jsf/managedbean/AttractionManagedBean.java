@@ -7,7 +7,6 @@ package jsf.managedbean;
 
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
-import ejb.session.stateless.PromotionSessionBeanLocal;
 import ejb.session.stateless.TagEntitySessionBeanLocal;
 import entity.AttractionEntity;
 import entity.CompanyEntity;
@@ -32,6 +31,7 @@ import util.exception.CompanyNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.PromotionNotFoundException;
 import util.exception.TagNotFoundException;
+import ejb.session.stateless.PromotionEntitySessionBeanLocal;
 
 /**
  *
@@ -42,7 +42,7 @@ import util.exception.TagNotFoundException;
 public class AttractionManagedBean implements Serializable{
 
     @EJB(name = "PromotionSessionBeanLocal")
-    private PromotionSessionBeanLocal promotionSessionBeanLocal;
+    private PromotionEntitySessionBeanLocal promotionSessionBeanLocal;
 
     @EJB(name = "TagEntitySessionBeanLocal")
     private TagEntitySessionBeanLocal tagEntitySessionBeanLocal;

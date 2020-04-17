@@ -190,9 +190,9 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
     }
 
     @Override
-    public void updateMemberPassword(Long memberId, String oldPassword, String newPassword, String reenteredNewPassword) throws MemberNotFoundException, PasswordMismatchException {
+    public void updateMemberPassword(String username, String oldPassword, String newPassword, String reenteredNewPassword) throws MemberNotFoundException, PasswordMismatchException {
         try {
-            MemberEntity member = retrieveMemberById(memberId);
+            MemberEntity member = retrieveMemberByUsername(username);
             
             String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(oldPassword + member.getSalt()));
             if (member.getPassword().equals(passwordHash)) {
@@ -205,7 +205,7 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
                 throw new PasswordMismatchException("Invalid password!"); 
             }
         } catch (MemberNotFoundException ex) {
-            throw new MemberNotFoundException("Member ID " + memberId + " does not exist!");
+            throw new MemberNotFoundException("Member does not exist!");
         }
     }
 

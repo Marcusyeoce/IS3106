@@ -4,7 +4,6 @@ import ejb.session.stateless.ArticleEntitySessionBeanLocal;
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import ejb.session.stateless.MessageOfTheDayEntitySessionBeanLocal;
-import ejb.session.stateless.PromotionSessionBeanLocal;
 import ejb.session.stateless.StaffEntitySessionBeanLocal;
 import ejb.session.stateless.TagEntitySessionBeanLocal;
 import entity.ArticleEntity;
@@ -37,6 +36,7 @@ import util.exception.StaffNotFoundException;
 import util.exception.TagNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
+import ejb.session.stateless.PromotionEntitySessionBeanLocal;
 
 @Singleton
 @LocalBean
@@ -44,7 +44,7 @@ import util.exception.UsernameExistException;
 public class DataInitSessionBean {
 
     @EJB(name = "PromotionSessionBeanLocal")
-    private PromotionSessionBeanLocal promotionSessionBeanLocal;
+    private PromotionEntitySessionBeanLocal promotionSessionBeanLocal;
 
     @EJB(name = "AttractionEntitySessionBeanLocal")
     private AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;

@@ -6,7 +6,6 @@
 package jsf.managedbean;
 
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
-import ejb.session.stateless.PromotionSessionBeanLocal;
 import entity.AttractionEntity;
 import entity.PromotionEntity;
 import java.io.Serializable;
@@ -21,6 +20,7 @@ import javax.faces.view.ViewScoped;
 import util.exception.AttractionNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.PromotionNotFoundException;
+import ejb.session.stateless.PromotionEntitySessionBeanLocal;
 
 /**
  *
@@ -34,7 +34,7 @@ public class PromotionManagedBean implements Serializable{
     private AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;
 
     @EJB(name = "PromotionSessionBeanLocal")
-    private PromotionSessionBeanLocal promotionSessionBeanLocal;
+    private PromotionEntitySessionBeanLocal promotionSessionBeanLocal;
 
     private PromotionEntity newPromotionEntity;
     private List<Long> attractionsToAdd;

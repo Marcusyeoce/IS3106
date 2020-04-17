@@ -7,6 +7,8 @@ package ejb.session.stateless;
 
 import entity.ReviewEntity;
 import javax.ejb.Local;
+import util.exception.InputDataValidationException;
+import util.exception.UnknownPersistenceException;
 
 /**
  *
@@ -15,5 +17,5 @@ import javax.ejb.Local;
 @Local
 public interface ReviewEntitySessionBeanLocal {
     
-    public Long createNewReview(ReviewEntity newReview);
+    public Long createNewReview(ReviewEntity newReview, Long attractionId, String username) throws InputDataValidationException, UnknownPersistenceException;
 }

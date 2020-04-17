@@ -9,13 +9,13 @@ import ejb.session.stateless.ArticleEntitySessionBeanLocal;
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import ejb.session.stateless.BookingEntitySessionBeanLocal;
 import ejb.session.stateless.MemberEntitySessionBeanLocal;
-import ejb.session.stateless.PromotionSessionBeanLocal;
 import ejb.session.stateless.ReviewEntitySessionBeanLocal;
 import ejb.session.stateless.TagEntitySessionBeanLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import ejb.session.stateless.PromotionEntitySessionBeanLocal;
 
 /**
  *
@@ -66,10 +66,10 @@ public class SessionBeanLookup {
         }
     }
     
-    public PromotionSessionBeanLocal lookupPromotionSessionBeanLocal() {
+    public PromotionEntitySessionBeanLocal lookupPromotionSessionBeanLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (PromotionSessionBeanLocal) c.lookup("java:global/PlandrSystem/PlandrSystem-ejb/PromotionSessionBean!ejb.session.stateless.PromotionSessionBeanLocal");
+            return (PromotionEntitySessionBeanLocal) c.lookup("java:global/PlandrSystem/PlandrSystem-ejb/PromotionSessionBean!ejb.session.stateless.PromotionSessionBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

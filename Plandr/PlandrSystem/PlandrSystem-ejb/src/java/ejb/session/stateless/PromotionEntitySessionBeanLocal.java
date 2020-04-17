@@ -17,7 +17,7 @@ import util.exception.PromotionNotFoundException;
  * @author oimun
  */
 @Local
-public interface PromotionSessionBeanLocal {
+public interface PromotionEntitySessionBeanLocal {
 
     public List<PromotionEntity> retrieveAllPromotions();
 

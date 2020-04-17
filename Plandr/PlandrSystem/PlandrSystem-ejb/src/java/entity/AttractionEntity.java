@@ -105,6 +105,22 @@ public abstract class AttractionEntity implements Serializable {
         }
     }
     
+    public void addReview(ReviewEntity reviewEntity)
+    {
+        if(reviewEntity != null)
+        {
+            if(!this.reviewEntities.contains(reviewEntity))
+            {
+                this.reviewEntities.add(reviewEntity);
+                
+                if(!reviewEntity.getAttractionEntity().equals(this))
+                {                    
+                    reviewEntity.setAttractionEntity(this);
+                }
+            }
+        }
+    }
+    
      public void removePromotion(PromotionEntity promotionEntity)
     {
         if(promotionEntity != null)

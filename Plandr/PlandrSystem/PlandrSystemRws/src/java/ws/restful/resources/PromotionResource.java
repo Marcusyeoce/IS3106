@@ -5,15 +5,18 @@
  */
 package ws.restful.resources;
 
-import ejb.session.stateless.PromotionSessionBeanLocal;
+import entity.PromotionEntity;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import ejb.session.stateless.PromotionEntitySessionBeanLocal;
+import javax.ws.rs.core.Response.Status;
+import ws.restful.model.RetrieveAllPromotionsRsp;
 
 /**
  * REST Web Service
@@ -27,7 +30,7 @@ public class PromotionResource {
     private UriInfo context;
 
     private final SessionBeanLookup sessionBeanLookup;
-    private final PromotionSessionBeanLocal promotionSessionBeanLocal;
+    private final PromotionEntitySessionBeanLocal promotionEntitySessionBeanLocal;
     
     /**
      * Creates a new instance of PromotionResource
@@ -35,27 +38,22 @@ public class PromotionResource {
     public PromotionResource() {
         sessionBeanLookup = new SessionBeanLookup();
         
-        promotionSessionBeanLocal = sessionBeanLookup.lookupPromotionSessionBeanLocal();
+        promotionEntitySessionBeanLocal = sessionBeanLookup.lookupPromotionSessionBeanLocal();
     }
 
-    /**
-     * Retrieves representation of an instance of ws.restful.resources.PromotionResource
-     * @return an instance of java.lang.String
-     */
+    @Path("retrieveAllPromotions")
     @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveAllPromotions() {
+        System.out.println("********** PromotionResource.retrieveAllPromotions()");
 
-    /**
-     * PUT method for updating or creating an instance of PromotionResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+        List<PromotionEntity> promotions = promotionEntitySessionBeanLocal.retrieveAllPromotions();
+            
+        for(PromotionEntity promotion: promotions) {
+           promotion.getAttractionEntities().clear();
+        }
+        
+        return Response.status(Status.OK).entity(new RetrieveAllPromotionsRsp(promotions)).build();
     }
 
 }

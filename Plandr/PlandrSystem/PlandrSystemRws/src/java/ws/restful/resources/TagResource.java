@@ -6,14 +6,17 @@
 package ws.restful.resources;
 
 import ejb.session.stateless.TagEntitySessionBeanLocal;
+import entity.TagEntity;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import ws.restful.model.RetrieveAllTagsRsp;
 
 /**
  * REST Web Service
@@ -38,24 +41,19 @@ public class TagResource {
         tagEntitySessionBeanLocal = sessionBeanLookup.lookupTagEntitySessionBeanLocal();
     }
 
-    /**
-     * Retrieves representation of an instance of ws.restful.resources.TagResource
-     * @return an instance of java.lang.String
-     */
+    @Path("retrieveAllTags")
     @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveAllTags() {
+        System.out.println("********** TagResource.retrieveAllTags()");
 
-    /**
-     * PUT method for updating or creating an instance of TagResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+        List<TagEntity> tags = tagEntitySessionBeanLocal.retrieveAllTags();
+            
+        for(TagEntity tag: tags) {
+           tag.getAttractionEntities().clear();
+        }
+        
+        return Response.status(Status.OK).entity(new RetrieveAllTagsRsp(tags)).build();
     }
 
 }
