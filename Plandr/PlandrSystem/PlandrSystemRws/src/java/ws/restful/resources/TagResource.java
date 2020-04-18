@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllTagsRsp;
 
 /**
@@ -45,15 +46,21 @@ public class TagResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllTags() {
-        System.out.println("********** TagResource.retrieveAllTags()");
+        try {
+            System.out.println("********** TagResource.retrieveAllTags()");
 
-        List<TagEntity> tags = tagEntitySessionBeanLocal.retrieveAllTags();
-            
-        for(TagEntity tag: tags) {
-           tag.getAttractionEntities().clear();
+            List<TagEntity> tags = tagEntitySessionBeanLocal.retrieveAllTags();
+
+            for(TagEntity tag: tags) {
+               tag.getAttractionEntities().clear();
+            }
+
+            return Response.status(Status.OK).entity(new RetrieveAllTagsRsp(tags)).build();
+        } catch (Exception ex) {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
         }
-        
-        return Response.status(Status.OK).entity(new RetrieveAllTagsRsp(tags)).build();
     }
 
 }

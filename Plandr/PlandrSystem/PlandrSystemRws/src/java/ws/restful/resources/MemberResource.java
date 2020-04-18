@@ -87,7 +87,7 @@ public class MemberResource {
     public Response createMember(CreateMemberReq createMemberReq) {
         if (createMemberReq != null) {
             try {
-                System.out.println("********** MemberResource.createMember(): Someone registers remotely via ws");
+                System.out.println("********** MemberResource.createMember()");
                 
                 CreateMemberRsp createMemberRsp = new CreateMemberRsp(memberEntitySessionBeanLocal.createNewMember(createMemberReq.getMember()));
                 
@@ -178,13 +178,13 @@ public class MemberResource {
         }
     }
     
-    @Path("memberSubscribe")
+    @Path("memberSubscribe/{subPackage}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateMemberPassword(@QueryParam("username") String username,
-                                         @QueryParam("password") String password,
-                                         @PathParam("subPackage") int subPackage) {
+    public Response memberSubscribe(@QueryParam("username") String username,
+                                    @QueryParam("password") String password,
+                                    @PathParam("subPackage") int subPackage) {
         try {
             MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
             System.out.println("*********** MemberResource.memberSubscribe(): Member" + member.getUsername() + " login remotely via ws");
@@ -193,7 +193,7 @@ public class MemberResource {
             
             return Response.status(Status.OK).build();
         } catch (MemberNotFoundException ex) {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid update product request");
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         } catch (InvalidLoginCredentialException ex) {

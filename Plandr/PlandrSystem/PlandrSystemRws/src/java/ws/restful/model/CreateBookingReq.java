@@ -17,17 +17,15 @@ public class CreateBookingReq {
     private String password;
     private BookingEntity booking;
     private List<Long> attractionIds;
-    private List<Long> promotionIds;
 
     public CreateBookingReq() {
     }
 
-    public CreateBookingReq(String username, String password, BookingEntity booking, List<Long> attractionIds, List<Long> promotionIds) {
+    public CreateBookingReq(String username, String password, BookingEntity booking, List<Long> attractionIds) {
         this.username = username;
         this.password = password;
         this.booking = booking;
         this.attractionIds = attractionIds;
-        this.promotionIds = promotionIds;
     }
 
     public String getUsername() {
@@ -52,14 +50,6 @@ public class CreateBookingReq {
 
     public void setAttractionIds(List<Long> attractionIds) {
         this.attractionIds = attractionIds;
-    }
-
-    public List<Long> getPromotionIds() {
-        return promotionIds;
-    }
-
-    public void setPromotionIds(List<Long> promotionIds) {
-        this.promotionIds = promotionIds;
     }
 
     public BookingEntity getBooking() {
