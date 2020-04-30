@@ -30,6 +30,7 @@ public class ArticleEntity implements Serializable {
     @Size(max = 2048)
     private String title;
     @Column(length = 300)
+    @NotNull
     @Size(max = 300)
     private String picture; //save the file path as a string
     @Column(nullable = false, length = 2048)
