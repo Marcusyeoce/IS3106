@@ -60,6 +60,6 @@ public class SearchAttractionsReq {
     public void setVisitTime(Date visitTime) {
         this.visitTime = visitTime;
     }
-    
+
     
 }

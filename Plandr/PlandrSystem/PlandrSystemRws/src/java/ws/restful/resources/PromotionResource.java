@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import ejb.session.stateless.PromotionEntitySessionBeanLocal;
 import javax.ws.rs.core.Response.Status;
+import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllPromotionsRsp;
 
 /**
@@ -45,15 +46,21 @@ public class PromotionResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllPromotions() {
-        System.out.println("********** PromotionResource.retrieveAllPromotions()");
+        try {
+            System.out.println("********** PromotionResource.retrieveAllPromotions()");
 
-        List<PromotionEntity> promotions = promotionEntitySessionBeanLocal.retrieveAllPromotions();
-            
-        for(PromotionEntity promotion: promotions) {
-           promotion.getAttractionEntities().clear();
+            List<PromotionEntity> promotions = promotionEntitySessionBeanLocal.retrieveAllPromotions();
+
+            for(PromotionEntity promotion: promotions) {
+               promotion.getAttractionEntities().clear();
+            }
+
+            return Response.status(Status.OK).entity(new RetrieveAllPromotionsRsp(promotions)).build();
+        } catch (Exception ex) {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
         }
-        
-        return Response.status(Status.OK).entity(new RetrieveAllPromotionsRsp(promotions)).build();
     }
 
 }
