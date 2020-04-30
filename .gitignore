@@ -11,3 +11,4 @@
 /Plandr/PlandrSystem/PlandrManagementSystem/build/
 /Plandr/PlandrSystem/PlandrManagementSystem/dist/
 /Plandr/PlandrSystemRws/nbproject/private/
+*.properties
