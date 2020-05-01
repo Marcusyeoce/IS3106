@@ -53,10 +53,7 @@ export class MemberService {
       .pipe(catchError(this.handleError));
   }
 
-  updateMemberPassword(
-    newPassword: string,
-    reenteredPassword: string
-  ): Observable<any> {
+  updateMemberPassword(newPassword: string, reenteredPassword: string): Observable<any> {
     let updateMemberPasswordReq = {
       "username": this.sessionService.getUsername(),
       "password": this.sessionService.getPassword(),
@@ -74,12 +71,17 @@ export class MemberService {
   }
 
   memberSubscribe(subPackage: number): Observable<any> {
-    return this.httpClient.post<any>(this.baseUrl + "/memberSubscribe/" + subPackage + "?username=" + 
-    this.sessionService.getUsername() + "&password=" + this.sessionService.getPassword(), null).pipe
+    let memberSubscribeReq = {
+      "username": this.sessionService.getUsername(),
+      "password": this.sessionService.getPassword(),
+      "subPackage": subPackage
+    };
+
+    return this.httpClient.post<any>(this.baseUrl + "/memberSubscribe", memberSubscribeReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
-  } //not quite certain about this
+  }
 
   // getMembers(): Member[] {
   //   return this.members;

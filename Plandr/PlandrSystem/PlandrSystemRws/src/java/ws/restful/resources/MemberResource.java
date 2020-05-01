@@ -34,6 +34,8 @@ import ws.restful.model.CreateMemberReq;
 import ws.restful.model.CreateMemberRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.MemberLoginRsp;
+import ws.restful.model.MemberSubscribeReq;
+import ws.restful.model.MemberSubscribeRsp;
 import ws.restful.model.UpdateMemberPasswordReq;
 import ws.restful.model.UpdateMemberReq;
 
@@ -128,7 +130,7 @@ public class MemberResource {
                 return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
             }
         } else {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid register new member request");
+            ErrorRsp errorRsp = new ErrorRsp("Invalid register request");
 
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         }
@@ -161,7 +163,7 @@ public class MemberResource {
                 return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
             }
         } else {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid update product request");
+            ErrorRsp errorRsp = new ErrorRsp("Invalid update profile request");
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         }
@@ -198,34 +200,41 @@ public class MemberResource {
                 return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
             }
         } else {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid update product request");
+            ErrorRsp errorRsp = new ErrorRsp("Invalid change password request");
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         }
     }
     
-    @Path("memberSubscribe/{subPackage}")
+    @Path("memberSubscribe")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response memberSubscribe(@QueryParam("username") String username,
-                                    @QueryParam("password") String password,
-                                    @PathParam("subPackage") int subPackage) {
-        try {
-            MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
-            System.out.println("*********** MemberResource.memberSubscribe(): Member" + member.getUsername() + " login remotely via ws");
+    public Response memberSubscribe(MemberSubscribeReq memberSubscribeReq) {
+        if (memberSubscribeReq != null) {
+            try {
+                MemberEntity member = memberEntitySessionBeanLocal.memberLogin(memberSubscribeReq.getUsername(), 
+                                                                               memberSubscribeReq.getPassword());
+                System.out.println("*********** MemberResource.memberSubscribe(): Member" + member.getUsername() + " login remotely via ws");
+
+                memberEntitySessionBeanLocal.memberSubscribe(memberSubscribeReq.getUsername(), memberSubscribeReq.getSubPackage());
+
+                MemberEntity subscribedMember = memberEntitySessionBeanLocal.retrieveMemberByUsername(member.getUsername());
                 
-            memberEntitySessionBeanLocal.memberSubscribe(username, subPackage);
-            
-            return Response.status(Status.OK).build();
-        } catch (MemberNotFoundException ex) {
-            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+                return Response.status(Status.OK).entity(new MemberSubscribeRsp(subscribedMember.getSubscribedUntil())).build();
+            } catch (MemberNotFoundException ex) {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+                return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
+            } catch (InvalidLoginCredentialException ex) {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+                return Response.status(Status.UNAUTHORIZED).entity(errorRsp).build();
+            }
+        } else {
+            ErrorRsp errorRsp = new ErrorRsp("Invalid subscribe request");
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
-        } catch (InvalidLoginCredentialException ex) {
-            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
-            
-            return Response.status(Status.UNAUTHORIZED).entity(errorRsp).build();
         }
     }
 }

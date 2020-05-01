@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     )
   }
 
-  staffLogout(): void {
+  memberLogout(): void {
 		this.sessionService.setIsLogin(false);
 		this.sessionService.setCurrentMember(null);
 		
