@@ -7,6 +7,9 @@ package ws.restful.resources;
 
 import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import entity.AttractionEntity;
+import entity.PromotionEntity;
+import entity.ReviewEntity;
+import entity.TagEntity;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -61,6 +64,23 @@ public class AttractionResource {
             System.out.println("********** AttractionResource.retrieveAllAttractions()");
             
             List<AttractionEntity> attractions = attractionEntitySessionBeanLocal.retrieveAllAttractions();
+            
+            for (AttractionEntity attraction: attractions) {
+                attraction.setCompanyEntity(null);
+                
+                for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                    promotion.getAttractionEntities().clear();
+                }
+                    
+                for (TagEntity tag: attraction.getTagEntities()) {
+                    tag.getAttractionEntities().clear();
+                }
+                    
+                for (ReviewEntity review: attraction.getReviewEntities()) {
+                    review.setAttractionEntity(null);
+                    review.getMemberEntity().getReviewEntities().clear();
+                }
+            }
         
             RetrieveAllAttractionsRsp retrieveAllAttractionsRsp = new RetrieveAllAttractionsRsp(attractions);
         
@@ -82,6 +102,20 @@ public class AttractionResource {
             System.out.println("********** AttractionResource.retrieveAttraction()");
             
             AttractionEntity attraction = attractionEntitySessionBeanLocal.retrieveAttractionByAttractionId(attractionId);
+            
+            attraction.setCompanyEntity(null);    
+            for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                promotion.getAttractionEntities().clear();
+            }
+
+            for (TagEntity tag: attraction.getTagEntities()) {
+                tag.getAttractionEntities().clear();
+            }
+
+            for (ReviewEntity review: attraction.getReviewEntities()) {
+                review.setAttractionEntity(null);
+                review.getMemberEntity().getReviewEntities().clear();
+            }
             
             return Response.status(Status.OK).entity(new RetrieveAttractionRsp(attraction)).build();
         } catch (AttractionNotFoundException ex) {

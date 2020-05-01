@@ -13,16 +13,16 @@ public class UpdateMemberPasswordReq {
     private String username;
     private String password;
     private String newPassword;
-    private String reeneteredPassword;
+    private String rePassword;
 
     public UpdateMemberPasswordReq() {
     }
 
-    public UpdateMemberPasswordReq(String username, String password, String newPassword, String reeneteredPassword) {
+    public UpdateMemberPasswordReq(String username, String password, String newPassword, String rePassword) {
         this.username = username;
         this.password = password;
         this.newPassword = newPassword;
-        this.reeneteredPassword = reeneteredPassword;
+        this.rePassword = rePassword;
     }
 
     public String getUsername() {
@@ -49,12 +49,12 @@ public class UpdateMemberPasswordReq {
         this.newPassword = newPassword;
     }
 
-    public String getReeneteredPassword() {
-        return reeneteredPassword;
+    public String getRePassword() {
+        return rePassword;
     }
 
-    public void setReeneteredPassword(String reeneteredPassword) {
-        this.reeneteredPassword = reeneteredPassword;
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
     }
     
     
