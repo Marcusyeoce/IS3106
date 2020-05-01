@@ -12,13 +12,13 @@ export class ProfileComponent implements OnInit {
 
   bookings: Booking[];
 
-  constructor(private bookingService: BookingService) 
-  { 
+  constructor(private bookingService: BookingService)
+  {
   }
 
-  ngOnInit() 
+  ngOnInit()
   {
-  
+    //this.bookings = this.bookingService.getBookings();
   }
 
 }

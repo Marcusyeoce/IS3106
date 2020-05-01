@@ -16,6 +16,7 @@ export class MakeBookingComponent implements OnInit {
   submitted: boolean;
   attractionIds: number[];
   newBooking: Booking;
+  attractionIds: number[];
 
   constructor(private router: Router, private bookingService: BookingService) 
   { 
