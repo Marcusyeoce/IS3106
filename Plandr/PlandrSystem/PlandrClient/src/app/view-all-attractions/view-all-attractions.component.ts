@@ -24,7 +24,7 @@ export class ViewAllAttractionsComponent implements OnInit {
   ngOnInit() {
     this.attractionService.getAttractions().subscribe(
       response => {
-        this.attractions = response.articles;
+        this.attractions = response.attractions;
       },
       error => {
         this.errorMessage = error;

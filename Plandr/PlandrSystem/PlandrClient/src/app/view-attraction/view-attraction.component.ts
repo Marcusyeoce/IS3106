@@ -15,7 +15,7 @@ export class ViewAttractionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.id = this.activatedRoute.snapshot.paramMap.get('attractionId');
   }
 
 }

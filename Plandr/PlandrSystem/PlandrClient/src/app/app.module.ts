@@ -31,6 +31,7 @@ import { WriteReviewComponent } from './write-review/write-review.component';
 import { SearchAttractionsComponent } from './search-attractions/search-attractions.component';
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
     SearchAttractionsComponent,
     CancelBookingComponent,
     UpdateProfileComponent,
+    SideMenuComponent,
   ],
   imports: [
     BrowserModule,
