@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { SessionService } from '../session.service';
 import { BookingService } from '../booking.service';
 import { Booking } from '../booking';
 
@@ -8,17 +10,24 @@ import { Booking } from '../booking';
   templateUrl: './view-all-bookings.component.html',
   styleUrls: ['./view-all-bookings.component.css']
 })
-export class ViewAllBookingsComponent implements OnInit {
 
+export class ViewAllBookingsComponent implements OnInit {
   bookings: Booking[];
 
-  constructor(private bookingService: BookingService) 
-  {
-  }
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public sessionService: SessionService,
+    private bookingService: BookingService) { }
 
-  ngOnInit() 
-  {
-    this.bookings = this.bookingService.getBookings();
+  ngOnInit() {
+    this.bookingService.getBookings().subscribe(
+      response => {
+        this.bookings = response.bookings;
+      },
+      error => {
+        console.log('********** ViewAllBookingsComponent.ts: ' + error);
+      }
+    );
   }
 
 }
