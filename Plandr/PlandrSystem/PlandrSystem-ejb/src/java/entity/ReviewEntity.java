@@ -43,13 +43,13 @@ public class ReviewEntity implements Serializable {
     
 
     public ReviewEntity() {
+        this.publishedDate = new Date();
     }
 
-    public ReviewEntity(String content, Date publishedDate) {
+    public ReviewEntity(String content) {
         this();
         
         this.content = content;
-        this.publishedDate = publishedDate;
     }
 
     public AttractionEntity getAttractionEntity() {

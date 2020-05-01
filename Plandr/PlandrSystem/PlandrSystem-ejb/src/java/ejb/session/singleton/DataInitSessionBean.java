@@ -39,8 +39,10 @@ import util.exception.TagNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 import ejb.session.stateless.PromotionEntitySessionBeanLocal;
+import entity.BookingEntity;
 import entity.MemberEntity;
 import util.enumeration.GenderEnum;
+import util.exception.MemberNotFoundException;
 
 @Singleton
 @LocalBean
@@ -134,6 +136,15 @@ public class DataInitSessionBean {
             
             memberEntitySessionBeanLocal.createNewMember(new MemberEntity("Member 1", "member1@gmail.com", "91234567", "member1", "password", GenderEnum.MALE, new Date(100, 2, 1), "1234123412341234"));
             memberEntitySessionBeanLocal.createNewMember(new MemberEntity("Member 2", "member2@gmail.com", "98765432", "member2", "password", GenderEnum.FEMALE, new Date(100, 9, 25), "9876543223456789"));
+            
+            attractions = new ArrayList<>();
+            attractions.add(1l);
+            attractions.add(3l);
+            bookingEntitySessionBeanLocal.createNewBooking(new BookingEntity(new BigDecimal("25.00"), new Date(120, 05, 05), "Casual date for 2"), "member1", attractions);
+            attractions = new ArrayList<>();
+            attractions.add(2l);
+            attractions.add(4l);
+            bookingEntitySessionBeanLocal.createNewBooking(new BookingEntity(new BigDecimal("0.00"), new Date(120, 05, 06), "Romantic day for wedding anniversary"), "member2", attractions);
         }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException | StaffNotFoundException ex){
             ex.printStackTrace();
         }

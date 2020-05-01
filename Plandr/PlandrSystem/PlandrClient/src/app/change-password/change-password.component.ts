@@ -15,7 +15,7 @@ import { Member } from '../member';
 export class ChangePasswordComponent implements OnInit {
   submitted: boolean;
   newPassword: string;
-  reenteredPassword: string;
+  rePassword: string;
 
   resultSuccess: boolean;
 	resultError: boolean;
@@ -38,7 +38,7 @@ export class ChangePasswordComponent implements OnInit {
     this.submitted = true;
 
     if(updateProductForm.valid) {
-      this.memberService.updateMemberPassword(this.newPassword, this.reenteredPassword).subscribe(
+      this.memberService.updateMemberPassword(this.newPassword, this.rePassword).subscribe(
         response => {
           this.sessionService.setPassword(this.newPassword);
 

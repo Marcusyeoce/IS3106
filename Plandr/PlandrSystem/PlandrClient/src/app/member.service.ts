@@ -53,12 +53,12 @@ export class MemberService {
       .pipe(catchError(this.handleError));
   }
 
-  updateMemberPassword(newPassword: string, reenteredPassword: string): Observable<any> {
+  updateMemberPassword(newPassword: string, rePassword: string): Observable<any> {
     let updateMemberPasswordReq = {
       "username": this.sessionService.getUsername(),
       "password": this.sessionService.getPassword(),
       "newPassword": newPassword,
-      "reenteredPassword": reenteredPassword
+      "rePassword": rePassword
     };
 
     return this.httpClient

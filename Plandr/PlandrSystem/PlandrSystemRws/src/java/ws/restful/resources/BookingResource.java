@@ -31,6 +31,7 @@ import util.exception.BookingNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.UnknownPersistenceException;
+import ws.restful.model.CancelBookingReq;
 import ws.restful.model.CreateBookingReq;
 import ws.restful.model.CreateBookingRsp;
 import ws.restful.model.ErrorRsp;
@@ -70,7 +71,7 @@ public class BookingResource {
                                              @QueryParam("password") String password) {
         try {
             MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
-            System.out.println("*********** BookingResource.retrieveBookingsByMember(): Member" + member.getUsername() + " login remotely via ws");
+            System.out.println("*********** BookingResource.retrieveBookingsByMember(): Member " + member.getUsername() + " login remotely via ws");
             
             List<BookingEntity> bookings = bookingEntitySessionBeanLocal.retrieveBookingsByMember(member.getUsername());
             
@@ -116,7 +117,7 @@ public class BookingResource {
                                     @PathParam("bookingId") Long bookingId) {
         try {
             MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
-            System.out.println("*********** BookingResource.retrieveBooking(): Member" + member.getUsername() + " login remotely via ws");
+            System.out.println("*********** BookingResource.retrieveBooking(): Member " + member.getUsername() + " login remotely via ws");
             
             BookingEntity booking = bookingEntitySessionBeanLocal.retrieveBookingByBookingId(bookingId);
             
@@ -163,7 +164,7 @@ public class BookingResource {
         if (createBookingReq != null) {
             try {
                 MemberEntity member = memberEntitySessionBeanLocal.memberLogin(createBookingReq.getUsername(), createBookingReq.getPassword());
-                System.out.println("*********** BookingResource.createBooking(): Member" + member.getUsername() + " login remotely via ws");
+                System.out.println("*********** BookingResource.createBooking(): Member " + member.getUsername() + " login remotely via ws");
                 
                 CreateBookingRsp createBookingRsp = new CreateBookingRsp(bookingEntitySessionBeanLocal.createNewBooking(createBookingReq.getBooking(), 
                                                                                                                         createBookingReq.getUsername(), 
@@ -191,16 +192,14 @@ public class BookingResource {
     
     @Path("cancelBooking")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response cancelBooking(@QueryParam("username") String username,
-                                  @QueryParam("password") String password,
-                                  @PathParam("bookingId") Long bookingId) {
+    public Response cancelBooking(CancelBookingReq cancelBookingReq) {
         try {
-            MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
-            System.out.println("*********** BookingResource.cancelBooking(): Member" + member.getUsername() + " login remotely via ws");
+            MemberEntity member = memberEntitySessionBeanLocal.memberLogin(cancelBookingReq.getUsername(), cancelBookingReq.getPassword());
+            System.out.println("*********** BookingResource.cancelBooking(): Member " + member.getUsername() + " login remotely via ws");
             
-            bookingEntitySessionBeanLocal.cancelBooking(bookingId);
+            bookingEntitySessionBeanLocal.cancelBooking(cancelBookingReq.getBookingId());
             
             return Response.status(Status.OK).build();
         } catch (InvalidLoginCredentialException ex) {
