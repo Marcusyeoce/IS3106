@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -30,8 +31,8 @@ public class PlaceEntity extends AttractionEntity implements Serializable {
         super();
     }
 
-    public PlaceEntity(Date openingTime, Date closingTime, String name, String description, String location, String picture, CompanyEntity companyEntity) {
-        super(name, description, location, picture, companyEntity);
+    public PlaceEntity(Date openingTime, Date closingTime, String name, String description, String location, String picture, CompanyEntity companyEntity, BigDecimal unitPrice) {
+        super(name, description, location, picture, companyEntity, unitPrice);
         this.openingTime = openingTime;
         this.closingTime = closingTime;
     }

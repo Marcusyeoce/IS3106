@@ -194,6 +194,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
                 attractionEntityToUpdate.setLocation(attraction.getLocation());
                 attractionEntityToUpdate.setDescription(attraction.getDescription());
                 attractionEntityToUpdate.setPicture(attraction.getPicture());
+                attractionEntityToUpdate.setUnitPrice(attraction.getUnitPrice());
                         
                 attractionEntityToUpdate.setCompanyEntity(attraction.getCompanyEntity());
                 attraction.getCompanyEntity().getAttractionsEntities().add(attractionEntityToUpdate);

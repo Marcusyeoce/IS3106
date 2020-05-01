@@ -14,6 +14,7 @@ import { Booking } from '../booking';
 export class MakeBookingComponent implements OnInit {
 
   submitted: boolean;
+  attractionIds: number[];
   newBooking: Booking;
   attractionIds: number[];
 

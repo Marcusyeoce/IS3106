@@ -90,7 +90,7 @@ public class MemberEntity implements Serializable {
         subscribed = false;
     }
 
-    public MemberEntity(String name, String email, String contactNumber, String username, String password, GenderEnum gender, Date dob, boolean subscribed, Date subscribedUntil, String creditCard) {
+    public MemberEntity(String name, String email, String contactNumber, String username, String password, GenderEnum gender, Date dob, String creditCard) {
         this();
 
         this.name = name;
