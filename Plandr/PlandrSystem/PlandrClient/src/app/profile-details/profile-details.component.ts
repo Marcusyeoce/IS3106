@@ -11,14 +11,13 @@ import { Member } from '../member';
 })
 export class ProfileDetailsComponent implements OnInit {
 
-  member: Member;
+  memberToView: Member;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService) { }
 
   ngOnInit() {
-    this.member = this.sessionService.getCurrentMember();
+    this.memberToView = this.sessionService.getCurrentMember();
   }
-
 }

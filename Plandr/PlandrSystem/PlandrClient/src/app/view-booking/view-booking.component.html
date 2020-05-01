@@ -1,1 +1,31 @@
-<p>view-booking works!</p>
+<h2>View Booking</h2>
+
+<div>
+
+    <h3>Booking ID: {{bookingToView.bookingId}}</h3>
+
+    <h3>Booking Date: {{bookingToView.bookingDate}}</h3>
+
+    <h3>Total Price: ${{bookingToView.totalPrice}}</h3>
+
+    <h3>Description: {{bookingToView.description}}</h3>
+
+    <h3>Status: {{bookingToView.cancelled}}</h3>
+
+    &nbsp;
+
+    <h3>Itinerary:</h3>
+
+    <table>
+        <thead>
+            <th>Timing</th>
+            <th>Attraction</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let attraction of attractions"></tr>
+                <td></td>
+                <td></td>
+        </tbody>
+    </table>
+
+</div>

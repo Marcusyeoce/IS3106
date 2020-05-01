@@ -12,6 +12,7 @@ import { Booking } from '../booking';
 })
 
 export class ViewBookingComponent implements OnInit {
+  
   bookingId: number;
   bookingToView: Booking;
   retrieveBookingError: boolean;
