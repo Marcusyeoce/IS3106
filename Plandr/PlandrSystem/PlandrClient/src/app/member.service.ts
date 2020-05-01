@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -19,8 +15,6 @@ const httpOptions = {
 })
 export class MemberService {
   baseUrl: string = "/api/Member";
-
-  members: Member[];
 
   constructor(
     private httpClient: HttpClient,
@@ -47,7 +41,7 @@ export class MemberService {
       .pipe(catchError(this.handleError));
   }
 
-  updateProfle(memberToUpdate: Member): Observable<any> {
+  updateProfile(memberToUpdate: Member): Observable<any> {
     let updateMemberReq = {
       "username": this.sessionService.getUsername(),
       "password": this.sessionService.getPassword(),

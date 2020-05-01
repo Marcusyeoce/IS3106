@@ -27,7 +27,7 @@ export class ArticleService {
       .pipe(catchError(this.handleError));
   }
 
-  getArticleById(articleId: number): Observable<any> {
+  getArticleByArticleId(articleId: number): Observable<any> {
     return this.httpClient
       .get<any>(this.baseUrl + "/retrieveArticle/" + articleId)
       .pipe(catchError(this.handleError));
