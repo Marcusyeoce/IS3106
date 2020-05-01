@@ -5,7 +5,7 @@
 </div> 
 
 <div *ngIf="!errorMessage">
-    <table id="AttractionTable" style="width:100%; cellpadding: 3px; cellspacing: 1px;">
+    <table id="AttractionTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
         <thead>
             <th>Attraction ID</th>
             <th>Name</th>
@@ -25,7 +25,7 @@
                 <td>{{attraction.picture}}</td>
                 <td>{{attraction.startTimeStamp}}</td>
                 <td>{{attraction.endTimeStamp}}</td>
-                <td><a routerLink="/viewAttraction/{{attractionId}}">View More</a></td>
+                <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
             </tr>
         </tbody>
     </table>
