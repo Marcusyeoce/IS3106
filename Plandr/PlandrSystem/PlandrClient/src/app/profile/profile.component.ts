@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.bookings = this.bookingService.getBookings();
+  
   }
 
 }

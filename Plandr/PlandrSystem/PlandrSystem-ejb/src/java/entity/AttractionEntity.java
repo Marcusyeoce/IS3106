@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -45,7 +48,12 @@ public abstract class AttractionEntity implements Serializable {
     @Column(length = 300)
     @Size(max = 300)
     private String picture;
-
+    @Column(nullable = false, precision = 11, scale = 2)
+    @NotNull
+    @DecimalMin("0.00")
+    @Digits(integer = 9, fraction = 2)
+    private BigDecimal unitPrice;
+    
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private CompanyEntity companyEntity;
@@ -66,13 +74,14 @@ public abstract class AttractionEntity implements Serializable {
         promotionEntities = new ArrayList<>();
     }
 
-    public AttractionEntity(String name, String description, String location, String picture, CompanyEntity companyEntity) {
+    public AttractionEntity(String name, String description, String location, String picture, CompanyEntity companyEntity, BigDecimal unitPrice) {
         this();
         this.name = name;
         this.description = description;
         this.location = location;
         this.picture = picture;
         this.companyEntity = companyEntity;
+        this.unitPrice = unitPrice;
     }
     
     public void addTag(TagEntity tagEntity)
@@ -235,6 +244,14 @@ public abstract class AttractionEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.AttractionEntity[ id=" + attractionId + " ]";
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
     
 }

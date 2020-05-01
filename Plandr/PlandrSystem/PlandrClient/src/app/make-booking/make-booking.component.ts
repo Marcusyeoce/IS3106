@@ -14,6 +14,7 @@ import { Booking } from '../booking';
 export class MakeBookingComponent implements OnInit {
 
   submitted: boolean;
+  attractionIds: number[];
   newBooking: Booking;
 
   constructor(private router: Router, private bookingService: BookingService) 
@@ -38,7 +39,7 @@ export class MakeBookingComponent implements OnInit {
 
     if (createBookingForm.valid) 
     {
-      this.bookingService.createNewBooking(this.newBooking);
+      this.bookingService.createNewBooking(this.newBooking, this.attractionIds);
       this.router.navigate(["/profile"]);
     }
   }

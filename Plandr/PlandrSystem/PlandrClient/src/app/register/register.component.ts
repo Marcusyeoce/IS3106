@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
     if (registerForm.valid) 
     {
-      this.memberService.createNewMember(this.newMember);
+      this.memberService.registerMember(this.newMember);
       //route to main page?
     }
   }
