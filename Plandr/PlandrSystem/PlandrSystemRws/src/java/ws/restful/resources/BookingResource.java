@@ -7,8 +7,13 @@ package ws.restful.resources;
 
 import ejb.session.stateless.BookingEntitySessionBeanLocal;
 import ejb.session.stateless.MemberEntitySessionBeanLocal;
+import entity.AttractionEntity;
 import entity.BookingEntity;
 import entity.MemberEntity;
+import entity.PromotionEntity;
+import entity.ReviewEntity;
+import entity.TagEntity;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -67,9 +72,30 @@ public class BookingResource {
             MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
             System.out.println("*********** BookingResource.retrieveBookingsByMember(): Member" + member.getUsername() + " login remotely via ws");
             
-            RetrieveBookingsByMemberRsp retrieveBookingsByMemberRsp = new RetrieveBookingsByMemberRsp(bookingEntitySessionBeanLocal.retrieveBookingsByMember(member.getUsername()));
+            List<BookingEntity> bookings = bookingEntitySessionBeanLocal.retrieveBookingsByMember(member.getUsername());
             
-            return Response.status(Status.OK).entity(retrieveBookingsByMemberRsp).build();
+            for (BookingEntity booking: bookings) {
+                booking.setMemberEntity(null);
+                
+                for (AttractionEntity attraction: booking.getAttractionEntities()) {
+                    attraction.setCompanyEntity(null);
+                    
+                    for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                        promotion.getAttractionEntities().clear();
+                    }
+                    
+                    for (TagEntity tag: attraction.getTagEntities()) {
+                        tag.getAttractionEntities().clear();
+                    }
+                    
+                    for (ReviewEntity review: attraction.getReviewEntities()) {
+                        review.setAttractionEntity(null);
+                        review.getMemberEntity().getReviewEntities().clear();
+                    }
+                }
+            }
+            
+            return Response.status(Status.OK).entity(new RetrieveBookingsByMemberRsp(bookings)).build();
         } catch (InvalidLoginCredentialException ex) {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
@@ -93,6 +119,25 @@ public class BookingResource {
             System.out.println("*********** BookingResource.retrieveBooking(): Member" + member.getUsername() + " login remotely via ws");
             
             BookingEntity booking = bookingEntitySessionBeanLocal.retrieveBookingByBookingId(bookingId);
+            
+            booking.setMemberEntity(null);
+                
+            for (AttractionEntity attraction: booking.getAttractionEntities()) {
+                attraction.setCompanyEntity(null);
+                    
+                for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                    promotion.getAttractionEntities().clear();
+                }
+                    
+                for (TagEntity tag: attraction.getTagEntities()) {
+                    tag.getAttractionEntities().clear();
+                }
+                    
+                for (ReviewEntity review: attraction.getReviewEntities()) {
+                    review.setAttractionEntity(null);
+                    review.getMemberEntity().getReviewEntities().clear();
+                }
+            }
             
             return Response.status(Status.OK).entity(new RetrieveBookingRsp(booking)).build();
         } catch (InvalidLoginCredentialException ex) {

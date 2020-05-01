@@ -1,7 +1,11 @@
+import { Member } from './member';
+
 export class Review {
   reviewId: number;
   content: string;
   publishedDate: Date;
+
+  member: Member;
 
   constructor(reviewId?: number, content?: string, publishedDate?: Date) {
     this.reviewId = reviewId;

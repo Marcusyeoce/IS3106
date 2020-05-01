@@ -1,6 +1,5 @@
 import { GenderEnum } from "./gender-enum.enum";
 import { Booking } from "./booking";
-import { Review } from "./review";
 
 export class Member {
   memberId: number;
@@ -16,7 +15,6 @@ export class Member {
   creditCard: string;
 
   bookings: Booking[];
-  reviews: Review[];
 
   constructor(
     memberId?: number,

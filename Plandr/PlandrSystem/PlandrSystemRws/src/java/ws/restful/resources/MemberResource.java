@@ -6,7 +6,12 @@
 package ws.restful.resources;
 
 import ejb.session.stateless.MemberEntitySessionBeanLocal;
+import entity.AttractionEntity;
+import entity.BookingEntity;
 import entity.MemberEntity;
+import entity.PromotionEntity;
+import entity.ReviewEntity;
+import entity.TagEntity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -67,6 +72,27 @@ public class MemberResource {
             
             member.setPassword(null);
             member.setSalt(null);
+            member.getReviewEntities().clear();
+            for (BookingEntity booking: member.getBookingEntities()) {
+                booking.setMemberEntity(null);
+                
+                for (AttractionEntity attraction: booking.getAttractionEntities()) {
+                    attraction.setCompanyEntity(null);
+                    
+                    for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                        promotion.getAttractionEntities().clear();
+                    }
+                    
+                    for (TagEntity tag: attraction.getTagEntities()) {
+                        tag.getAttractionEntities().clear();
+                    }
+                    
+                    for (ReviewEntity review: attraction.getReviewEntities()) {
+                        review.setAttractionEntity(null);
+                        review.getMemberEntity().getReviewEntities().clear();
+                    }
+                }
+            }
             
             return Response.status(Status.OK).entity(new MemberLoginRsp(member)).build();
         } catch (InvalidLoginCredentialException ex) {
