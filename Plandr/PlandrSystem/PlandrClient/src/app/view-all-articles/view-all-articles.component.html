@@ -10,8 +10,6 @@
             <th>Article ID</th>
             <th>Title</th>
             <th>Picture</th>
-            <th>Content</th>
-            <th>Published Date</th>
             <th>Action</th>
         </thead>
         <tbody>
@@ -19,9 +17,7 @@
                 <td>{{article.articleId}}</td>
                 <td>{{article.title}}</td>
                 <td>{{article.picture}}</td>
-                <td>{{article.content}}</td>
-                <td>{{article.publishedDate}}</td>
-                <td><a routerLink="viewArticle/{{articleId}}">View</a></td>
+                <td><a routerLink="/viewArticle/{{article.articleId}}">View More</a></td>
             </tr>
         </tbody>
     </table>

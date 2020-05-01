@@ -12,6 +12,7 @@ import { Article } from '../article';
 })
 
 export class ViewArticleComponent implements OnInit {
+  
   articleId: number;
   articleToView: Article;
   retrieveArticleError: boolean;
@@ -25,6 +26,7 @@ export class ViewArticleComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.articleId = parseInt(this.activatedRoute.snapshot.paramMap.get('articleId'));
 
     this.articleService.getArticleByArticleId(this.articleId).subscribe(

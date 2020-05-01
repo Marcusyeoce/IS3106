@@ -14,7 +14,7 @@
     </context-param>
     <context-param>
         <param-name>alternatedocroot_1</param-name>
-        <param-value>C:\Users\celes\OneDrive\Documents\School\Y2S2\IS3106\IS3106\uploadedFiles</param-value>
+        <param-value>C:\IS3106\uploadedFiles</param-value>
     </context-param>
     <listener>
         <description>ServletContextListener, HttpSessionListener</description>

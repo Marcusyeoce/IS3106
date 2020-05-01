@@ -28,7 +28,7 @@ export class ViewAllAttractionsComponent implements OnInit {
       },
       error => {
         this.errorMessage = error;
-        console.log('********** ViewAllArticlesComponent.ts: ' + error);
+        console.log('********** ViewAllAttractionsComponent.ts: ' + error);
       }
     );
   }

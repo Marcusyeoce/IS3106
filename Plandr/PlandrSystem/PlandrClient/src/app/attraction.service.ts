@@ -8,13 +8,13 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { SessionService } from "./session.service";
-import { Article } from "./article";
+import { Attraction } from "./attraction";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttractionService {
-  baseUrl: string = "api/Attraction";
+  baseUrl: string = "/api/Attraction";
 
   constructor(
     private httpClient: HttpClient,
