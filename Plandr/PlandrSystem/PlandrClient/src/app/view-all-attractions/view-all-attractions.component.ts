@@ -22,6 +22,15 @@ export class ViewAllAttractionsComponent implements OnInit {
     private attractionService: AttractionService) { }
 
   ngOnInit() {
+    this.attractionService.getAttractions().subscribe(
+      response => {
+        this.attractions = response.articles;
+      },
+      error => {
+        this.errorMessage = error;
+        console.log('********** ViewAllArticlesComponent.ts: ' + error);
+      }
+    );
   }
 
 }

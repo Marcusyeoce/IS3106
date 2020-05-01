@@ -5,13 +5,14 @@
 </div> 
 
 <div *ngIf="!errorMessage">
-    <table>
+    <table id="ArticleTable" style="width:100%; cellpadding: 3px; cellspacing: 1px;">
         <thead>
             <th>Article ID</th>
             <th>Title</th>
             <th>Picture</th>
             <th>Content</th>
             <th>Published Date</th>
+            <th>Action</th>
         </thead>
         <tbody>
             <tr *ngFor="let article of articles">
@@ -20,6 +21,7 @@
                 <td>{{article.picture}}</td>
                 <td>{{article.content}}</td>
                 <td>{{article.publishedDate}}</td>
+                <td><a routerLink="viewArticle/{{articleId}}">View</a></td>
             </tr>
         </tbody>
     </table>
