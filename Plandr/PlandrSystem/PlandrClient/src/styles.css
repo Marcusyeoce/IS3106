@@ -1,7 +1,3 @@
-.default-background-color {
-    background-color: lightgrey;
-}
-
 .default-button {
     background-color: black;
     color: white;
@@ -11,4 +7,35 @@
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.sidemenu {
+	display: block;
+	width: 15%;
+	margin: 0.5% 0% 0.5% 0%;
+	padding: 3px 3px 3px 3px;
+	float: left;
+	background-color: lightgrey;
+}
+
+.footer {
+	display: block;
+	margin: 0.5% 0% 0% 0%;
+	clear: both;
+	background-color: lightgrey;
+}
+
+.header {
+	display: block;
+	padding: 3px 3px 3px 3px;
+	clear: both;
+	background-color: lightgrey;
+}
+
+.content {
+	display: block;
+	width: 67.5%;
+	margin: 0.5% 0.5% 0.5% 0.5%;
+	padding: 3px 3px 3px 3px;
+	float: left;
 }
