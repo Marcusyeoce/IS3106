@@ -13,6 +13,7 @@ import java.util.List;
  * @author Pham The Dzung
  */
 public class RetrieveAllArticlesRsp {
+    
     private List<ArticleEntity> articles;
 
     public RetrieveAllArticlesRsp() {

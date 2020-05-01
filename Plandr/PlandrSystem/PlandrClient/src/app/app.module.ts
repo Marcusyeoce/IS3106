@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material";
+import { HttpClientModule } from '@angular/common/http';
 
 import { ButtonModule } from "primeng/button";
 
@@ -63,6 +64,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
     FormsModule,
     ButtonModule,
     MatButtonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
