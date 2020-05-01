@@ -44,7 +44,7 @@ export class SubscribeComponent implements OnInit {
 
           this.resultSuccess = true;
 					this.resultError = false;
-					this.message = "Subscribed successfully");
+					this.message = "Subscribed successfully";
         },
         error => {
           this.resultError = true;
