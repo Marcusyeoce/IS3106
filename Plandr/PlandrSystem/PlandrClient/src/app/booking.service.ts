@@ -82,8 +82,12 @@ export class BookingService {
   }
 
   cancelBooking(bookingId: number): Observable<any> {
-    return this.httpClient.post<any>(this.baseUrl + "/cancelBooking/" + bookingId + "?username=" + 
-    this.sessionService.getUsername() + "&password=" + this.sessionService.getPassword(), null).pipe
+    let cancelBookingReq = {
+      "username": this.sessionService.getUsername(),
+      "password": this.sessionService.getPassword(),
+      "bookingId": bookingId
+    }
+    return this.httpClient.post<any>(this.baseUrl + "/cancelBooking", cancelBookingReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);

@@ -70,7 +70,7 @@ public class MemberResource {
                                 @QueryParam("password") String password) {
         try {
             MemberEntity member = memberEntitySessionBeanLocal.memberLogin(username, password);
-            System.out.println("*********** MemberResource.memberLogin(): Member" + member.getUsername() + " login remotely via ws");
+            System.out.println("*********** MemberResource.memberLogin(): Member " + member.getUsername() + " login remotely via ws");
             
             member.setPassword(null);
             member.setSalt(null);
@@ -144,7 +144,7 @@ public class MemberResource {
         if (updateMemberReq != null) {
             try {
                 MemberEntity member = memberEntitySessionBeanLocal.memberLogin(updateMemberReq.getUsername(), updateMemberReq.getPassword());
-                System.out.println("*********** MemberResource.updateProfile(): Member" + member.getUsername() + " login remotely via ws");
+                System.out.println("*********** MemberResource.updateProfile(): Member " + member.getUsername() + " login remotely via ws");
                 
                 memberEntitySessionBeanLocal.updateMember(member);
                 
@@ -214,7 +214,7 @@ public class MemberResource {
             try {
                 MemberEntity member = memberEntitySessionBeanLocal.memberLogin(memberSubscribeReq.getUsername(), 
                                                                                memberSubscribeReq.getPassword());
-                System.out.println("*********** MemberResource.memberSubscribe(): Member" + member.getUsername() + " login remotely via ws");
+                System.out.println("*********** MemberResource.memberSubscribe(): Member " + member.getUsername() + " login remotely via ws");
 
                 memberEntitySessionBeanLocal.memberSubscribe(memberSubscribeReq.getUsername(), memberSubscribeReq.getSubPackage());
 

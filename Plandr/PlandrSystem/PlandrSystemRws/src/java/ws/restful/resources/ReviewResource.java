@@ -55,7 +55,7 @@ public class ReviewResource {
         if (createReviewReq != null) {
             try {
                 MemberEntity member = memberEntitySessionBeanLocal.memberLogin(createReviewReq.getUsername(), createReviewReq.getPassword());
-                System.out.println("*********** ReviewResource.createReview(): Member" + member.getUsername() + " login remotely via ws");
+                System.out.println("*********** ReviewResource.createReview(): Member " + member.getUsername() + " login remotely via ws");
                 
                 CreateReviewRsp createReviewRsp = new CreateReviewRsp(reviewEntitySessionBeanLocal.createNewReview(createReviewReq.getReview(), createReviewReq.getAttractionId(), createReviewReq.getUsername()));
                 
