@@ -88,7 +88,7 @@ export class BookingService {
 			catchError(this.handleError)
 		);
   }
-
+  
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
 

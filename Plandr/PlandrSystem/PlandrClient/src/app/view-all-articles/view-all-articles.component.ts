@@ -12,7 +12,9 @@ import { Article } from '../article';
 })
 
 export class ViewAllArticlesComponent implements OnInit {
+
   articles: Article[];
+  errorMessage: string;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -25,6 +27,7 @@ export class ViewAllArticlesComponent implements OnInit {
         this.articles = response.articles;
       },
       error => {
+        this.errorMessage = error;
         console.log('********** ViewAllArticlesComponent.ts: ' + error);
       }
     );

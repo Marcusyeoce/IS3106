@@ -1,11 +1,26 @@
 <h2>View All Articles</h2>
 
-<table>
-    <tbody>
-        <tr>
-            <td>Article Title</td>
-            <td>Article Picture</td>
-            <td>Article Writeup</td>
-        </tr>
-    </tbody>
-</table>
+<div *ngIf="errorMessage">
+    {{errorMessage}}
+</div> 
+
+<div *ngIf="!errorMessage">
+    <table>
+        <thead>
+            <th>Article ID</th>
+            <th>Title</th>
+            <th>Picture</th>
+            <th>Content</th>
+            <th>Published Date</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let article of articles">
+                <td>{{article.articleId}}</td>
+                <td>{{article.title}}</td>
+                <td>{{article.picture}}</td>
+                <td>{{article.content}}</td>
+                <td>{{article.publishedDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

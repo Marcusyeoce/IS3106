@@ -12,7 +12,9 @@ import { Attraction } from '../attraction';
 })
 
 export class ViewAllAttractionsComponent implements OnInit {
+
   attractions: Attraction[];
+  errorMessage: string;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
