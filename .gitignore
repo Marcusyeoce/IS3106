@@ -14,3 +14,5 @@
 *.properties
 /Plandr/PlandrSystem/PlandrSystemRws/build/
 /Plandr/PlandrSystem/PlandrSystemRws/dist/
+Plandr/PlandrSystem/PlandrManagementSystem/web/WEB-INF/glassfish-web.xml
+Plandr/PlandrSystem/PlandrSystem-ejb/src/java/ejb/session/singleton/DataInitSessionBean.java

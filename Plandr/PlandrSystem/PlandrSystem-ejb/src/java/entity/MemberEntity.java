@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import util.enumeration.GenderEnum;
 import util.security.CryptographicHelper;
 
 /**
@@ -50,9 +53,10 @@ public class MemberEntity implements Serializable {
     @Column(columnDefinition = "CHAR(32) NOT NULL")
     @NotNull
     private String password;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NotNull
-    private String gender;
+    private GenderEnum gender;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull
@@ -60,7 +64,7 @@ public class MemberEntity implements Serializable {
     @Column(nullable = false)
     @NotNull
     private boolean subscribed;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
 //    @NotNull
     private Date subscribedUntil;
@@ -86,7 +90,7 @@ public class MemberEntity implements Serializable {
         subscribed = false;
     }
 
-    public MemberEntity(String name, String email, String contactNumber, String username, String password, String gender, Date dob, boolean subscribed, Date subscribedUntil, String creditCard) {
+    public MemberEntity(String name, String email, String contactNumber, String username, String password, GenderEnum gender, Date dob, boolean subscribed, Date subscribedUntil, String creditCard) {
         this();
 
         this.name = name;
@@ -171,11 +175,11 @@ public class MemberEntity implements Serializable {
         }
     }
 
-    public String getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(GenderEnum gender) {
         this.gender = gender;
     }
 

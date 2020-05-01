@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { Router } from '@angular/router';
+import { SessionService } from '../session.service';
+import { MemberService } from '../member.service';
+import { Member } from '../member';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -8,14 +11,60 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) 
-  { 
+export class HeaderComponent implements OnInit {
+  @Output() 
+	childEvent = new EventEmitter();	
+	
+	username: string;
+	password: string;
+	loginError: boolean;
+	errorMessage: string;
+
+
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              public sessionService: SessionService,
+              private memberService: MemberService) {
+    this.loginError = false;
   }
 
   ngOnInit() {
   }
+
+  memberLogin(): void {
+    this.sessionService.setUsername(this.username);
+    this.sessionService.setPassword(this.password);
+    
+    this.memberService.memberLogin(this.username, this.password).subscribe(
+      response => {
+        let loginMember: Member = response.member;
+
+        if(loginMember != null) {
+          this.sessionService.setIsLogin(true);
+					this.sessionService.setCurrentMember(loginMember);					
+					this.loginError = false;
+					
+					this.childEvent.emit();
+					
+					this.router.navigate(["/main"]);
+        } else {
+          this.loginError = true;
+        }
+      },
+      error => {
+        this.loginError = true;
+				this.errorMessage = error
+      }
+    )
+  }
+
+  staffLogout(): void {
+		this.sessionService.setIsLogin(false);
+		this.sessionService.setCurrentMember(null);
+		
+		this.router.navigate(["/main"]);
+	}
 
   redirectToMain() 
   { 

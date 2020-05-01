@@ -30,6 +30,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
 import { WriteReviewComponent } from './write-review/write-review.component';
 import { SearchAttractionsComponent } from './search-attractions/search-attractions.component';
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { CancelBookingComponent } from './cancel-booking/cancel-booking.componen
     WriteReviewComponent,
     SearchAttractionsComponent,
     CancelBookingComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     BrowserModule,

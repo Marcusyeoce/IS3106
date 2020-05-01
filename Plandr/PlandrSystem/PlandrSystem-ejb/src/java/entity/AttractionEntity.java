@@ -42,6 +42,8 @@ public abstract class AttractionEntity implements Serializable {
     @NotNull
     @Size(max = 100)
     private String location;
+    @Column(length = 300)
+    @Size(max = 300)
     private String picture;
 
     @ManyToOne(optional = true)

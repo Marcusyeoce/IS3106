@@ -1,15 +1,25 @@
-export class Booking 
-{
-    bookingId: number;
-    bookingDate: string;
-    totalPrice: number;
-    bookingDescription: string;
+import { Attraction } from "./attraction";
 
-    constructor(bookingId?: number, bookingDate?: string, totalPrice?: number, bookingDescription?: string)
-    {
-        this.bookingId = bookingId;
-        this.bookingDate = bookingDate;
-        this.totalPrice = totalPrice;
-        this.bookingDescription = bookingDescription;
-    }
+export class Booking {
+  bookingId: number;
+  bookingDate: Date;
+  totalPrice: number;
+  description: string;
+  cancelled: boolean;
+
+  attractions: Attraction[];
+
+  constructor(
+    bookingId?: number,
+    bookingDate?: Date,
+    totalPrice?: number,
+    description?: string,
+    cancelled?: boolean
+  ) {
+    this.bookingId = bookingId;
+    this.bookingDate = bookingDate;
+    this.totalPrice = totalPrice;
+    this.description = description;
+    this.cancelled = cancelled;
+  }
 }
