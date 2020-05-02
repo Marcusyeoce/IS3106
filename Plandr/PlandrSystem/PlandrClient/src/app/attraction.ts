@@ -11,9 +11,9 @@ export class Attraction {
   startTimestamp: Date;
   endTimestamp: Date;
 
-  promotions: Promotion[];
-  tags: Tag[];
-  reviews: Review[];
+  promotionEntities: Promotion[];
+  tagEntities: Tag[];
+  reviewEntities: Review[];
 
   constructor(
     attractionId?: number,

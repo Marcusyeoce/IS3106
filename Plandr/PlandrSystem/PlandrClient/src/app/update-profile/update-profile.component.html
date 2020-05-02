@@ -5,7 +5,7 @@
 			
 			<h3>Profile Details</h3>
 
-			<form #updateMemberForm="ngForm" (ngSubmit)="update(updateMemberForm)" >
+			<form #updateProfileForm="ngForm" (ngSubmit)="update(updateProfileForm)" >
 
 					<table width="100%">
 
@@ -82,6 +82,18 @@
 							</tr>
 
 							<tr>
+								<td width="10%" style="font-weight: bold;">Credit Card Number</td>
+								<td><input id="creditCardNumber" name="creditCardNumber" #dob="ngModel" type="text" [(ngModel)]="memberToUpdate.creditCardNumber" required="true" /></td>
+								<td>
+									<div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched || submitted)" class="errorText">
+										<div *ngIf="dob.errors.required">
+											Credit Card Number is required.
+										</div>
+									</div>
+								</td>
+							</tr>
+
+							<!-- <tr>
 								<td width="10%" style="font-weight: bold;">Subscribed</td>
 								<td>{{memberToUpdate.subscribed}}</td>
 								<td>&nbsp;</td>
@@ -97,7 +109,7 @@
 								<td width="10%" style="font-weight: bold;">Credit Card</td>
 								<td>{{memberToUpdate.creditCard}}</td>
 								<td>&nbsp;</td>
-							</tr>
+							</tr> -->
 
 							<br>
 
