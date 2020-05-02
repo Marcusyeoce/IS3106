@@ -1,24 +1,27 @@
-<h2>View All Articles</h2>
+<section id="content" class="content">
 
-<div *ngIf="errorMessage">
-    {{errorMessage}}
-</div> 
+    <h2>View All Articles</h2>
 
-<div *ngIf="!errorMessage">
-    <table id="ArticleTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
-        <thead>
-            <th>Article ID</th>
-            <th>Title</th>
-            <th>Picture</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let article of articles">
-                <td>{{article.articleId}}</td>
-                <td>{{article.title}}</td>
-                <td>{{article.picture}}</td>
-                <td><a routerLink="/viewArticle/{{article.articleId}}">View More</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div *ngIf="errorMessage">
+        {{errorMessage}}
+    </div> 
+
+    <div *ngIf="!errorMessage">
+        <table id="ArticleTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
+            <thead>
+                <th>Article ID</th>
+                <th>Title</th>
+                <th>Picture</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let article of articles">
+                    <td>{{article.articleId}}</td>
+                    <td>{{article.title}}</td>
+                    <td>{{article.picture}}</td>
+                    <td><a routerLink="/viewArticle/{{article.articleId}}">View More</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

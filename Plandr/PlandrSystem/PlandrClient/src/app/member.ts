@@ -5,7 +5,7 @@ export class Member {
   memberId: number;
   name: string;
   email: string;
-  contactNum: number;
+  contactNumber: number;
   username: string;
   password: string;
   gender: GenderEnum;
@@ -20,7 +20,7 @@ export class Member {
     memberId?: number,
     name?: string,
     email?: string,
-    contactNum?: number,
+    contactNumber?: number,
     username?: string,
     password?: string,
     gender?: GenderEnum,
@@ -32,7 +32,7 @@ export class Member {
     this.memberId = memberId;
     this.name = name;
     this.email = email;
-    this.contactNum = contactNum;
+    this.contactNumber = contactNumber;
     this.username = username;
     this.password = password;
     this.gender = gender;

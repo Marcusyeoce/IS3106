@@ -34,10 +34,10 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {
   }
 
-  update(updateProductForm: NgForm) {
+  update(changePasswordForm: NgForm) {
     this.submitted = true;
 
-    if(updateProductForm.valid) {
+    if(changePasswordForm.valid) {
       this.memberService.updateMemberPassword(this.newPassword, this.rePassword).subscribe(
         response => {
           this.sessionService.setPassword(this.newPassword);

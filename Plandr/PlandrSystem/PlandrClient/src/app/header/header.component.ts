@@ -32,32 +32,32 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  memberLogin(): void {
-    this.sessionService.setUsername(this.username);
-    this.sessionService.setPassword(this.password);
+  // memberLogin(): void {
+  //   this.sessionService.setUsername(this.username);
+  //   this.sessionService.setPassword(this.password);
     
-    this.memberService.memberLogin(this.username, this.password).subscribe(
-      response => {
-        let loginMember: Member = response.member;
+  //   this.memberService.memberLogin(this.username, this.password).subscribe(
+  //     response => {
+  //       let loginMember: Member = response.member;
 
-        if(loginMember != null) {
-          this.sessionService.setIsLogin(true);
-					this.sessionService.setCurrentMember(loginMember);					
-					this.loginError = false;
+  //       if(loginMember != null) {
+  //         this.sessionService.setIsLogin(true);
+	// 				this.sessionService.setCurrentMember(loginMember);					
+	// 				this.loginError = false;
 					
-					this.childEvent.emit();
+	// 				this.childEvent.emit();
 					
-					this.router.navigate(["/main"]);
-        } else {
-          this.loginError = true;
-        }
-      },
-      error => {
-        this.loginError = true;
-				this.errorMessage = error
-      }
-    )
-  }
+	// 				this.router.navigate(["/main"]);
+  //       } else {
+  //         this.loginError = true;
+  //       }
+  //     },
+  //     error => {
+  //       this.loginError = true;
+	// 			this.errorMessage = error
+  //     }
+  //   )
+  // }
 
   memberLogout(): void {
 		this.sessionService.setIsLogin(false);

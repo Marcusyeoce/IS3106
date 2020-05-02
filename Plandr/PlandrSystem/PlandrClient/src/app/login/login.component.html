@@ -1,36 +1,39 @@
-<h2>Log In</h2>
+<section id="content" class="content">
 
-<div>
-
-    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-
-        <tr>
-            <td>Username</td>
-            <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="loginMember.username" required="true" /></td>
-        </tr>
-    
-        <tr>
-            <td>Password</td>
-            <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="loginMember.password" required="true" /></td>
-        </tr>
-
-        &nbsp;
-    
-        <tr>
-            <td colspan="3">
-                <button (click)="clear()">Clear</button>
-                <input type="submit" value="Log In" />
-            </td>
-        </tr>
-    
-    </form>
-
+    <h2>Log In</h2>
 
     <div>
-        <a routerLink="/register">Don't have an account? Create one now!</a>
-    </div>
-    
 
-</div>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+
+            <tr>
+                <td>Username</td>
+                <td><input id="username" name="username" #usernameTxt="ngModel" type="text" [(ngModel)]="username" required="true" maxlength="32" /></td>
+            </tr>
+        
+            <tr>
+                <td>Password</td>
+                <td><input id="password" name="password" #passwordTxt="ngModel" type="text" [(ngModel)]="password" required="true" maxlength="32" /></td>
+            </tr>
+
+            &nbsp;
+        
+            <tr>
+                <td colspan="3">
+                    <input type="reset" value="Clear" />
+                    <input type="submit" value="Log In" />
+                </td>
+            </tr>
+        
+        </form>
+
+
+        <div>
+            <a routerLink="/register">Don't have an account? Create one now!</a>
+        </div>
+        
+
+    </div>
+</section>
 
 

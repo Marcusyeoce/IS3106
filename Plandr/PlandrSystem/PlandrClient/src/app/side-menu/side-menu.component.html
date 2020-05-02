@@ -7,14 +7,13 @@
   <ng-template [ngIf]="sessionService.getIsLogin() == true">
     <br/><br/>
     <a routerLink="/searchAttractions">BOOK NOW!</a>
-		<br/><br/>
     <h4 class="menuHeader1">Profile</h4>				
     <ul class="secondaryMenu">
       <li><a routerLink="/profile">Profile</a></li>
       <li><a routerLink="/profileDetails">Profile Details</a></li>
+      <li><a routerLink="/viewAllBookings">View Past Bookings</a></li>
       <li><a routerLink="/subscribe">Subscribe</a></li>
     </ul>
-    <br/>
     <h4 class="menuHeader1">Explore</h4>
     <h5 class="menuHeader2">Article</h5>
     <ul class="secondaryMenu">
@@ -25,7 +24,7 @@
       <li><a routerLink="/searchAttractions">Search Attractions</a></li>
       <li><a routerLink="/viewAllAttractions">View All Attractions</a></li>
     </ul>
-    <br/><br/>
+    <br/>
   </ng-template>
 </nav>
 </section>

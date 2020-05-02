@@ -1,32 +1,35 @@
-<h2>View All Attractions</h2>
+<section id="content" class="content">
 
-<div *ngIf="errorMessage">
-    {{errorMessage}}
-</div> 
+    <h2>View All Attractions</h2>
 
-<div *ngIf="!errorMessage">
-    <table id="AttractionTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
-        <thead>
-            <th>Attraction ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Picture</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let attraction of attractions">
-                <td>{{attraction.attractionId}}</td>
-                <td>{{attraction.name}}</td>
-                <td>{{attraction.description}}</td>
-                <td>{{attraction.location}}</td>
-                <td>{{attraction.picture}}</td>
-                <td>{{attraction.startTimeStamp}}</td>
-                <td>{{attraction.endTimeStamp}}</td>
-                <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div *ngIf="errorMessage">
+        {{errorMessage}}
+    </div> 
+
+    <div *ngIf="!errorMessage">
+        <table id="AttractionTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
+            <thead>
+                <th>Attraction ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Picture</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let attraction of attractions">
+                    <td>{{attraction.attractionId}}</td>
+                    <td>{{attraction.name}}</td>
+                    <td>{{attraction.description}}</td>
+                    <td>{{attraction.location}}</td>
+                    <td>{{attraction.picture}}</td>
+                    <td>{{attraction.startTimeStamp}}</td>
+                    <td>{{attraction.endTimeStamp}}</td>
+                    <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

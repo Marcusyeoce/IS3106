@@ -33,10 +33,10 @@ export class SubscribeComponent implements OnInit {
   ngOnInit() {
   }
 
-  update(updateProductForm: NgForm) {
+  subsscribe(subscribeForm: NgForm) {
     this.submitted = true;
 
-    if(updateProductForm.valid) {
+    if(subscribeForm.valid) {
       this.memberService.memberSubscribe(this.subPackage).subscribe(
         response => {
           this.sessionService.getCurrentMember().subscribed = true;
