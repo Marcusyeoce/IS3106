@@ -59,3 +59,9 @@ a:hover {
 	color: white;
 	background-color: grey;
 }
+
+.buttonbox {
+	display: block;
+	text-align: right;
+	padding: 3px 3px 3px 3px;
+}

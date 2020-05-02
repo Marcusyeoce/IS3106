@@ -1,22 +1,21 @@
 <header class="header">
+    <h1>Plandr - Your Hangout Recommendation Partner</h1>
+    <aside id="buttonbox" class="buttonbox">
 
-    <div>
-        <h1>Welcome to Plandr!</h1>
-        <div>
-            &nbsp; 
-            <button mat-button type="button" label="Home" (click)="redirectToMain()">Home</button> 
-            &nbsp; 
-            <button mat-button type="button" label="Register" (click)="redirectToRegister()">Register</button> 
-            &nbsp;
-            <button mat-button type="button" label="Log In" (click)="redirectToLogin()">Log In</button> 
-        </div>
+    <div *ngIf="sessionService.getIsLogin() == false">
+        <button mat-button type="button" label="Home" (click)="redirectToMain()">Home</button> 
+        &nbsp; 
+        <button mat-button type="button" label="Register" (click)="redirectToRegister()">Register</button> 
+        &nbsp;
+        <button mat-button type="button" label="Log In" (click)="redirectToLogin()">Log In</button> 
     </div>
     
     &nbsp;
     
-    <div>
-        &nbsp; 
-        <button mat-button type="button" label="Articles"(click)="redirectToArticles()">Articles</button> 
+    <div *ngIf="sessionService.getIsLogin() == true">
+        You are login as {{sessionService.getCurrentMember().username}}
+        <button mat-button type="button" label="Log Out" (click)="memberLogout()">Log Out</button>
+        <!-- <button mat-button type="button" label="Articles"(click)="redirectToArticles()">Articles</button> 
         &nbsp;
         <button mat-button type="button" label="Attractions" (click)="redirectToAttractions()">Attractions</button> 
         &nbsp;
@@ -24,10 +23,10 @@
         &nbsp;
         <button mat-button type="button" label="My Profile" (click)="redirectToProfile()">My Profile</button> 
         &nbsp;
-        <button mat-button type="button" label="FAQ" (click)="redirectToFaq()">FAQ</button> 
+        <button mat-button type="button" label="FAQ" (click)="redirectToFaq()">FAQ</button>  -->
     </div>
 
     &nbsp;
-
+    </aside>
 </header>
 
