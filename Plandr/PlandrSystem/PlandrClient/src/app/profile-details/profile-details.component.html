@@ -2,7 +2,7 @@
     <div>
         <h2>My Profile</h2>
 
-        <button mat-button type="button" label="Edit Profile">Edit Profile</button> 
+        <button mat-button type="button" label="Edit Profile" (click)="redirectToUpdateProfile()">Edit Profile</button> 
         
         <h3>Profile Details</h3>
 
@@ -22,7 +22,7 @@
 
         <h4>Subscribed: {{memberToView.subscribed}}</h4>
 
-        <h4>Subscribed Until: {{parseDate(memberToView.subscribedUntil) | date:'EEE, MMM dd, yyyy'}}</h4>
+        <h4 *ngIf="memberToView.subscribed == true">Subscribed Until: {{parseDate(memberToView.subscribedUntil) | date:'EEE, MMM dd, yyyy'}}</h4>
 
         <h4>Credit Card: {{memberToView.creditCard}}</h4>
     </div>

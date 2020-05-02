@@ -24,5 +24,9 @@ export class ProfileDetailsComponent implements OnInit {
   parseDate(d: Date)
 	{		
 		return d.toString().replace('[UTC]', '');
-	}
+  }
+  
+  redirectToUpdateProfile() {
+    this.router.navigate(["/updateProfile"]);
+  }
 }
