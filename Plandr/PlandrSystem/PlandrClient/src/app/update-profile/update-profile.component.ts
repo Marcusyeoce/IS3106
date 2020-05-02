@@ -34,17 +34,22 @@ export class UpdateProfileComponent implements OnInit {
     this.memberToUpdate = this.sessionService.getCurrentMember();
   }
 
-  update(updateProductForm: NgForm) {
+  update(updateProfileForm: NgForm) {
     this.submitted = true;
 
-    if(updateProductForm.valid) {
+    if(updateProfileForm.valid) {
       this.memberService.updateProfile(this.memberToUpdate).subscribe(
         response => {
           this.sessionService.setCurrentMember(this.memberToUpdate);
 
           this.resultSuccess = true;
-					this.resultError = false;
-					this.message = "Profile updated successfully";
+          this.resultError = false;
+          
+          //any way to display this after routing back?
+          this.message = "Profile updated successfully";
+
+          //route back
+          this.router.navigate(["/profileDetails"]);
         },
         error => {
           this.resultError = true;
