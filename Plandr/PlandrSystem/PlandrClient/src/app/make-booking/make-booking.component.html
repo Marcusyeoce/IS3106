@@ -1,21 +1,12 @@
 <section id="content" class="content">
+
     <h2>Make A Booking</h2>
 
-    <form #createBookingForm="ngForm" (ngSubmit)="create(createBookingForm)">
+    <h3 *ngIf="message">{{message}}</h3>
+
+    <form #generateBookingForm="ngForm" (ngSubmit)="generate(generateBookingForm)">
 
         <table>
-
-            <tr>
-                <td>Booking ID</td>
-                <td><input id="bookingId" name="bookingId" #bookingId="ngModel" type="text" [(ngModel)]="newBooking.bookingId" required="true" /></td>
-                <td>
-                    <div *ngIf="bookingId.invalid && (bookingId.dirty || bookingId.touched || submitted)" style="color: red;">
-                        <div *ngIf ="bookingId.errors.required">
-                            Booking ID is required
-                        </div>
-                    </div>
-                </td>
-            </tr>
 
             <tr>
                 <td>Booking Date</td>
@@ -30,19 +21,108 @@
             </tr>
 
             <tr>
-                <td>Total Price</td>
-                <td><input id="totalPrice" name="totalPrice" #totalPrice="ngModel" type="text" [(ngModel)]="newBooking.totalPrice" required="true" /></td>
+                <td>Start Time</td>
+                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
                 <td>
-                    <div *ngIf="totalPrice.invalid && (totalPrice.dirty || totalPrice.touched || submitted)" style="color: red;">
-                        <div *ngIf ="totalPrice.errors.required">
-                            Total Price is required
+                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
+                        <div *ngIf ="bookingDate.errors.required">
+                            Booking Date is required
                         </div>
                     </div>
                 </td>
             </tr>
 
             <tr>
-                <td>Booking Description</td>
+                <td>End Time</td>
+                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td>
+                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
+                        <div *ngIf ="bookingDate.errors.required">
+                            Booking Date is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Number of Pax</td>
+                <td><input id="numPax" name="numPax" #numPax="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td>
+                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
+                        <div *ngIf ="bookingDate.errors.required">
+                            Booking Date is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+
+            </tr>
+
+            <br>
+
+            <tr>
+                <td>
+                    <button mat-button type="submit" label="Generate Booking">Generate Booking</button> 
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+    <br>
+
+    <form *ngIf="attractionIds" #createBookingForm="ngForm" (ngSubmit)="create(createBookingForm)">
+
+        <table width = 100%>
+
+            <thead>
+                <th>Attraction ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Picture</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Action</th>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let attraction of attractions">
+                    <td>{{attraction.attractionId}}</td>
+                    <td>{{attraction.name}}</td>
+                    <td>{{attraction.description}}</td>
+                    <td>{{attraction.location}}</td>
+                    <td>{{attraction.picture}}</td>
+                    <td>{{attraction.startTimeStamp}}</td>
+                    <td>{{attraction.endTimeStamp}}</td>
+                    <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
+                </tr>
+            </tbody>
+
+            <br>
+
+            <tr>
+                <h4>Total Cost:</h4>
+            </tr>
+
+            <tr>
+                <td>
+                    <button mat-button type="submit" label="Make Booking">Make Booking</button> 
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</section>
+
+<!--
+            <tr>
+                <td> Description</td>
                 <td><input id="bookingDescription" name="bookingDescription" #bookingDescription="ngModel" type="text" [(ngModel)]="newBooking.bookingDescription" required="true" /></td>
                 <td>
                     <div *ngIf="bookingDescription.invalid && (bookingDescription.dirty || bookingDescription.touched || submitted)" style="color: red;">
@@ -52,15 +132,4 @@
                     </div>
                 </td>
             </tr>
-
-            <tr>
-                <td colspan="3">
-                    <button (click)="clear()">Clear</button>
-                    <input type="submit" value="Create New Booking" />
-                </td>
-            </tr>
-
-        </table>
-
-    </form>
-</section>
+            -->

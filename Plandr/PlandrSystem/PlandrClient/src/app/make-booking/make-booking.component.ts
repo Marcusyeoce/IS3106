@@ -17,6 +17,8 @@ export class MakeBookingComponent implements OnInit {
   attractionIds: number[];
   newBooking: Booking;
 
+  message: string;
+
   constructor(private router: Router, private bookingService: BookingService) 
   { 
     this.submitted = false;
@@ -25,12 +27,19 @@ export class MakeBookingComponent implements OnInit {
 
   ngOnInit() 
   {
+    //to test
+    this.attractionIds = [1, 2];
+    this.message = "Insert Message here e.g. booking made $123 paid etc";
   }
 
   clear()
   {
     this.submitted = false;
     this.newBooking = new Booking();
+  }
+
+  generate(generateBookingForm: NgForm)
+  {
   }
 
   create(createBookingForm: NgForm) 
