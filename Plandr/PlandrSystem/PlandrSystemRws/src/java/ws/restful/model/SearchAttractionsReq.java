@@ -14,6 +14,7 @@ import java.util.List;
  * @author Pham The Dzung
  */
 public class SearchAttractionsReq {
+    private String searchParam;
     private List<Long> tagIds;
     private BigDecimal priceLimit;
     private Date visitDate;
@@ -22,7 +23,8 @@ public class SearchAttractionsReq {
     public SearchAttractionsReq() {
     }
     
-    public SearchAttractionsReq(List<Long> tagIds, BigDecimal priceLimit, Date visitDate, Date visitTime) {
+    public SearchAttractionsReq(String searchParam, List<Long> tagIds, BigDecimal priceLimit, Date visitDate, Date visitTime) {
+        this.searchParam = searchParam;
         this.tagIds = tagIds;
         this.priceLimit = priceLimit;
         this.visitDate = visitDate;
@@ -61,5 +63,12 @@ public class SearchAttractionsReq {
         this.visitTime = visitTime;
     }
 
-    
+    public String getSearchParam() {
+        return searchParam;
+    }
+
+    public void setSearchParam(String searchParam) {
+        this.searchParam = searchParam;
+    }
+
 }

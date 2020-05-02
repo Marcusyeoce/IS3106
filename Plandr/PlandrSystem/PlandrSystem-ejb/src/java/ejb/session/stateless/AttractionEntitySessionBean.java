@@ -6,6 +6,9 @@ import entity.EventEntity;
 import entity.PlaceEntity;
 import entity.PromotionEntity;
 import entity.TagEntity;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
@@ -248,7 +251,7 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
     }
    
     @Override
-   public void deleteAttraction(Long attractionId) throws AttractionNotFoundException
+    public void deleteAttraction(Long attractionId) throws AttractionNotFoundException
     {
         AttractionEntity attractionEntityToRemove = retrieveAttractionByAttractionId(attractionId);
         
@@ -283,5 +286,53 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
         }
         
         return msg;
+    }
+
+    @Override
+    public List<AttractionEntity> searchAttractions(String searchParam, Date visitDate, Date visitTime, List<Long> tagIds, BigDecimal priceLimit) {
+        List<AttractionEntity> attractions = new ArrayList<>();
+        
+        if (!tagIds.isEmpty() && !searchParam.equals("")) {
+            Query query = em.createQuery("SELECT DISTINCT a FROM AttractionEntity a, IN (a.tagEntities) t WHERE t.tagId IN :inTagIds AND a.name LIKE :inSearchParam");
+            query.setParameter("inTagIds", tagIds);
+            query.setParameter("inSearchParam", "%" + searchParam + "%");
+            attractions = query.getResultList();
+        } else if (!tagIds.isEmpty()) {
+            Query query = em.createQuery("SELECT DISTINCT a FROM AttractionEntity a, IN (a.tagEntities) t WHERE t.tagId IN :inTagIds");
+            query.setParameter("inTagIds", tagIds);
+            attractions = query.getResultList();
+        } else if (!searchParam.equals("")) {
+            Query query = em.createQuery("SELECT DISTINCT a FROM AttractionEntity a WHERE a.name LIKE :inSearchParam");
+            query.setParameter("inSearchParam", "%" + searchParam + "%");
+            attractions = query.getResultList();
+        } else {
+            attractions = retrieveAllAttractions();
+        }
+        
+        List<AttractionEntity> searchedAttractions = new ArrayList<>();
+        for (AttractionEntity attraction: attractions) {
+            if (attraction instanceof PlaceEntity) {
+                int placeStartTime = ((PlaceEntity) attraction).getOpeningTime().getHours()*60 + ((PlaceEntity) attraction).getOpeningTime().getMinutes();
+                int placeEndTime = ((PlaceEntity) attraction).getClosingTime().getHours()*60 + ((PlaceEntity) attraction).getClosingTime().getMinutes();
+                int convertedTime = visitTime.getHours()*60 + visitTime.getMinutes();
+                if (placeStartTime <= convertedTime && convertedTime - 60 <= placeEndTime) {
+                    searchedAttractions.add(attraction);
+                }
+            } else if (attraction instanceof EventEntity) {
+                if (((EventEntity) attraction).getStartDate().getTime() <= visitDate.getTime()
+                        && visitDate.getTime() <= ((EventEntity) attraction).getEndDate().getTime()) {
+                    searchedAttractions.add(attraction);
+                }
+            }
+        }
+        
+        List<AttractionEntity> finalAttractions = new ArrayList<>();
+        for (AttractionEntity attraction: searchedAttractions) {
+            if (priceLimit.compareTo(attraction.getUnitPrice()) >= 0) {
+                finalAttractions.add(attraction);
+            }
+        }
+        
+        return finalAttractions;
     }
 }
