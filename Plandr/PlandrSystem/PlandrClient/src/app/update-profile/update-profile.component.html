@@ -83,9 +83,9 @@
 
 							<tr>
 								<td width="10%" style="font-weight: bold;">Credit Card Number</td>
-								<td><input id="creditCardNumber" name="creditCardNumber" #dob="ngModel" type="text" [(ngModel)]="memberToUpdate.creditCardNumber" required="true" /></td>
+								<td><input id="creditCard" name="creditCard" #creditCard="ngModel" type="text" [(ngModel)]="memberToUpdate.creditCard" required="true" /></td>
 								<td>
-									<div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched || submitted)" class="errorText">
+									<div *ngIf="creditCard.invalid && (creditCard.dirty || creditCard.touched || submitted)" class="errorText">
 										<div *ngIf="dob.errors.required">
 											Credit Card Number is required.
 										</div>
@@ -93,25 +93,7 @@
 								</td>
 							</tr>
 
-							<!-- <tr>
-								<td width="10%" style="font-weight: bold;">Subscribed</td>
-								<td>{{memberToUpdate.subscribed}}</td>
-								<td>&nbsp;</td>
-							</tr>
-
-							<tr>
-								<td width="10%" style="font-weight: bold;">Subscribed Until:</td>
-								<td>{{memberToUpdate.subscribedUntil}}</td>
-								<td>&nbsp;</td>
-							</tr>
-
-							<tr>
-								<td width="10%" style="font-weight: bold;">Credit Card</td>
-								<td>{{memberToUpdate.creditCard}}</td>
-								<td>&nbsp;</td>
-							</tr> -->
-
-							<br>
+							<br/>
 
 							<tr>
 								<td colspan="3">					
