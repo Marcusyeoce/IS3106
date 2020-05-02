@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { BookingService } from '../booking.service';
 import { Booking } from '../booking';
+import { Attraction } from '../attraction';
 
 @Component({
   selector: 'app-view-booking',

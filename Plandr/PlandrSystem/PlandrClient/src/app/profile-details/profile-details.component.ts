@@ -29,4 +29,8 @@ export class ProfileDetailsComponent implements OnInit {
   redirectToUpdateProfile() {
     this.router.navigate(["/updateProfile"]);
   }
+
+  redirectToChangePassword() {
+    this.router.navigate(["/changePassword"]);
+  }
 }

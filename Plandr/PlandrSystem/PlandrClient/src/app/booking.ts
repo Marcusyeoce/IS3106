@@ -7,7 +7,7 @@ export class Booking {
   description: string;
   cancelled: boolean;
 
-  attractions: Attraction[];
+  attractionEntities: Attraction[];
 
   constructor(
     bookingId?: number,

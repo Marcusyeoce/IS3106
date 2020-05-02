@@ -1,7 +1,7 @@
 <section id="content" class="content">
 
 	<div>
-			<h2>My Profile</h2>
+			<h2>Update Profile</h2>
 			
 			<h3>Profile Details</h3>
 
@@ -10,112 +10,101 @@
 					<table width="100%">
 
 							<tr>
-									<td width="20%" style="font-weight: bold;">Member ID</td>
-					<td>{{memberToUpdate.memberId}}</td>
-					<td>&nbsp;</td>
+								<td width="10%" style="font-weight: bold;">Member ID</td>
+								<td>{{memberToUpdate.memberId}}</td>
+								<td>&nbsp;</td>
 							</tr>
 
 							<tr>
-					<td width="20%" style="font-weight: bold;">Username</td>
-					<td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="memberToUpdate.username" required="true" /></td>
-					<td>
-						<div *ngIf="username.invalid && (username.dirty || username.touched || submitted)" class="errorText">
-							<div *ngIf="username.errors.required">
-								Username is required.
-							</div>
-						</div>
-					</td>
+								<td width="10%" style="font-weight: bold;">Username</td>
+								<td>{{memberToUpdate.username}}</td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td width="10%" style="font-weight: bold;">Name</td>
+								<td><input id="name" name="name" #name="ngModel" type="text" [(ngModel)]="memberToUpdate.name" required="true" /></td>
+								<td>
+									<div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" class="errorText">
+										<div *ngIf="name.errors.required">
+											Name is required.
+										</div>
+									</div>
+								</td>
 							</tr>
 							
 							<tr>
-					<td width="20%" style="font-weight: bold;">Password</td>
-					<td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="memberToUpdate.password" required="true" /></td>
-					<td>
-						<div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="errorText">
-							<div *ngIf="password.errors.required">
-								Username is required.
-							</div>
-						</div>
-					</td>
-				</tr>
-
-							<tr>
-					<td width="20%" style="font-weight: bold;">Name</td>
-					<td><input id="name" name="name" #name="ngModel" type="text" [(ngModel)]="memberToUpdate.name" required="true" /></td>
-					<td>
-						<div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" class="errorText">
-							<div *ngIf="name.errors.required">
-								Name is required.
-							</div>
-						</div>
-					</td>
+								<td width="10%" style="font-weight: bold;">Email</td>
+								<td><input id="email" name="email" #email="ngModel" type="text" [(ngModel)]="memberToUpdate.email" required="true" /></td>
+								<td>
+									<div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
+										<div *ngIf="email.errors.required">
+											Email is required.
+										</div>
+									</div>
+								</td>
 							</tr>
 							
 							<tr>
-					<td width="20%" style="font-weight: bold;">Email</td>
-					<td><input id="email" name="email" #email="ngModel" type="text" [(ngModel)]="memberToUpdate.email" required="true" /></td>
-					<td>
-						<div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" class="errorText">
-							<div *ngIf="email.errors.required">
-								Email is required.
-							</div>
-						</div>
-					</td>
-							</tr>
-							
-							<tr>
-					<td width="20%" style="font-weight: bold;">Contact Number</td>
-					<td><input id="contactNum" name="contactNum" #contactNum="ngModel" type="text" [(ngModel)]="memberToUpdate.contactNum" required="true" /></td>
-					<td>
-						<div *ngIf="contactNum.invalid && (contactNum.dirty || contactNum.touched || submitted)" class="errorText">
-							<div *ngIf="contactNum.errors.required">
-								Contact Number is required.
-							</div>
-						</div>
-					</td>
+								<td width="10%" style="font-weight: bold;">Contact Number</td>
+								<td><input id="contactNumber" name="contactNumber" #contactNumber="ngModel" type="text" [(ngModel)]="memberToUpdate.contactNumber" required="true" /></td>
+								<td>
+									<div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched || submitted)" class="errorText">
+										<div *ngIf="contactNumber.errors.required">
+											Contact Number is required.
+										</div>
+									</div>
+								</td>
 							</tr>
 
 							<tr>
-					<td width="20%" style="font-weight: bold;">Gender</td>
-					<td><input id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="memberToUpdate.gender" required="true" /></td>
-					<td>
-						<div *ngIf="gender.invalid && (gender.dirty || gender.touched || submitted)" class="errorText">
-							<div *ngIf="gender.errors.required">
-								Gender is required.
-							</div>
-						</div>
-					</td>
+								<td width="10%" style="font-weight: bold;">Gender</td>
+								<td><input id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="memberToUpdate.gender" required="true" /></td>
+								<td>
+									<div *ngIf="gender.invalid && (gender.dirty || gender.touched || submitted)" class="errorText">
+										<div *ngIf="gender.errors.required">
+											Gender is required.
+										</div>
+									</div>
+								</td>
 							</tr>
 
 							<tr>
-					<td width="20%" style="font-weight: bold;">Date of Birth</td>
-					<td><input id="dob" name="dob" #dob="ngModel" type="text" [(ngModel)]="memberToUpdate.dob" required="true" /></td>
-					<td>
-						<div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" class="errorText">
-							<div *ngIf="dob.errors.required">
-								Date of Birth is required.
-							</div>
-						</div>
-					</td>
+								<td width="10%" style="font-weight: bold;">Date of Birth</td>
+								<td><input id="dob" name="dob" #dob="ngModel" type="text" [(ngModel)]="memberToUpdate.dob" required="true" /></td>
+								<td>
+									<div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" class="errorText">
+										<div *ngIf="dob.errors.required">
+											Date of Birth is required.
+										</div>
+									</div>
+								</td>
 							</tr>
 
 							<tr>
-									<td width="20%" style="font-weight: bold;">Subscribed</td>
-					<td>{{memberToUpdate.subscribed}}</td>
-					<td>&nbsp;</td>
+								<td width="10%" style="font-weight: bold;">Subscribed</td>
+								<td>{{memberToUpdate.subscribed}}</td>
+								<td>&nbsp;</td>
 							</tr>
 
 							<tr>
-									<td width="20%" style="font-weight: bold;">Subscribed Until:</td>
-					<td>{{memberToUpdate.subscribedUntil}}</td>
-					<td>&nbsp;</td>
+								<td width="10%" style="font-weight: bold;">Subscribed Until:</td>
+								<td>{{memberToUpdate.subscribedUntil}}</td>
+								<td>&nbsp;</td>
 							</tr>
 
 							<tr>
-									<td width="20%" style="font-weight: bold;">Credit Card</td>
-					<td>{{memberToUpdate.creditCard}}</td>
-					<td>&nbsp;</td>
+								<td width="10%" style="font-weight: bold;">Credit Card</td>
+								<td>{{memberToUpdate.creditCard}}</td>
+								<td>&nbsp;</td>
 							</tr>
+
+							<tr>
+                                <td colspan="3">
+                                    <button (click)="clear()">Clear</button>
+                                    <input type="submit" value="Create New Booking" />
+                                </td>
+                            </tr>
 
 					</table>
 

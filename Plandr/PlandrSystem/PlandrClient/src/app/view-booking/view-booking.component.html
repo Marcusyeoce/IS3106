@@ -18,17 +18,29 @@
 
         <h3>Itinerary:</h3>
 
-        <table>
+        <table id="ItineraryTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
             <thead>
-                <th>Timing</th>
-                <th>Attraction</th>
+                <th>Attraction ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Picture</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Action</th>
             </thead>
             <tbody>
-                <tr *ngFor="let attraction of attractions"></tr>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let attraction of bookingToView.attractionEntities">
+                    <td>{{attraction.attractionId}}</td>
+                    <td>{{attraction.name}}</td>
+                    <td>{{attraction.description}}</td>
+                    <td>{{attraction.location}}</td>
+                    <td>{{attraction.picture}}</td>
+                    <td>{{attraction.startTimeStamp}}</td>
+                    <td>{{attraction.endTimeStamp}}</td>
+                    <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
+                </tr>
             </tbody>
         </table>
-
     </div>
 </section>
