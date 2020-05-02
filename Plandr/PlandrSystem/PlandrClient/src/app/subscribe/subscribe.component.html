@@ -1,1 +1,45 @@
-<p>subscribe works!</p>
+<section id="content" class="content">
+
+    <h2>Subscribe</h2>
+
+    <div *ngIf="message">
+        <h3>{{message}}</h3>
+    </div>
+
+    <div *ngIf="memberToView.subscribedUntil">
+        <h3>You are subscribed until: {{parseDate(memberToView.subscribedUntil) | date:'EEE, MMM dd, yyyy'}}</h3>
+    </div>
+    
+    <div *ngIf="!memberToView.subscribedUntil">
+        <h3>You are currently not subscribed</h3>
+    </div>
+
+    <h3>Select your subscription plan!</h3>
+
+    <form #subscriptionForm="ngForm" (ngSubmit)="subscribe(subscriptionForm)">
+        <table>
+            
+            <tr>
+                <td> 
+                    <input type="radio" value="1" name="subPackage" [ngModel]="subPackage" required #subPackage="ngModel">1 Month Plan @ $4.99
+                    <input type="radio" value="2" name="subPackage" [ngModel]="subPackage" required #subPackage="ngModel">3 Months Plan @ $9.99
+                    <input type="radio" value="3" name="subPackage" [ngModel]="subPackage" required #subPackage="ngModel">6 Months Plan @ $14.99
+                </td> 
+            </tr>	  
+           
+            <br>
+
+            <tr> 	  
+                <td>
+                    <button mat-button type="submit" label="Subscribe">Next</button> 	  
+                </td>
+            </tr>	   
+        </table>  
+    </form> 
+
+    <br>
+    <br>
+
+    
+
+</section>

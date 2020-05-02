@@ -40,10 +40,11 @@ export class UpdateProfileComponent implements OnInit {
     if(updateProfileForm.valid) {
       this.memberService.updateProfile(this.memberToUpdate).subscribe(
         response => {
-          this.sessionService.setCurrentMember(this.memberToUpdate);
 
           this.resultSuccess = true;
           this.resultError = false;
+
+          this.sessionService.setCurrentMember(this.memberToUpdate);
           
           //any way to display this after routing back?
           this.message = "Profile updated successfully";

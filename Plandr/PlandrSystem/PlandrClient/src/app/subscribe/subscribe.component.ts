@@ -13,8 +13,12 @@ import { Member } from '../member';
 })
 
 export class SubscribeComponent implements OnInit {
+
+  memberToView: Member;
   submitted: boolean;
   subPackage: number;
+  subMonths: number;
+  subCost: number;
 
   resultSuccess: boolean;
 	resultError: boolean;
@@ -31,10 +35,15 @@ export class SubscribeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.memberToView = this.sessionService.getCurrentMember();
   }
 
-  subsscribe(subscribeForm: NgForm) {
+  subscribe(subscribeForm: NgForm) {
+
+    this.subPackage = subscribeForm.value;
     this.submitted = true;
+
+    //console.log(this.subPackage)
 
     if(subscribeForm.valid) {
       this.memberService.memberSubscribe(this.subPackage).subscribe(
@@ -43,8 +52,23 @@ export class SubscribeComponent implements OnInit {
           this.sessionService.getCurrentMember().subscribedUntil = response.subscribedUntil;
 
           this.resultSuccess = true;
-					this.resultError = false;
-					this.message = "Subscribed successfully";
+          this.resultError = false;
+
+          switch(this.subPackage) {
+            case 1:
+              this.subMonths = 1;
+              this.subCost = 4.99;
+            case 2:
+              this.subMonths = 3;
+              this.subCost = 9.99;
+            case 3:
+              this.subMonths = 6;
+              this.subCost = 14.99;
+            default:
+              this.subMonths = 0;
+              this.subCost = 0;
+          }
+					this.message = "Subscribed successfully for " + this.subMonths + " months, $" + this.subCost + " will be deducted from credit card";
         },
         error => {
           this.resultError = true;
