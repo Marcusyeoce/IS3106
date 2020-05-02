@@ -18,11 +18,11 @@
 
         <h4>Gender: {{memberToView.gender}}</h4>
 
-        <h4>Date of Birth: {{memberToView.dob}}</h4>
+        <h4>Date of Birth: {{parseDate(memberToView.dob) | date:'MMM dd, yyyy'}}</h4>
 
         <h4>Subscribed: {{memberToView.subscribed}}</h4>
 
-        <h4>Subscribed Until: {{memberToView.subscribedUntil}}</h4>
+        <h4>Subscribed Until: {{parseDate(memberToView.subscribedUntil) | date:'EEE, MMM dd, yyyy'}}</h4>
 
         <h4>Credit Card: {{memberToView.creditCard}}</h4>
     </div>

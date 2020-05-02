@@ -1,24 +1,31 @@
 <section id="content" class="content">
     <h2>Past Bookings</h2>
 
-    <table width="100%">
-        <thead>
-            <th>Booking ID</th>
-            <th>Booking Date</th>
-            <th>Total Price</th>
-            <th>Booking Description</th>
-            <th>Status</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let booking of bookings">
-                <td>{{booking.bookingId}}</td>
-                <td>{{booking.bookingDate}}</td>
-                <td>${{booking.totalPrice}}</td>
-                <td>{{booking.description}}</td>
-                <td>{{booking.cancelled}}</td>
-                <td><a routerLink="/viewBooking/{{booking.bookingId}}">View Details</a></td>
-            </tr>
-        </tbody>
-    </table>
+    <div *ngIf="errorMessage">
+        {{errorMessage}}
+    </div> 
+
+    <div *ngIf="!errorMessage">
+        <table id="bookingTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
+            <thead>
+                <th>Booking ID</th>
+                <th>Booking Date</th>
+                <th>Total Price</th>
+                <th>Booking Description</th>
+                <th>Status</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let booking of bookings">
+                    <td>{{booking.bookingId}}</td>
+                    <td>{{parseDate(booking.bookingDate) | date:'EEE, MMM dd, yyyy'}}</td>
+                    <td>${{booking.totalPrice}}</td>
+                    <td>{{booking.description}}</td>
+                    <td *ngIf="booking.cancelled == false">Active</td>
+                    <td *ngIf="booking.cancelled == true">Cancelled</td>
+                    <td><a routerLink="/viewBooking/{{booking.bookingId}}">View Details</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>

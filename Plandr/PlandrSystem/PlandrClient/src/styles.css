@@ -65,3 +65,20 @@ a:hover {
 	text-align: right;
 	padding: 3px 3px 3px 3px;
 }
+
+.articleTitle {
+	padding: 3px 3px 3px 3px;
+  background-color: grey;
+  color: white;
+  font-weight: bold;
+}
+
+.articlePic {
+	padding: 3px 3px 3px 3px;	
+	background-color: silver;
+}
+
+.articleContent {
+	padding: 3px 3px 3px 3px;	
+	background-color: whitesmoke;
+}

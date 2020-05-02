@@ -5,13 +5,14 @@
 
         <h3>Booking ID: {{bookingToView.bookingId}}</h3>
 
-        <h3>Booking Date: {{bookingToView.bookingDate}}</h3>
+        <h3>Booking Date: {{parseDate(bookingToView.bookingDate) | date:'EEE, MMM dd, yyyy'}}</h3>
 
         <h3>Total Price: ${{bookingToView.totalPrice}}</h3>
 
         <h3>Description: {{bookingToView.description}}</h3>
 
-        <h3>Status: {{bookingToView.cancelled}}</h3>
+        <h3 *ngIf="bookingToView.cancelled == false">Status: Active</h3>
+        <h3 *ngIf="bookingToView.cancelled == true">Status: Cancelled</h3>
 
         &nbsp;
 

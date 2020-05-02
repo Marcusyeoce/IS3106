@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SessionService } from '../session.service';
 import { MemberService } from '../member.service';
-import { Member } from '../member';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -13,21 +12,12 @@ import { ButtonModule } from 'primeng/button';
 })
 
 export class HeaderComponent implements OnInit {
-  @Output() 
-	childEvent = new EventEmitter();	
-	
-	username: string;
-	password: string;
-	loginError: boolean;
-	errorMessage: string;
 
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               public sessionService: SessionService,
-              private memberService: MemberService) {
-    this.loginError = false;
-  }
+              private memberService: MemberService) {}
 
   ngOnInit() {
   }
@@ -81,29 +71,29 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
-  redirectToArticles() 
-  { 
-    this.router.navigate(["/viewAllArticles"]);
-  }
+  // redirectToArticles() 
+  // { 
+  //   this.router.navigate(["/viewAllArticles"]);
+  // }
 
-  redirectToAttractions() 
-  { 
-    this.router.navigate(["/viewAllAttractions"]);
-  }
+  // redirectToAttractions() 
+  // { 
+  //   this.router.navigate(["/viewAllAttractions"]);
+  // }
 
-  redirectToBookings() 
-  { 
-    this.router.navigate(["/makeBooking"]);
-  }
+  // redirectToBookings() 
+  // { 
+  //   this.router.navigate(["/makeBooking"]);
+  // }
 
-  redirectToProfile() 
-  { 
-    this.router.navigate(["/profile"]);
-  }
+  // redirectToProfile() 
+  // { 
+  //   this.router.navigate(["/profile"]);
+  // }
 
-  redirectToFaq() 
-  { 
-    this.router.navigate(["/faq"]);
-  }
+  // redirectToFaq() 
+  // { 
+  //   this.router.navigate(["/faq"]);
+  // }
 
 }

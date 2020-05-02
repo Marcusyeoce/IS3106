@@ -1,12 +1,11 @@
 <section id="sidemenu" class="sidemenu">
 <h3>Main Menu</h3>
 <nav>
-  <br/>
   <a routerLink="/main">Home</a>
-  
+  <br/><br/>
+  <a routerLink="/searchAttractions">Search Attractions</a>
   <ng-template [ngIf]="sessionService.getIsLogin() == true">
-    <br/><br/>
-    <a routerLink="/searchAttractions">BOOK NOW!</a>
+    <br/>
     <h4 class="menuHeader1">Profile</h4>				
     <ul class="secondaryMenu">
       <li><a routerLink="/profile">Profile</a></li>
@@ -21,7 +20,7 @@
     </ul>
     <h5 class="menuHeader2">Attraction</h5>
     <ul class="secondaryMenu">
-      <li><a routerLink="/searchAttractions">Search Attractions</a></li>
+      <li><a routerLink="/searchAttractions">Make A Booking</a></li>
       <li><a routerLink="/viewAllAttractions">View All Attractions</a></li>
     </ul>
     <br/>

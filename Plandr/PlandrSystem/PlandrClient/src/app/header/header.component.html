@@ -14,6 +14,7 @@
     
     <div *ngIf="sessionService.getIsLogin() == true">
         You are login as {{sessionService.getCurrentMember().username}}
+        &nbsp;
         <button mat-button type="button" label="Log Out" (click)="memberLogout()">Log Out</button>
         <!-- <button mat-button type="button" label="Articles"(click)="redirectToArticles()">Articles</button> 
         &nbsp;

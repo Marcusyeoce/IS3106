@@ -12,7 +12,7 @@
 
         <p>{{articleToView.content}}</p>
 
-        <h5>Published: {{articleToView.publishedDate}}</h5>
+        <h5>Published: {{parseDate(articleToView.publishedDate) | date:'EEE, MMM dd, yyyy'}}</h5>
 
     </div>
 

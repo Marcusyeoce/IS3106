@@ -20,4 +20,9 @@ export class ProfileDetailsComponent implements OnInit {
   ngOnInit() {
     this.memberToView = this.sessionService.getCurrentMember();
   }
+
+  parseDate(d: Date)
+	{		
+		return d.toString().replace('[UTC]', '');
+	}
 }

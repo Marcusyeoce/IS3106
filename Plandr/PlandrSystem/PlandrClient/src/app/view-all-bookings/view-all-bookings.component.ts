@@ -13,6 +13,7 @@ import { Booking } from '../booking';
 
 export class ViewAllBookingsComponent implements OnInit {
   bookings: Booking[];
+  errorMessage: string;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -25,9 +26,15 @@ export class ViewAllBookingsComponent implements OnInit {
         this.bookings = response.bookings;
       },
       error => {
+        this.errorMessage = error;
         console.log('********** ViewAllBookingsComponent.ts: ' + error);
       }
     );
   }
+
+  parseDate(d: Date)
+	{		
+		return d.toString().replace('[UTC]', '');
+	}
 
 }
