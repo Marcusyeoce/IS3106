@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { SessionService } from '../session.service';
 import { MemberService } from '../member.service';
 import { Member } from '../member';
+import { GenderEnum } from '../gender-enum.enum';
 
 @Component({
   selector: 'app-update-profile',
@@ -38,6 +39,9 @@ export class UpdateProfileComponent implements OnInit {
     this.submitted = true;
 
     if(updateProfileForm.valid) {
+      this.memberToUpdate.username = this.sessionService.getUsername();
+      this.memberToUpdate.password = this.sessionService.getPassword();
+
       this.memberService.updateProfile(this.memberToUpdate).subscribe(
         response => {
 

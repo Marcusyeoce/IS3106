@@ -143,10 +143,13 @@ public class MemberResource {
     public Response updateProfile(UpdateMemberReq updateMemberReq) {
         if (updateMemberReq != null) {
             try {
+                System.out.println(updateMemberReq.getUsername());
+                System.out.println(updateMemberReq.getPassword());
+                System.out.println(updateMemberReq.getMember().getContactNumber());
                 MemberEntity member = memberEntitySessionBeanLocal.memberLogin(updateMemberReq.getUsername(), updateMemberReq.getPassword());
                 System.out.println("*********** MemberResource.updateProfile(): Member " + member.getUsername() + " login remotely via ws");
-                
-                memberEntitySessionBeanLocal.updateMember(member);
+
+                memberEntitySessionBeanLocal.updateMember(updateMemberReq.getMember());
                 
                 return Response.status(Status.OK).build();
             } catch (InvalidLoginCredentialException ex) {
