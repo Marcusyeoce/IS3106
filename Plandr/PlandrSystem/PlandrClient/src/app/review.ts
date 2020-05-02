@@ -5,7 +5,7 @@ export class Review {
   content: string;
   publishedDate: Date;
 
-  member: Member;
+  memberEntity: Member;
 
   constructor(reviewId?: number, content?: string, publishedDate?: Date) {
     this.reviewId = reviewId;

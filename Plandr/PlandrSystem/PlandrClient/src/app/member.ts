@@ -14,7 +14,7 @@ export class Member {
   subscribedUntil: Date;
   creditCard: string;
 
-  bookings: Booking[];
+  bookingEntities: Booking[];
 
   constructor(
     memberId?: number,
