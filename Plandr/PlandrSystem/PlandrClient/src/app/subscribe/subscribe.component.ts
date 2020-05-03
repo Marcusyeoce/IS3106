@@ -40,13 +40,12 @@ export class SubscribeComponent implements OnInit {
 
   subscribe(subscribeForm: NgForm) {
 
-    // this.subPackage = subscribeForm.value;
     this.submitted = true;
 
     console.log(this.subPackage);
 
     if(subscribeForm.valid) { //this part?
-      switch(this.subPackage) {
+      switch(Number(this.subPackage)) {
         case 1:
           this.subMonths = 1;
           this.subCost = 4.99;

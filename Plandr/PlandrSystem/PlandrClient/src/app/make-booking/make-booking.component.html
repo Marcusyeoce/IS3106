@@ -10,9 +10,9 @@
 
             <tr>
                 <td>Booking Date</td>
-                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [ngModel]="bookingDate" required="true" /></td>
                 <td>
-                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
+                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || generateSubmitted)" style="color: red;">
                         <div *ngIf ="bookingDate.errors.required">
                             Booking Date is required
                         </div>
@@ -22,11 +22,11 @@
 
             <tr>
                 <td>Start Time</td>
-                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td><input id="startTime" name="startTime" #startTime="ngModel" type="text" [ngModel]="startTime" required="true" /></td>
                 <td>
-                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
-                        <div *ngIf ="bookingDate.errors.required">
-                            Booking Date is required
+                    <div *ngIf="startTime.invalid && (startTime.dirty || startTime.touched || generateSubmitted)" style="color: red;">
+                        <div *ngIf ="startTime.errors.required">
+                            Start Time is required
                         </div>
                     </div>
                 </td>
@@ -34,11 +34,11 @@
 
             <tr>
                 <td>End Time</td>
-                <td><input id="bookingDate" name="bookingDate" #bookingDate="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td><input id="endTime" name="endTime" #endTime="ngModel" type="text" [ngModel]="endTime" required="true" /></td>
                 <td>
-                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
-                        <div *ngIf ="bookingDate.errors.required">
-                            Booking Date is required
+                    <div *ngIf="endTime.invalid && (endTime.dirty || endTime.touched || generateSubmitted)" style="color: red;">
+                        <div *ngIf ="endTime.errors.required">
+                            End Time required
                         </div>
                     </div>
                 </td>
@@ -46,18 +46,26 @@
 
             <tr>
                 <td>Number of Pax</td>
-                <td><input id="numPax" name="numPax" #numPax="ngModel" type="text" [(ngModel)]="newBooking.bookingDate" required="true" /></td>
+                <td><input id="numPax" name="numPax" #numPax="ngModel" type="text" [ngModel]="numPax" required="true" /></td>
                 <td>
-                    <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched || submitted)" style="color: red;">
-                        <div *ngIf ="bookingDate.errors.required">
-                            Booking Date is required
+                    <div *ngIf="numPax.invalid && (numPax.dirty || numPax.touched || generateSubmitted)" style="color: red;">
+                        <div *ngIf ="numPax.errors.required">
+                            Number of Pax required
                         </div>
                     </div>
                 </td>
             </tr>
 
             <tr>
-
+                <td>Price Limit Per Pax</td>
+                <td><input id="priceLimit" name="priceLimit" #priceLimit="ngModel" type="text" [ngModel]="priceLimit" required="true" /></td>
+                <td>
+                    <div *ngIf="priceLimit.invalid && (priceLimit.dirty || priceLimit.touched || generateSubmitted)" style="color: red;">
+                        <div *ngIf ="priceLimit.errors.required">
+                            Price Limit Per Pax required
+                        </div>
+                    </div>
+                </td>
             </tr>
 
             <br>
@@ -102,11 +110,16 @@
                 </tr>
             </tbody>
 
-            <br>
+            <tr>
+                <h4>Total Cost: </h4>
+            </tr>
 
             <tr>
-                <h4>Total Cost:</h4>
+                <td width="10%">Additional Requests</td>
+                <td><input id="requests" name="requests" #requests="ngModel" type="text" [ngModel]="requests" required="false" /></td>
             </tr>
+
+            <br>
 
             <tr>
                 <td>

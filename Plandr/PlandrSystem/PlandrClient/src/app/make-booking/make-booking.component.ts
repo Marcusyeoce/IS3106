@@ -5,6 +5,8 @@ import { NgForm } from '@angular/forms';
 
 import { BookingService } from '../booking.service';
 import { Booking } from '../booking';
+import { AttractionService } from '../attraction.service';
+import { Attraction } from '../attraction';
 
 @Component({
   selector: 'app-make-booking',
@@ -13,43 +15,52 @@ import { Booking } from '../booking';
 })
 export class MakeBookingComponent implements OnInit {
 
-  submitted: boolean;
+  generateSubmitted: boolean;
+  bookingDate: Date;
+  startTime: Date;
+  endTime: Date;
+  numPax: number;
+  priceLimit: number;
+
+  createSubmitted: boolean;
+
   attractionIds: number[];
+  attractions: Attraction[];
   newBooking: Booking;
 
   message: string;
 
   constructor(private router: Router, private bookingService: BookingService) 
   { 
-    this.submitted = false;
+    this.generateSubmitted = false;
+    this.createSubmitted = false;
     this.newBooking = new Booking();
   }
 
   ngOnInit() 
   {
     //to test
-    this.attractionIds = [1, 2];
     this.message = "Insert Message here e.g. booking made $123 paid etc";
-  }
-
-  clear()
-  {
-    this.submitted = false;
-    this.newBooking = new Booking();
   }
 
   generate(generateBookingForm: NgForm)
   {
+    this.generateSubmitted = true;
+
+    if (generateBookingForm.valid)
+    {
+      //attractions = this.attractionService.generateNewBooking(this.bookingDate, this.startTime, this.endTime, this.numPax, this.priceLimit);
+    }
+
   }
 
   create(createBookingForm: NgForm) 
   {
-    this.submitted = true;
+    this.createSubmitted = true;
 
     if (createBookingForm.valid) 
     {
       this.bookingService.createNewBooking(this.newBooking, this.attractionIds);
-      this.router.navigate(["/profile"]);
     }
   }
 }
