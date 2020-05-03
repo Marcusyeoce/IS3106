@@ -10,7 +10,8 @@
             <thead>
                 <th>Booking ID</th>
                 <th>Booking Date</th>
-                <th>Total Price</th>
+                <th>Payment Date</th>
+                <th>Total Ticket Price</th>
                 <th>Booking Description</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -19,6 +20,7 @@
                 <tr *ngFor="let booking of bookings">
                     <td>{{booking.bookingId}}</td>
                     <td>{{parseDate(booking.bookingDate) | date:'EEE, MMM dd, yyyy'}}</td>
+                    <td>{{parseDate(booking.paymentDate) | date:'EEE, MMM dd, yyyy | HH:mm:ss'}}</td>
                     <td>${{booking.totalPrice}}</td>
                     <td>{{booking.description}}</td>
                     <td *ngIf="booking.cancelled == false">Active</td>

@@ -35,6 +35,7 @@ export class SubscribeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.message = "Select your subscription plan!";
     this.memberToView = this.sessionService.getCurrentMember();
   }
 
@@ -42,23 +43,7 @@ export class SubscribeComponent implements OnInit {
 
     this.submitted = true;
 
-    console.log(this.subPackage);
-
-    if(subscribeForm.valid) { //this part?
-      switch(Number(this.subPackage)) {
-        case 1:
-          this.subMonths = 1;
-          this.subCost = 4.99;
-        case 2:
-          this.subMonths = 3;
-          this.subCost = 9.99;
-        case 3:
-          this.subMonths = 6;
-          this.subCost = 14.99;
-        default:
-          this.subMonths = 0;
-          this.subCost = 0;
-      }
+    if(subscribeForm.valid) {
 
       this.memberService.memberSubscribe(this.subPackage).subscribe(
         response => {
@@ -69,8 +54,7 @@ export class SubscribeComponent implements OnInit {
           this.resultSuccess = true;
           this.resultError = false;
 
-          //disabled, not working
-					//this.message = "Subscribed successfully for " + this.subMonths + " months, $" + this.subCost + " will be deducted from credit card";
+					this.message = "Subscribed successfully!";
         },
         error => {
           this.resultError = true;

@@ -20,15 +20,11 @@
 
         <h4>Contact Number: {{sessionService.getContactNumber()}}</h4>
 
-        <h4>Gender: {{sessionService.getGender()}}
-            <!-- <span *ngIf="sessionService.getGender() == 0">Male</span>
-            <span *ngIf="sessionService.getGender() == 1">Female</span>
-            <span *ngIf="sessionService.getGender() == 2">Other</span> -->
-        </h4>
+        <h4>Gender: {{sessionService.getGender()}}</h4>
 
         <h4>Date of Birth: {{parseDate(sessionService.getDob()) | date:'MMM dd, yyyy'}}</h4>
 
-        <h4>Subscribed: {{sessionService.getSubscribed()}}</h4>
+        <h4 *ngIf="sessionService.getSubscribed() == false">Currently not subscribed!</h4>
 
         <h4 *ngIf="sessionService.getSubscribed() == true">Subscribed Until: {{parseDate(sessionService.getSubscribedUntil()) | date:'EEE, MMM dd, yyyy'}}</h4>
 
