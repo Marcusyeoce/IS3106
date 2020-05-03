@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.MemberEntity;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -138,6 +139,15 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
         {
             throw new MemberNotFoundException("Member username " + username + " does not exist!");
         }
+    }
+    
+    @Override
+    public List<MemberEntity> retrieveAllMembers()
+    {
+        Query query = em.createQuery("SELECT m FROM MemberEntity m ORDER BY m.name ASC");
+        List<MemberEntity> memberEntities = query.getResultList();
+        
+        return memberEntities;
     }
 
     @Override

@@ -9,6 +9,130 @@
     <ui:define name="content">
         <div>
             <h3>View All Customers</h3>
+            
+            <h:form id="formAllCustomers">
+
+                <p:dataTable id="dataTableAllCustomers" widgetVar="dataTableAllCustomers" value="#{customerManagedBean.allMemberEntities}" var="member" rowKey="#{member.memberId}" rowIndexVar="row"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+
+                    <f:facet name="header">
+                        <p:outputPanel style="text-align: right;">
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('dataTableAllCustomers').filter()" style="width:300px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column headerText="Name" sortBy="#{member.name}" filterBy="#{member.name}" filterMatchMode="contains">
+                        <h:outputText value="#{member.name}" />
+                    </p:column>
+
+                    <p:column headerText="Email" sortBy="#{member.email}" filterBy="#{member.email}" filterMatchMode="contains">
+                        <h:outputText value="#{member.email}" />
+                    </p:column>                            
+
+                    <p:column headerText="Contact Number" sortBy="#{member.contactNumber}" filterBy="#{member.contactNumber}" filterMatchMode="contains">
+                        <h:outputText value="#{member.contactNumber}" />
+                    </p:column>
+                    
+                    <p:column headerText="Subscribed">
+                        <h:outputText value="#{member.subscribed}" />
+                    </p:column>
+                    
+                    <p:column headerText="Action" >
+                        <p:commandButton update="formViewCustomer" oncomplete="PF('dialogViewCustomer').show()" icon="ui-icon-document" title="View">
+                            <f:setPropertyActionListener value="#{member}" target="#{customerManagedBean.memberToView}" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+            
+            <h:form id="formViewCustomer">
+                <p:dialog id="dialogViewCustomer" widgetVar="dialogViewCustomer" header="View Customer" closable="true">
+
+                    <p:panelGrid>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Member ID: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.memberId}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Name: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.name}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Email: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.email}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Contact Number: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.contactNumber}" />
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Subscribed: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.subscribed}" />
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row rendered="#{customerManagedBean.memberToView.subscribed}">
+                            <p:column>
+                                <h:outputLabel value="Subscribed Until: " />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{customerManagedBean.memberToView.subscribedUntil}" />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Booking(s) made: " />
+                            </p:column>
+                            <p:column>
+                                <p:dataList value="#{customerManagedBean.memberToView.bookingEntities}" var="booking" type="unordered">
+                                    Booking ID: #{booking.bookingId}
+                                </p:dataList>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="Review(s) made: " />
+                            </p:column>
+                            <p:column>
+                                <p:dataList value="#{customerManagedBean.memberToView.reviewEntities}" var="review" type="unordered">
+                                    Review ID: #{review.reviewId}
+                                </p:dataList>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </p:dialog>
+
+            </h:form>
         </div>
     </ui:define>
                     
