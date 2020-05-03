@@ -94,6 +94,7 @@
                 <th>Picture</th>
                 <th>Start</th>
                 <th>End</th>
+                <th>Ticket Price</th>
                 <th>Action</th>
             </thead>
 
@@ -106,6 +107,7 @@
                     <td>{{attraction.picture}}</td>
                     <td>{{attraction.startTimeStamp}}</td>
                     <td>{{attraction.endTimeStamp}}</td>
+                    <td>${{attraction.unitPrice}}</td>
                     <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
                 </tr>
             </tbody>

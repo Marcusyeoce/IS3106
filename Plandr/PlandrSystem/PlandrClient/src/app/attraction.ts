@@ -24,7 +24,7 @@ export class Attraction {
     picture?: string,
     unitPrice?: number,
     startTimestamp?: Date,
-    endTimestamp?: Date
+    endTimestamp?: Date,
   ) {
     this.attractionId = attractionId;
     this.name = name;
@@ -34,5 +34,6 @@ export class Attraction {
     this.unitPrice = unitPrice;
     this.startTimestamp = startTimestamp;
     this.endTimestamp = endTimestamp;
+    this.unitPrice = unitPrice;
   }
 }
