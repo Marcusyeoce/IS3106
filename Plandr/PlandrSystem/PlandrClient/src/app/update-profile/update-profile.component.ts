@@ -16,6 +16,7 @@ import { GenderEnum } from '../gender-enum.enum';
 export class UpdateProfileComponent implements OnInit {
   submitted: boolean;
   memberToUpdate: Member;
+  inputDob: Date;
 
   resultSuccess: boolean;
 	resultError: boolean;
@@ -39,8 +40,12 @@ export class UpdateProfileComponent implements OnInit {
     this.submitted = true;
 
     if(updateProfileForm.valid) {
+      let dob = new Date(this.inputDob.toString() + "T00:00:00");
+      this.memberToUpdate.dob = dob;
       this.memberToUpdate.username = this.sessionService.getUsername();
       this.memberToUpdate.password = this.sessionService.getPassword();
+      this.memberToUpdate.bookingEntities = [];
+      this.memberToUpdate.subscribed = false;
 
       this.memberService.updateProfile(this.memberToUpdate).subscribe(
         response => {
@@ -49,12 +54,17 @@ export class UpdateProfileComponent implements OnInit {
           this.resultError = false;
 
           this.sessionService.setCurrentMember(this.memberToUpdate);
+          this.sessionService.setName(this.memberToUpdate.name);
+          this.sessionService.setEmail(this.memberToUpdate.email);
+          this.sessionService.setContactNumber(this.memberToUpdate.contactNumber);
+          this.sessionService.setGender(this.memberToUpdate.gender);
+          this.sessionService.setDob(this.memberToUpdate.dob);		
+          this.sessionService.setCreditCard(this.memberToUpdate.creditCard);	
           
-          //any way to display this after routing back?
           this.message = "Profile updated successfully";
 
-          //route back
-          this.router.navigate(["/profileDetails"]);
+          // //route back
+          // this.router.navigate(["/profileDetails"]);
         },
         error => {
           this.resultError = true;
