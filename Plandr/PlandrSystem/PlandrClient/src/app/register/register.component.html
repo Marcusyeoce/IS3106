@@ -1,11 +1,17 @@
 <section id="content" class="content">
     <h2>Register</h2>
+    <br/>
+	
+	<div *ngIf="result">
+		{{message}}
+    </div>
+    <br/>
 
     <form #registerForm="ngForm" (ngSubmit)="create(registerForm)">
 
         <table>
 
-            <tr>
+            <!-- <tr>
                 <td>Member ID</td>
                 <td><input id="memberId" name="memberId" #memberId="ngModel" type="text" [(ngModel)]="newMember.memberId" required="true" /></td>
                 <td>
@@ -15,7 +21,7 @@
                         </div>
                     </div>
                 </td>
-            </tr>
+            </tr> -->
 
             <tr>
                 <td>Name</td>
@@ -42,6 +48,18 @@
             </tr>
 
             <tr>
+                <td>Contact Number</td>
+                <td><input id="contactNumber" name="contactNumber" #contactNumber="ngModel" type="text" [(ngModel)]="newMember.contactNumber" required="true" /></td>
+                <td>
+                    <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched || submitted)" style="color: red;">
+                        <div *ngIf ="contactNumber.errors.required">
+                            Contact number is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
                 <td>Username</td>
                 <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="newMember.username" required="true" /></td>
                 <td>
@@ -55,7 +73,7 @@
 
             <tr>
                 <td>Password</td>
-                <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="newMember.password" required="true" /></td>
+                <td><input id="password" name="password" #password="ngModel" type="password" [(ngModel)]="newMember.password" required="true" /></td>
                 <td>
                     <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" style="color: red;">
                         <div *ngIf ="password.errors.required">
@@ -68,17 +86,23 @@
             <!-- Need to add validation logic -->
             <tr>
                 <td>Re-type Password</td>
-                <td><input id="retypePassword" name="retypePassword" type="text" required="true" /></td>
+                <td><input id="retypePassword" name="retypePassword" #rePasswordTxt="ngModel" type="password" [(ngModel)]="rePassword" required="true" /></td>
                 <td>
-                    <div style="color: red;">
-                        Must match password above
+                    <div *ngIf="rePassword != newMember.password" style="color: red;">
+                        Must match password above.
                     </div>
                 </td>
             </tr>
 
             <tr>
                 <td>Gender</td>
-                <td><input id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="newMember.gender" required="true" /></td>
+                <td>
+                    <select id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="newMember.gender" required="true">
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                </td>
                 <td>
                     <div *ngIf="gender.invalid && (gender.dirty || gender.touched || submitted)" style="color: red;">
                         <div *ngIf ="gender.errors.required">
@@ -100,11 +124,24 @@
                 </td>
             </tr>
 
+            <tr>
+                <td>Credit Card Number</td>
+                <td><input id="creditCard" name="creditCard" #creditCard="ngModel" type="text" [(ngModel)]="newMember.creditCard" required="true" /></td>
+                <td>
+                    <div *ngIf="creditCard.invalid && (creditCard.dirty || creditCard.touched || submitted)" style="color: red;">
+                        <div *ngIf ="creditCard.errors.required">
+                            Credit card number is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
             &nbsp;
 
             <tr>
                 <td colspan="3">
                     <button (click)="clear()">Clear</button>
+                    &nbsp;
                     <input type="submit" value="Register" />
                 </td>
             </tr>

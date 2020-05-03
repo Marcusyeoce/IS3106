@@ -17,13 +17,13 @@ public class SearchAttractionsReq {
     private String searchParam;
     private List<Long> tagIds;
     private BigDecimal priceLimit;
-    private Date visitDate;
-    private Date visitTime;
+    private String visitDate;
+    private String visitTime;
 
     public SearchAttractionsReq() {
     }
     
-    public SearchAttractionsReq(String searchParam, List<Long> tagIds, BigDecimal priceLimit, Date visitDate, Date visitTime) {
+    public SearchAttractionsReq(String searchParam, List<Long> tagIds, BigDecimal priceLimit, String visitDate, String visitTime) {
         this.searchParam = searchParam;
         this.tagIds = tagIds;
         this.priceLimit = priceLimit;
@@ -47,19 +47,19 @@ public class SearchAttractionsReq {
         this.priceLimit = priceLimit;
     }
 
-    public Date getVisitDate() {
+    public String getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(Date visitDate) {
+    public void setVisitDate(String visitDate) {
         this.visitDate = visitDate;
     }
 
-    public Date getVisitTime() {
+    public String getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(Date visitTime) {
+    public void setVisitTime(String visitTime) {
         this.visitTime = visitTime;
     }
 
