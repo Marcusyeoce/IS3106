@@ -139,10 +139,18 @@ public class AttractionResource {
     public Response searchAttractions(SearchAttractionsReq searchAttractionReq) {
         if (searchAttractionReq != null) {
             try {
+                System.out.println("*********** AttractionResource.searchAttractions()");
+                
                 if (searchAttractionReq.getSearchParam() == null) {
                     searchAttractionReq.setSearchParam("");
                 }
-                System.out.println("*********** AttractionResource.searchAttractions()");
+                
+                if (searchAttractionReq.getPriceLimit().compareTo(BigDecimal.ZERO) < 0) {
+                    ErrorRsp errorRsp = new ErrorRsp("Invalid price input");
+
+                    return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+                }
+                
                 List<AttractionEntity> attractions = attractionEntitySessionBeanLocal.searchAttractions(searchAttractionReq.getSearchParam(), 
                                                                                                         new SimpleDateFormat("yyyy-MM-dd").parse(searchAttractionReq.getVisitDate()), 
                                                                                                         new SimpleDateFormat("HH:mm").parse(searchAttractionReq.getVisitTime()), 
