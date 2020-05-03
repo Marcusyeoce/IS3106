@@ -7,7 +7,9 @@
 
         <h3>Booking Date: {{parseDate(bookingToView.bookingDate) | date:'EEE, MMM dd, yyyy'}}</h3>
 
-        <h3>Total Price: ${{bookingToView.totalPrice}}</h3>
+        <h3>Booking Date: {{parseDate(bookingToView.paymentDate) | date:'EEE, MMM dd, yyyy | HH:mm:ss'}}</h3>
+
+        <h3>Total Ticket Price: ${{bookingToView.totalPrice}}</h3>
 
         <h3>Description: {{bookingToView.description}}</h3>
 

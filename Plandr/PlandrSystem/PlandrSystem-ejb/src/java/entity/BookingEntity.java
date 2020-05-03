@@ -41,6 +41,10 @@ public class BookingEntity implements Serializable {
     @Column(nullable = false)
     @NotNull
     private Date bookingDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    @NotNull
+    private Date paymentDate;
     @Column(nullable = false, length = 2048)
     @NotNull
     @Size(max = 2048)
@@ -59,6 +63,7 @@ public class BookingEntity implements Serializable {
     
     public BookingEntity() {
         attractionEntities = new ArrayList<>();
+        paymentDate = new Date();
         
         cancelled = false;
     }
@@ -151,6 +156,14 @@ public class BookingEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.BookingEntity[ id=" + bookingId + " ]";
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
     
 }
