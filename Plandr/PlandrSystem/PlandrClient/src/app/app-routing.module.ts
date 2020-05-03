@@ -45,7 +45,7 @@ const routes: Routes = [
   { path: 'viewAttraction', component: ViewAttractionComponent },
   { path: 'viewAttraction/:attractionId', component: ViewAttractionComponent },
   { path: 'writeReview', component: WriteReviewComponent },
-  { path: 'writeReview/:bookingId', component: WriteReviewComponent },
+  { path: 'writeReview/:attractionId', component: WriteReviewComponent },
   { path: 'searchAttractions', component: SearchAttractionsComponent },
   { path: 'makeBooking', component: MakeBookingComponent },
   { path: 'payment', component: PaymentComponent },

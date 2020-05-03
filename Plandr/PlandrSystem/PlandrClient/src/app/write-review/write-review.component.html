@@ -1,1 +1,40 @@
-<p>write-review works!</p>
+
+<section id="content" class="content">
+
+    <h2>Write Review</h2>
+	
+	<div *ngIf="message">
+		{{message}}
+    </div>
+    <br/>
+
+    <form #reviewForm="ngForm" (ngSubmit)="writeReview(reviewForm)">
+
+        <table>
+
+            <tr>
+                <td style="font-weight: bold;">Review</td>
+                <td><input id="review" name="review" #review="ngModel" type="text" [(ngModel)]="newReview.content" required="true" /></td>
+                <td>
+                    <div *ngIf="review.invalid && (review.dirty || review.touched || submitted)" style="color: red;">
+                        <div *ngIf ="review.errors.required">
+                            Review cannot be blank
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="3">
+                    <button (click)="clear()">Clear</button>
+                    &nbsp;
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</section>
