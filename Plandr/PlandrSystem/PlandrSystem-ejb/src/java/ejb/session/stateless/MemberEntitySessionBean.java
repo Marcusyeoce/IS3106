@@ -181,8 +181,21 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
         }
         else
         {
-            throw new MemberNotFoundException("Staff ID not provided for staff to be updated");
+            throw new MemberNotFoundException("Member ID not provided for member to be updated");
         }
+    }
+    
+    @Override
+    public void updateSubscriptionStatus(MemberEntity member) {
+        try{
+            if(member != null && member.getMemberId() != null)
+            {
+                MemberEntity memberEntityToUpdate = retrieveMemberById(member.getMemberId());
+
+                memberEntityToUpdate.setSubscribed(false);
+                memberEntityToUpdate.setSubscribedUntil(null);
+            }
+        }catch(MemberNotFoundException ex){}
     }
 
     @Override
@@ -218,6 +231,8 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
             throw new MemberNotFoundException("Member does not exist!");
         }
     }
+    
+    
 
     @Override
     public void memberSubscribe(String username, int subPackage) throws MemberNotFoundException {

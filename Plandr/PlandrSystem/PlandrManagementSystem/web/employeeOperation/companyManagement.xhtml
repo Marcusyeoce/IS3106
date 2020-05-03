@@ -61,7 +61,7 @@
                     <p:row>
                         <p:column colspan="2">
                             <p:commandButton type="reset" value="Clear" />&nbsp;
-                            <p:commandButton  value="Create New Company" actionListener="#{companyManagementManagedBean.createNewCompany}" update="@form formAllCompanies:dataTableAllCompanies" oncomplete="PF('dialogCreateNewCompany').show();" />
+                            <p:commandButton  value="Create New Company" actionListener="#{companyManagementManagedBean.createNewCompany}" update="formAllCompanies @form formAllCompanies:dataTableAllCompanies " oncomplete="PF('dialogCreateNewCompany').show();" />
                         </p:column>
                     </p:row>
 
@@ -229,7 +229,7 @@
 
                     <p:row>
                         <p:column colspan="2">
-                            <p:commandButton value="Update company" update="@form formAllCompanies:dataTableAllCompanies" actionListener="#{companyManagementManagedBean.updateCompany}" oncomplete="PF('dialogUpdateCompany').show();" />
+                            <p:commandButton value="Update company" update="formAllCompanies @form formAllCompanies:dataTableAllCompanies " actionListener="#{companyManagementManagedBean.updateCompany}" oncomplete="PF('dialogUpdateCompany').show();" />
                         </p:column>
                     </p:row>
 

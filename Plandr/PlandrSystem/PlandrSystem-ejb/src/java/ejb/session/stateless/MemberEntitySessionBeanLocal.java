@@ -38,5 +38,7 @@ public interface MemberEntitySessionBeanLocal {
     void memberSubscribe(String username, int subPackage) throws MemberNotFoundException;
 
     public List<MemberEntity> retrieveAllMembers();
+
+    public void updateSubscriptionStatus(MemberEntity member) ;
     
 }
