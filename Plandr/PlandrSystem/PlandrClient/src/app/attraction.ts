@@ -8,6 +8,7 @@ export class Attraction {
   description: string;
   location: string;
   picture: string;
+  unitPrice: number;
   startTimestamp: Date;
   endTimestamp: Date;
   unitPrice: number;
@@ -22,6 +23,7 @@ export class Attraction {
     description?: string,
     location?: string,
     picture?: string,
+    unitPrice?: number,
     startTimestamp?: Date,
     endTimestamp?: Date,
     unitPrice?: number
@@ -31,6 +33,7 @@ export class Attraction {
     this.description = description;
     this.location = location;
     this.picture = picture;
+    this.unitPrice = unitPrice;
     this.startTimestamp = startTimestamp;
     this.endTimestamp = endTimestamp;
     this.unitPrice = unitPrice;

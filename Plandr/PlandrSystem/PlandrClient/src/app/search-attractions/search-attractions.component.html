@@ -1,1 +1,104 @@
-<p>search-attractions works!</p>
+<section id="content" class="content">
+  <h2>Search Attractions</h2>
+
+  <div *ngIf="resultError == true">
+    {{errorMessage}}
+  </div>
+
+  <div *ngIf="resultSuccess == true">
+    <table id="AttractionTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">
+      <thead>
+          <th>Attraction ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Picture</th>
+          <th>Action</th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let attraction of attractions">
+              <td>{{attraction.attractionId}}</td>
+              <td>{{attraction.name}}</td>
+              <td>{{attraction.description}}</td>
+              <td>{{attraction.location}}</td>
+              <td>{{attraction.picture}}</td>
+              <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+
+  <br/>
+
+  <form #searchAttractionsForm="ngForm" (ngSubmit)="search(searchAttractionsForm)">
+
+      <table>
+
+          <tr>
+              <td style="font-weight: bold;">Keyword</td>
+              <td><input id="searchParam" name="searchParam" #searchParamTxt="ngModel" type="text" [(ngModel)]="searchParam"/></td>
+              <td>
+                &nbsp;
+              </td>
+          </tr>
+
+          <tr>
+              <td style="font-weight: bold;">Price Limit Per Person</td>
+              <td><input id="priceLimit" name="priceLimit" #priceLimitTxt="ngModel" type="text" [(ngModel)]="priceLimit" required="true" /></td>
+              <td>
+                  <div *ngIf="priceLimitTxt.invalid && (priceLimitTxt.dirty || priceLimitTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="priceLimitTxt.errors.required">
+                        Required field
+                      </div>
+                  </div>
+              </td>
+          </tr>
+
+          <tr>
+              <td style="font-weight: bold;">Visit Date</td>
+              <td><input id="visitDate" name="visitDate" #visitDateTxt="ngModel"  type="date" [(ngModel)]="visitDate" required="true" /></td>
+              <td>
+                  <div *ngIf="visitDateTxt.invalid && (visitDateTxt.dirty || visitDateTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="visitDateTxt.errors.required">
+                        Required field
+                      </div>
+                  </div>
+              </td>
+          </tr>
+
+          <tr>
+              <td style="font-weight: bold;">Visit Time</td>
+              <td><input id="visitTime" name="visitTime" #visitTimeTxt="ngModel" type="time" [(ngModel)]="visitTime" required="true" /></td>
+              <td>
+                  <div *ngIf="visitTimeTxt.invalid && (visitTimeTxt.dirty || visitTimeTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="visitTimeTxt.errors.required">
+                          Required field
+                      </div>
+                  </div>
+              </td>
+          </tr>
+
+          <tr>
+            <td style="font-weight: bold;">Tags</td>
+            <td>
+              <select id="tag" name="tag" [(ngModel)]="tagIds" multiple="true">
+                <option *ngFor="let tag of tags" value="{{tag.tagId}}">{{tag.name}}</option>
+              </select>
+              
+            </td>
+            <td>
+              &nbsp;
+            </td>
+          </tr>
+
+          &nbsp;
+
+      </table>
+      <br/>
+      <input type="reset" value="Clear" />
+      &nbsp;
+      <input type="submit" value="Search" />
+
+  </form>
+
+</section>

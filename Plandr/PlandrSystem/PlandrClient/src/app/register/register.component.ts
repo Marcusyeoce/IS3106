@@ -16,11 +16,16 @@ export class RegisterComponent implements OnInit {
 
   submitted: boolean;
   newMember: Member;
+  message: string;
+  result: boolean;
+  rePassword: string;
+  inputDob: Date;
 
   constructor(private router: Router, private memberService: MemberService)
   { 
     this.submitted = false;
     this.newMember = new Member();
+    this.result = false;
   }
 
   ngOnInit() 
@@ -39,8 +44,21 @@ export class RegisterComponent implements OnInit {
 
     if (registerForm.valid) 
     {
-      this.memberService.registerMember(this.newMember);
-      //route to main page?
+      let dob = new Date(this.inputDob.toString() + "T00:00:00");
+      this.newMember.dob = dob;
+      this.memberService.registerMember(this.newMember).subscribe(
+        response => {
+          let newMemberId: number = response.memberId;
+          this.result = true;
+          this.message = "New account " + newMemberId + " registered successfully";
+        },
+        error => {
+          this.result = false;
+          this.message = "An error has occurred while registering: " + error;
+
+          console.log('********** RegisterComponent.ts: ' + error);
+        }
+      );
     }
   }
 

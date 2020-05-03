@@ -1,11 +1,17 @@
 <section id="content" class="content">
     <h2>Register</h2>
+    <br/>
+	
+	<div *ngIf="result">
+		{{message}}
+    </div>
+    <br/>
 
     <form #registerForm="ngForm" (ngSubmit)="create(registerForm)">
 
         <table>
 
-            <tr>
+            <!-- <tr>
                 <td>Member ID</td>
                 <td><input id="memberId" name="memberId" #memberId="ngModel" type="text" [(ngModel)]="newMember.memberId" required="true" /></td>
                 <td>
@@ -15,10 +21,10 @@
                         </div>
                     </div>
                 </td>
-            </tr>
+            </tr> -->
 
             <tr>
-                <td>Name</td>
+                <td style="font-weight: bold;">Name</td>
                 <td><input id="name" name="name" #name="ngModel" type="text" [(ngModel)]="newMember.name" required="true" /></td>
                 <td>
                     <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" style="color: red;">
@@ -30,7 +36,7 @@
             </tr>
 
             <tr>
-                <td>Email</td>
+                <td style="font-weight: bold;">Email</td>
                 <td><input id="email" name="email" #email="ngModel" type="text" [(ngModel)]="newMember.email" required="true" /></td>
                 <td>
                     <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" style="color: red;">
@@ -42,7 +48,19 @@
             </tr>
 
             <tr>
-                <td>Username</td>
+                <td style="font-weight: bold;">Contact Number</td>
+                <td><input id="contactNumber" name="contactNumber" #contactNumber="ngModel" type="text" [(ngModel)]="newMember.contactNumber" required="true" /></td>
+                <td>
+                    <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched || submitted)" style="color: red;">
+                        <div *ngIf ="contactNumber.errors.required">
+                            Contact number is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold;">Username</td>
                 <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="newMember.username" required="true" /></td>
                 <td>
                     <div *ngIf="username.invalid && (username.dirty || username.touched || submitted)" style="color: red;">
@@ -54,8 +72,8 @@
             </tr>
 
             <tr>
-                <td>Password</td>
-                <td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="newMember.password" required="true" /></td>
+                <td style="font-weight: bold;">Password</td>
+                <td><input id="password" name="password" #password="ngModel" type="password" [(ngModel)]="newMember.password" required="true" /></td>
                 <td>
                     <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" style="color: red;">
                         <div *ngIf ="password.errors.required">
@@ -67,18 +85,24 @@
 
             <!-- Need to add validation logic -->
             <tr>
-                <td>Re-type Password</td>
-                <td><input id="retypePassword" name="retypePassword" type="text" required="true" /></td>
+                <td style="font-weight: bold;">Re-type Password</td>
+                <td><input id="retypePassword" name="retypePassword" #rePasswordTxt="ngModel" type="password" [(ngModel)]="rePassword" required="true" /></td>
                 <td>
-                    <div style="color: red;">
-                        Must match password above
+                    <div *ngIf="rePassword != newMember.password" style="color: red;">
+                        Must match password above.
                     </div>
                 </td>
             </tr>
 
             <tr>
-                <td>Gender</td>
-                <td><input id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="newMember.gender" required="true" /></td>
+                <td style="font-weight: bold;">Gender</td>
+                <td>
+                    <select id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="newMember.gender" required="true">
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                </td>
                 <td>
                     <div *ngIf="gender.invalid && (gender.dirty || gender.touched || submitted)" style="color: red;">
                         <div *ngIf ="gender.errors.required">
@@ -89,12 +113,24 @@
             </tr>
 
             <tr>
-                <td>Date of Birth</td>
-                <td><input id="dob" name="dob" #dob="ngModel" type="text" [(ngModel)]="newMember.dob" required="true" /></td>
+                <td style="font-weight: bold;">Date of Birth</td>
+                <td><input id="dob" name="dob" #dob="ngModel" type="date" [(ngModel)]="inputDob" required="true" /></td>
                 <td>
                     <div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" style="color: red;">
                         <div *ngIf ="dob.errors.required">
                             Date of Birth is required
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="font-weight: bold;">Credit Card Number</td>
+                <td><input id="creditCard" name="creditCard" #creditCard="ngModel" type="text" [(ngModel)]="newMember.creditCard" required="true" /></td>
+                <td>
+                    <div *ngIf="creditCard.invalid && (creditCard.dirty || creditCard.touched || submitted)" style="color: red;">
+                        <div *ngIf ="creditCard.errors.required">
+                            Credit card number is required
                         </div>
                     </div>
                 </td>
@@ -105,6 +141,7 @@
             <tr>
                 <td colspan="3">
                     <button (click)="clear()">Clear</button>
+                    &nbsp;
                     <input type="submit" value="Register" />
                 </td>
             </tr>

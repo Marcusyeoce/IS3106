@@ -11,6 +11,7 @@ import entity.PromotionEntity;
 import entity.ReviewEntity;
 import entity.TagEntity;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -138,10 +139,13 @@ public class AttractionResource {
     public Response searchAttractions(SearchAttractionsReq searchAttractionReq) {
         if (searchAttractionReq != null) {
             try {
+                if (searchAttractionReq.getSearchParam() == null) {
+                    searchAttractionReq.setSearchParam("");
+                }
                 System.out.println("*********** AttractionResource.searchAttractions()");
                 List<AttractionEntity> attractions = attractionEntitySessionBeanLocal.searchAttractions(searchAttractionReq.getSearchParam(), 
-                                                                                                        searchAttractionReq.getVisitDate(), 
-                                                                                                        searchAttractionReq.getVisitTime(), 
+                                                                                                        new SimpleDateFormat("yyyy-MM-dd").parse(searchAttractionReq.getVisitDate()), 
+                                                                                                        new SimpleDateFormat("HH:mm").parse(searchAttractionReq.getVisitTime()), 
                                                                                                         searchAttractionReq.getTagIds(), 
                                                                                                         searchAttractionReq.getPriceLimit());
                 for (AttractionEntity attraction: attractions) {
