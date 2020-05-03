@@ -17,5 +17,30 @@
 
         <h5>End Date: {{attractionToView.endTimeStamp}}</h5>
 
+        <h5>Ticket Price: ${{attractionToView.unitPrice}}</h5>
+
+        <br>
+
+        <h4>Reviews</h4>
+
+        <table width = 100%>
+
+            <thead>
+                <th>Review ID</th>
+                <th>Content</th>
+                <th>Published Date</th>
+            </thead>
+
+            
+            <tbody>
+                <tr *ngFor="let review of attractionToView.reviewEntities">
+                    <td>{{review.reviewId}}</td>
+                    <td>{{review.content}}</td>
+                    <td>{{parseDate(review.publishedDate) | date:'EEE, MMM dd, yyyy'}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+
     </div>
 </section>
