@@ -5,6 +5,7 @@
  */
 package ws.restful.resources;
 
+import ejb.session.stateless.AttractionEntitySessionBeanLocal;
 import ejb.session.stateless.BookingEntitySessionBeanLocal;
 import ejb.session.stateless.MemberEntitySessionBeanLocal;
 import entity.AttractionEntity;
@@ -13,6 +14,10 @@ import entity.MemberEntity;
 import entity.PromotionEntity;
 import entity.ReviewEntity;
 import entity.TagEntity;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -35,6 +40,8 @@ import ws.restful.model.CancelBookingReq;
 import ws.restful.model.CreateBookingReq;
 import ws.restful.model.CreateBookingRsp;
 import ws.restful.model.ErrorRsp;
+import ws.restful.model.GenerateBookingReq;
+import ws.restful.model.GenerateBookingRsp;
 import ws.restful.model.RetrieveBookingRsp;
 import ws.restful.model.RetrieveBookingsByMemberRsp;
 
@@ -52,6 +59,7 @@ public class BookingResource {
     private final SessionBeanLookup sessionBeanLookup;
     private final BookingEntitySessionBeanLocal bookingEntitySessionBeanLocal;
     private final MemberEntitySessionBeanLocal memberEntitySessionBeanLocal;
+    private final AttractionEntitySessionBeanLocal attractionEntitySessionBeanLocal;
     
     /**
      * Creates a new instance of BookingResource
@@ -61,6 +69,7 @@ public class BookingResource {
         
         bookingEntitySessionBeanLocal = sessionBeanLookup.lookupBookingEntitySessionBeanLocal();
         memberEntitySessionBeanLocal = sessionBeanLookup.lookupMemberEntitySessionBeanLocal();
+        attractionEntitySessionBeanLocal = sessionBeanLookup.lookupAttractionEntitySessionBeanLocal();
     }
 
     @Path("retrieveBookingsByMember")
@@ -214,6 +223,88 @@ public class BookingResource {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+        }
+    }
+    
+    @Path("generateBooking")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response generateBooking(GenerateBookingReq generateBookingReq) {
+        if (generateBookingReq != null) {
+            try {
+                MemberEntity member = memberEntitySessionBeanLocal.memberLogin(generateBookingReq.getUsername(), generateBookingReq.getPassword());
+                System.out.println("*********** BookingResource.generateBooking(): Member " + member.getUsername() + " login remotely via ws");
+                
+                if (generateBookingReq.getPriceLimit().compareTo(BigDecimal.ZERO) < 0) {
+                    ErrorRsp errorRsp = new ErrorRsp("Invalid price input");
+
+                    return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+                }
+                
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                Date startTime = format.parse(generateBookingReq.getStartTime());
+                Date endTime = format.parse(generateBookingReq.getEndTime());
+                if (endTime.getTime() <= startTime.getTime()) {
+                    ErrorRsp errorRsp = new ErrorRsp("Invalid time input");
+
+                    return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+                }
+
+                List<AttractionEntity> attractions = attractionEntitySessionBeanLocal.generateBookingAttractions(generateBookingReq.getPriceLimit(),
+                                                                                                                 generateBookingReq.getTagIds(),
+                                                                                                                 new SimpleDateFormat("yyyy-MM-dd").parse(generateBookingReq.getVisitDate()),
+                                                                                                                 startTime, endTime);
+                //Generate a random list of attractions, 1 attraction for each 3-hour interval
+                BigDecimal bestPromotion = BigDecimal.ZERO;
+                BigDecimal totalTicketPrice = BigDecimal.ZERO;
+                List<Long> attractionIds = new ArrayList<>();
+                
+                for (AttractionEntity attraction: attractions) {
+                    attractionIds.add(attraction.getAttractionId());
+                    totalTicketPrice = totalTicketPrice.add(attraction.getUnitPrice());
+                    attraction.setCompanyEntity(null);
+                
+                    for (PromotionEntity promotion: attraction.getPromotionEntities()) {
+                        promotion.getAttractionEntities().clear();
+                        if (promotion.getDiscount().compareTo(bestPromotion) > 0) {
+                            bestPromotion = promotion.getDiscount();
+                        }
+                    }
+                    
+                    for (TagEntity tag: attraction.getTagEntities()) {
+                        tag.getAttractionEntities().clear();
+                    }
+                    
+                    for (ReviewEntity review: attraction.getReviewEntities()) {
+                        review.setAttractionEntity(null);
+                        review.getMemberEntity().getReviewEntities().clear();
+                    }
+                }
+    
+                BigDecimal multiplier = new BigDecimal(generateBookingReq.getNumPax());
+                if (totalTicketPrice.compareTo(bestPromotion) < 0) {
+                    totalTicketPrice = BigDecimal.ZERO;
+                } else {
+                    totalTicketPrice = totalTicketPrice.multiply(multiplier);
+                    totalTicketPrice = totalTicketPrice.subtract(bestPromotion);
+                }
+                
+                return Response.status(Status.OK).entity(new GenerateBookingRsp(attractions, totalTicketPrice, attractionIds)).build();
+                
+            } catch (InvalidLoginCredentialException ex) {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Status.UNAUTHORIZED).entity(errorRsp).build();
+            } catch (Exception ex) {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            }
+        } else {
+            ErrorRsp errorRsp = new ErrorRsp("Invalid generate booking request");
+            
+            return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
         }
     }
 }

@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.MemberEntity;
+import java.util.List;
 import javax.ejb.Local;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
@@ -35,5 +36,9 @@ public interface MemberEntitySessionBeanLocal {
     void updateMemberPassword(String username, String oldPassword, String newPassword, String reenteredNewPassword) throws MemberNotFoundException, PasswordMismatchException;
 
     void memberSubscribe(String username, int subPackage) throws MemberNotFoundException;
+
+    public List<MemberEntity> retrieveAllMembers();
+
+    public void updateSubscriptionStatus(MemberEntity member) ;
     
 }

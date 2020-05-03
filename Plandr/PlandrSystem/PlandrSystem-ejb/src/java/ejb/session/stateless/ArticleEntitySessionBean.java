@@ -2,6 +2,7 @@ package ejb.session.stateless;
 
 import entity.ArticleEntity;
 import entity.StaffEntity;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
@@ -42,6 +43,7 @@ public class ArticleEntitySessionBean implements ArticleEntitySessionBeanLocal {
     @Override
     public Long createNewArticle(Long staffId, ArticleEntity newArticleEntity) throws StaffNotFoundException, InputDataValidationException
     {
+        newArticleEntity.setPublishedDate(new Date());
         Set<ConstraintViolation<ArticleEntity>>constraintViolations = validator.validate(newArticleEntity);
         
         if(constraintViolations.isEmpty())

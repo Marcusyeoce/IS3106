@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.MemberEntity;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -139,6 +140,15 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
             throw new MemberNotFoundException("Member username " + username + " does not exist!");
         }
     }
+    
+    @Override
+    public List<MemberEntity> retrieveAllMembers()
+    {
+        Query query = em.createQuery("SELECT m FROM MemberEntity m ORDER BY m.name ASC");
+        List<MemberEntity> memberEntities = query.getResultList();
+        
+        return memberEntities;
+    }
 
     @Override
     public void updateMember(MemberEntity member) throws MemberNotFoundException, UpdateMemberException, InputDataValidationException {
@@ -171,8 +181,21 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
         }
         else
         {
-            throw new MemberNotFoundException("Staff ID not provided for staff to be updated");
+            throw new MemberNotFoundException("Member ID not provided for member to be updated");
         }
+    }
+    
+    @Override
+    public void updateSubscriptionStatus(MemberEntity member) {
+        try{
+            if(member != null && member.getMemberId() != null)
+            {
+                MemberEntity memberEntityToUpdate = retrieveMemberById(member.getMemberId());
+
+                memberEntityToUpdate.setSubscribed(false);
+                memberEntityToUpdate.setSubscribedUntil(null);
+            }
+        }catch(MemberNotFoundException ex){}
     }
 
     @Override
@@ -208,6 +231,8 @@ public class MemberEntitySessionBean implements MemberEntitySessionBeanLocal {
             throw new MemberNotFoundException("Member does not exist!");
         }
     }
+    
+    
 
     @Override
     public void memberSubscribe(String username, int subPackage) throws MemberNotFoundException {

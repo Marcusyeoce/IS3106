@@ -43,5 +43,7 @@ public interface AttractionEntitySessionBeanLocal {
     public void updateAttraction(AttractionEntity attraction, List<Long> tagIdsToUpdate, List<Long> promotionIdsToUpdate) throws AttractionNotFoundException, InputDataValidationException, TagNotFoundException, PromotionNotFoundException;
 
     List<AttractionEntity> searchAttractions(String searchParam, Date visitDate, Date visitTime, List<Long> tagIds, BigDecimal priceLimit);
+
+    List<AttractionEntity> generateBookingAttractions(BigDecimal priceLimit, List<Long> tagIds, Date visitDate, Date startTime, Date endTime);
     
 }

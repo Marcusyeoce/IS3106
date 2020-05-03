@@ -48,7 +48,7 @@
               <td>
                   <div *ngIf="priceLimitTxt.invalid && (priceLimitTxt.dirty || priceLimitTxt.touched || submitted)" style="color: red;">
                       <div *ngIf ="priceLimitTxt.errors.required">
-                        Required field
+                        Price Limit is required.
                       </div>
                   </div>
               </td>
@@ -60,7 +60,7 @@
               <td>
                   <div *ngIf="visitDateTxt.invalid && (visitDateTxt.dirty || visitDateTxt.touched || submitted)" style="color: red;">
                       <div *ngIf ="visitDateTxt.errors.required">
-                        Required field
+                        Visit Date is required.
                       </div>
                   </div>
               </td>
@@ -72,7 +72,7 @@
               <td>
                   <div *ngIf="visitTimeTxt.invalid && (visitTimeTxt.dirty || visitTimeTxt.touched || submitted)" style="color: red;">
                       <div *ngIf ="visitTimeTxt.errors.required">
-                          Required field
+                          Visit Time is required.
                       </div>
                   </div>
               </td>
@@ -95,8 +95,6 @@
 
       </table>
       <br/>
-      <input type="reset" value="Clear" />
-      &nbsp;
       <input type="submit" value="Search" />
 
   </form>
