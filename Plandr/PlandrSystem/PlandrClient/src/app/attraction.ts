@@ -11,7 +11,6 @@ export class Attraction {
   unitPrice: number;
   startTimestamp: Date;
   endTimestamp: Date;
-  unitPrice: number;
 
   promotionEntities: Promotion[];
   tagEntities: Tag[];
@@ -26,7 +25,6 @@ export class Attraction {
     unitPrice?: number,
     startTimestamp?: Date,
     endTimestamp?: Date,
-    unitPrice?: number
   ) {
     this.attractionId = attractionId;
     this.name = name;

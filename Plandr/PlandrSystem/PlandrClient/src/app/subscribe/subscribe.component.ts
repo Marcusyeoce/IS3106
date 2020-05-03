@@ -69,7 +69,8 @@ export class SubscribeComponent implements OnInit {
           this.resultSuccess = true;
           this.resultError = false;
 
-					this.message = "Subscribed successfully for " + this.subMonths + " months, $" + this.subCost + " will be deducted from credit card";
+          //disabled, not working
+					//this.message = "Subscribed successfully for " + this.subMonths + " months, $" + this.subCost + " will be deducted from credit card";
         },
         error => {
           this.resultError = true;
