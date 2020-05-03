@@ -14,21 +14,25 @@
 
         <h4>Username: {{memberToView.username}}</h4>
 
-        <h4>Name: {{memberToView.name}}</h4>
+        <h4>Name: {{sessionService.getName()}}</h4>
 
-        <h4>Email: {{memberToView.email}}</h4>
+        <h4>Email: {{sessionService.getEmail()}}</h4>
 
-        <h4>Contact Number: {{memberToView.contactNumber}}</h4>
+        <h4>Contact Number: {{sessionService.getContactNumber()}}</h4>
 
-        <h4>Gender: {{memberToView.gender}}</h4>
+        <h4>Gender: {{sessionService.getGender()}}
+            <!-- <span *ngIf="sessionService.getGender() == 0">Male</span>
+            <span *ngIf="sessionService.getGender() == 1">Female</span>
+            <span *ngIf="sessionService.getGender() == 2">Other</span> -->
+        </h4>
 
-        <h4>Date of Birth: {{parseDate(memberToView.dob) | date:'MMM dd, yyyy'}}</h4>
+        <h4>Date of Birth: {{parseDate(sessionService.getDob()) | date:'MMM dd, yyyy'}}</h4>
 
-        <h4>Subscribed: {{memberToView.subscribed}}</h4>
+        <h4>Subscribed: {{sessionService.getSubscribed()}}</h4>
 
-        <h4 *ngIf="memberToView.subscribed == true">Subscribed Until: {{parseDate(memberToView.subscribedUntil) | date:'EEE, MMM dd, yyyy'}}</h4>
+        <h4 *ngIf="sessionService.getSubscribed() == true">Subscribed Until: {{parseDate(sessionService.getSubscribedUntil()) | date:'EEE, MMM dd, yyyy'}}</h4>
 
-        <h4>Credit Card: {{memberToView.creditCard}}</h4>
+        <h4>Credit Card: {{sessionService.getCreditCard()}}</h4>
     </div>
     
 </section>

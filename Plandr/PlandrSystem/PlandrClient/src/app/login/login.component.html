@@ -2,6 +2,10 @@
 
     <h2>Log In</h2>
 
+    <div *ngIf="message">
+        <h3>{{message}}</h3>
+    </div>
+
     <div>
 
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">

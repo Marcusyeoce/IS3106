@@ -40,34 +40,36 @@ export class SubscribeComponent implements OnInit {
 
   subscribe(subscribeForm: NgForm) {
 
-    this.subPackage = subscribeForm.value;
+    // this.subPackage = subscribeForm.value;
     this.submitted = true;
 
-    //console.log(this.subPackage)
+    console.log(this.subPackage);
 
-    if(subscribeForm.valid) {
+    if(subscribeForm.valid) { //this part?
+      switch(this.subPackage) {
+        case 1:
+          this.subMonths = 1;
+          this.subCost = 4.99;
+        case 2:
+          this.subMonths = 3;
+          this.subCost = 9.99;
+        case 3:
+          this.subMonths = 6;
+          this.subCost = 14.99;
+        default:
+          this.subMonths = 0;
+          this.subCost = 0;
+      }
+
       this.memberService.memberSubscribe(this.subPackage).subscribe(
         response => {
-          this.sessionService.getCurrentMember().subscribed = true;
-          this.sessionService.getCurrentMember().subscribedUntil = response.subscribedUntil;
+          this.sessionService.setSubscribed(true);
+          this.sessionService.setSubscribedUntil(response.subscribedUntil);
+          console.log(this.sessionService.getSubscribedUntil());
 
           this.resultSuccess = true;
           this.resultError = false;
 
-          switch(this.subPackage) {
-            case 1:
-              this.subMonths = 1;
-              this.subCost = 4.99;
-            case 2:
-              this.subMonths = 3;
-              this.subCost = 9.99;
-            case 3:
-              this.subMonths = 6;
-              this.subCost = 14.99;
-            default:
-              this.subMonths = 0;
-              this.subCost = 0;
-          }
 					this.message = "Subscribed successfully for " + this.subMonths + " months, $" + this.subCost + " will be deducted from credit card";
         },
         error => {
@@ -79,5 +81,10 @@ export class SubscribeComponent implements OnInit {
         }
       );
     }
+  }
+
+  parseDate(d: Date)
+	{		
+		return d.toString().replace('[UTC]', '');
   }
 }

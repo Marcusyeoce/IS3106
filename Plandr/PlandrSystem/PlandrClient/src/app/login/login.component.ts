@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   submitted: boolean;
   loginError: boolean;
-	errorMessage: string;
+  errorMessage: string;
+  message: string;
 
   constructor(private router: Router, private memberService: MemberService, private sessionService: SessionService) 
   {
@@ -43,7 +44,15 @@ export class LoginComponent implements OnInit {
 
           if(loginMember != null) {
             this.sessionService.setIsLogin(true);
-            this.sessionService.setCurrentMember(loginMember);					
+            this.sessionService.setCurrentMember(loginMember);
+            this.sessionService.setName(loginMember.name);
+            this.sessionService.setEmail(loginMember.email);
+            this.sessionService.setContactNumber(loginMember.contactNumber);
+            this.sessionService.setGender(loginMember.gender);
+            this.sessionService.setDob(loginMember.dob);
+            this.sessionService.setSubscribed(loginMember.subscribed);
+            this.sessionService.setSubscribedUntil(loginMember.subscribedUntil);		
+            this.sessionService.setCreditCard(loginMember.creditCard);	
             this.loginError = false;
             
             this.router.navigate(["/main"]);
@@ -52,6 +61,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
+          this.message = "Username or password does not match! Please try again"
           this.loginError = true;
           this.errorMessage = error
         }

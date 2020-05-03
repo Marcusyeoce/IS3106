@@ -12,12 +12,12 @@ package ws.restful.model;
 public class MemberSubscribeReq {
     private String username;
     private String password;
-    private int subPackage;
+    private Integer subPackage;
 
     public MemberSubscribeReq() {
     }
 
-    public MemberSubscribeReq(String username, String password, int subPackage) {
+    public MemberSubscribeReq(String username, String password, Integer subPackage) {
         this.username = username;
         this.password = password;
         this.subPackage = subPackage;
@@ -39,11 +39,11 @@ public class MemberSubscribeReq {
         this.password = password;
     }
 
-    public int getSubPackage() {
+    public Integer getSubPackage() {
         return subPackage;
     }
 
-    public void setSubPackage(int subPackage) {
+    public void setSubPackage(Integer subPackage) {
         this.subPackage = subPackage;
     }
     

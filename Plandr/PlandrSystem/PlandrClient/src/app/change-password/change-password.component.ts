@@ -43,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
           this.sessionService.setPassword(this.newPassword);
 
           this.resultSuccess = true;
-					this.resultError = false;
+          this.resultError = false;
 					this.message = "Password changed successfully";
         },
         error => {

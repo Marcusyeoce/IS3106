@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Booking } from "./booking";
 import { Member } from "./member";
+import { GenderEnum } from "./gender-enum.enum";
 
 @Injectable({
   providedIn: "root",
@@ -43,6 +44,74 @@ export class SessionService {
 
   setPassword(password: string): void {
     sessionStorage.password = password;
+  }
+
+  getSubscribedUntil(): Date {
+    return sessionStorage.subscribedUntil;
+  }
+
+  setSubscribedUntil(subscribedUntil: Date): void {
+    sessionStorage.subscribedUntil = subscribedUntil;
+  }
+
+  getName(): string {
+    return sessionStorage.name;
+  }
+
+  setName(name: string): void {
+    sessionStorage.name = name;
+  }
+
+  getEmail(): string {
+    return sessionStorage.email;
+  }
+ 
+  setEmail(email: string): void {
+    sessionStorage.email = email;
+  }
+
+  getContactNumber(): number {
+    return sessionStorage.contactNumber;
+  }
+
+  setContactNumber(contactNumber: number): void {
+    sessionStorage.contactNumber = contactNumber;
+  }
+
+  getGender(): GenderEnum {
+    return sessionStorage.gender;
+  }
+
+  setGender(gender: GenderEnum): void {
+    sessionStorage.gender = gender;
+  }
+
+  getDob(): Date {
+    return sessionStorage.dob;
+  }
+
+  setDob(dob: Date): void {
+    sessionStorage.dob = dob;
+  }
+
+  getCreditCard(): string {
+    return sessionStorage.creditCard;
+  }
+
+  setCreditCard(creditCard: string): void {
+    sessionStorage.creditCard = creditCard;
+  }
+
+  getSubscribed(): boolean {
+    if (sessionStorage.subscribed == "true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  setSubscribed(subscribed: boolean): void {
+    sessionStorage.subscribed = subscribed;
   }
 
   getBookings(): Booking[] {
