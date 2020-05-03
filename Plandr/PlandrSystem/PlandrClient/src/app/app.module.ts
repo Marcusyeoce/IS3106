@@ -41,6 +41,7 @@ import { SearchAttractionsComponent } from './search-attractions/search-attracti
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     CancelBookingComponent,
     UpdateProfileComponent,
     SideMenuComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,

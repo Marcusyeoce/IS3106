@@ -27,13 +27,24 @@
         </table>
         <br/>
         <table id="BookingTable" style= "cellpadding: 3px; cellspacing: 1px; text-align: center;">
+
             <tr>
-                <td style="font-weight: bold;">Total Price</td>
-                <td>{{totalPrice}}</td>
+                <td style="font-weight: bold;">Total Price Tickets</td>
+                <td>${{totalPrice}}</td>
             </tr>
 
             <tr>
-                <td for="description">Description</td>
+                <td style="font-weight: bold;">Booking Fee</td>
+                <td>${{bookingFee}}</td>
+            </tr>
+            
+            <tr>
+                <td style="font-weight: bold;">Total Amount</td>
+                <td>${{totalPrice+bookingFee}}</td>
+            </tr>
+
+            <tr>
+                <td for="description">Additional Requests</td>
 			    <td><input id="description" name="description" [(ngModel)]="description" required="true" maxlength="2048"/><td>
             </tr>
         </table>

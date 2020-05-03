@@ -1,10 +1,13 @@
-<header class="header">
-    <h1>Plandr - Making Outings Easier</h1>
+<header class="image">
+    <div>
+        <!-- <img src="assets\plandrLogo.png" alt="PlandrLogo"/> -->
+        <h1 style="color: black;" style="font-size: 1cm;">Plandr - Making Outings Easier</h1>
+    </div>
+
+    
     <aside id="buttonbox" class="buttonbox">
 
     <div *ngIf="sessionService.getIsLogin() == false">
-        <button mat-button type="button" label="Home" (click)="redirectToMain()">Home</button> 
-        &nbsp; 
         <button mat-button type="button" label="Register" (click)="redirectToRegister()">Register</button> 
         &nbsp;
         <button mat-button type="button" label="Log In" (click)="redirectToLogin()">Log In</button> 
@@ -13,7 +16,7 @@
     &nbsp;
     
     <div *ngIf="sessionService.getIsLogin() == true">
-        You are login as {{sessionService.getCurrentMember().username}}
+        <b style="color: white"> You are login as {{sessionService.getCurrentMember().username}}</b>
         &nbsp;
         <button mat-button type="button" label="Log Out" (click)="memberLogout()">Log Out</button>
         <!-- <button mat-button type="button" label="Articles"(click)="redirectToArticles()">Articles</button> 

@@ -10,6 +10,7 @@ import { AttractionService } from '../attraction.service';
 import { Attraction } from '../attraction';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
+import { Member } from '../member';
 
 @Component({
   selector: 'app-make-booking',
@@ -17,6 +18,9 @@ import { Tag } from '../tag';
   styleUrls: ['./make-booking.component.css']
 })
 export class MakeBookingComponent implements OnInit {
+
+  currentMember: Member;
+  bookingFee: number;
 
   generateSubmitted: boolean;
   generateSuccess: boolean;
@@ -63,7 +67,12 @@ export class MakeBookingComponent implements OnInit {
 			error => {
 				console.log('********** SearchAttractionsComponent.ts: ' + error);
 			}
-		);
+    );
+    if (this.sessionService.getCurrentMember().subscribed == true) {
+      this. bookingFee = 0;
+    } else {
+      this.bookingFee = 2;
+    }
   }
 
   generate(generateBookingForm: NgForm)
@@ -107,7 +116,7 @@ export class MakeBookingComponent implements OnInit {
     this.createSubmitted = true;
     let bookDate = new Date(this.bookingDate.toString() + "T00:00:00");
     this.newBooking.bookingDate = bookDate;
-    this.newBooking.totalPrice = this.totalPrice;
+    this.newBooking.totalPrice = this.totalPrice + this.bookingFee;
     this.newBooking.description = this.description;
 
     this.bookingService.createNewBooking(this.newBooking, this.attractionIds).subscribe(

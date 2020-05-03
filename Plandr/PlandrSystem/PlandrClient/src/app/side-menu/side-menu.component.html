@@ -1,18 +1,28 @@
-<section id="sidemenu" class="sidemenu">
-<h3>Main Menu</h3>
+<section id="sidemenu" class="sidemenu" height="100%">
+<h4 class="menuHeader1">Main Menu</h4>
 <nav>
-  <a routerLink="/main">Home</a>
-  <br/><br/>
-  <a routerLink="/searchAttractions">Search Attractions</a>
-  <br/><br/>
-  <a routerLink="/faq">FAQ</a>
+  <ul>
+    <li><a routerLink="/main">Home</a></li>
+    <li><a routerLink="/faq">FAQ</a></li>
+  </ul>
+
+  <ng-template [ngIf]="sessionService.getIsLogin() == false">
+    <h4 class="menuHeader1">Explore</h4>
+    <h5 class="menuHeader2">Article</h5>
+    <ul class="secondaryMenu">
+      <li><a routerLink="/viewAllArticles">View All Articles</a></li>			
+    </ul>
+    <h5 class="menuHeader2">Attraction</h5>
+    <ul class="secondaryMenu">
+      <li><a routerLink="/viewAllAttractions">View All Attractions</a></li>
+      <li><a routerLink="/searchAttractions">Search Attractions</a></li>
+    </ul>
+  </ng-template>
+  
   <ng-template [ngIf]="sessionService.getIsLogin() == true">
-    <br/>
     <h4 class="menuHeader1">Profile</h4>				
     <ul class="secondaryMenu">
-      <!-- <li><a routerLink="/profile">Profile</a></li> -->
       <li><a routerLink="/profileDetails">Profile Details</a></li>
-      <li><a routerLink="/viewAllBookings">View Past Bookings</a></li>
       <li><a routerLink="/subscribe">Subscribe</a></li>
     </ul>
     <h4 class="menuHeader1">Explore</h4>
@@ -22,9 +32,15 @@
     </ul>
     <h5 class="menuHeader2">Attraction</h5>
     <ul class="secondaryMenu">
-      <li><a routerLink="/makeBooking">Make A Booking</a></li>
       <li><a routerLink="/viewAllAttractions">View All Attractions</a></li>
+      <li><a routerLink="/searchAttractions">Search Attractions</a></li>
     </ul>
+    <h5 class="menuHeader2">Booking</h5>
+    <ul class="secondaryMenu">
+      <li><a routerLink="/makeBooking">Make A Booking</a></li>
+      <li><a routerLink="/viewAllBookings">View Past Bookings</a></li>
+    </ul>
+
     <br/>
   </ng-template>
 </nav>

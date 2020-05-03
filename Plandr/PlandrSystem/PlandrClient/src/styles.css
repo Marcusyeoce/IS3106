@@ -95,3 +95,17 @@ th, td {
 	border-spacing: 1px;
 	padding: 3px;
 }
+
+.image{
+    height:4cm; background-size:cover; width:auto;
+    background-image:url(src\assets\headerbackground.jpg);
+    background-position:50% 50%;
+    opacity: 80%;
+}
+
+.app_top {
+	display: table-cell;
+}
+.app_top img {
+	float: left;
+}
