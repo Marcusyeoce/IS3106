@@ -39,8 +39,10 @@ import util.exception.TagNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UsernameExistException;
 import ejb.session.stateless.PromotionEntitySessionBeanLocal;
+import ejb.session.stateless.ReviewEntitySessionBeanLocal;
 import entity.BookingEntity;
 import entity.MemberEntity;
+import entity.ReviewEntity;
 import util.enumeration.GenderEnum;
 import util.exception.MemberNotFoundException;
 
@@ -48,6 +50,9 @@ import util.exception.MemberNotFoundException;
 @LocalBean
 @Startup
 public class DataInitSessionBean {
+
+    @EJB(name = "ReviewEntitySessionBeanLocal")
+    private ReviewEntitySessionBeanLocal reviewEntitySessionBean;
 
     @EJB(name = "BookingEntitySessionBeanLocal")
     private BookingEntitySessionBeanLocal bookingEntitySessionBeanLocal;
@@ -89,7 +94,7 @@ public class DataInitSessionBean {
         } 
     }
     
-    public void initializeData(){
+    public void initializeData() {
         try
         {
             staffEntitySessionBeanLocal.createNewStaff(new StaffEntity("Admin", "admin@gmail.com", "99999991", "admin", "password", AccessRightEnum.ADMIN)); 
@@ -145,6 +150,9 @@ public class DataInitSessionBean {
             attractions.add(2l);
             attractions.add(4l);
             bookingEntitySessionBeanLocal.createNewBooking(new BookingEntity(new BigDecimal("0.00"), new Date(120, 05, 06), "Romantic day for wedding anniversary"), "member2", attractions);
+            
+            reviewEntitySessionBean.createNewReview(new ReviewEntity("Great place for the whole family to hang out!"), 1L, "member1");
+            
         }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException | StaffNotFoundException ex){
             ex.printStackTrace();
         }
