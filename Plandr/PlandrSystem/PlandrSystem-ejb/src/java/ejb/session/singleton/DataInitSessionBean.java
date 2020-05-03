@@ -151,7 +151,7 @@ public class DataInitSessionBean {
             attractions.add(4l);
             bookingEntitySessionBeanLocal.createNewBooking(new BookingEntity(new BigDecimal("0.00"), new Date(120, 05, 06), "Romantic day for wedding anniversary"), "member2", attractions);
             
-            reviewEntitySessionBean.createNewReview(new ReviewEntity("Great place for the whole family to hang out!"), 1L, "member1");
+            //reviewEntitySessionBean.createNewReview(new ReviewEntity("Great place for the whole family to hang out!"), 1L, "member1");
             
         }catch(UsernameExistException | AttractionNotFoundException | CompanyExistException | TagNotFoundException | PromotionNotFoundException | CompanyNotFoundException | CreateNewTagException |  UnknownPersistenceException | InputDataValidationException | StaffNotFoundException ex){
             ex.printStackTrace();

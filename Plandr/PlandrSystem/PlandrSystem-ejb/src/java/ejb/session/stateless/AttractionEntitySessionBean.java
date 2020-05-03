@@ -335,4 +335,28 @@ public class AttractionEntitySessionBean implements AttractionEntitySessionBeanL
         
         return finalAttractions;
     }
+
+    @Override
+    public List<AttractionEntity> generateBookingAttractions(BigDecimal priceLimit, List<Long> tagIds, Date visitDate, Date startTime, Date endTime) {
+        List<AttractionEntity> attractions = searchAttractions("", visitDate, startTime, tagIds, priceLimit);
+        
+        double startTimeInMin = startTime.getHours()*60 + startTime.getMinutes();
+        double endTimeInMin = endTime.getHours()*60 + endTime.getMinutes();
+        
+        int noOfAttractions = (int) Math.ceil((endTimeInMin - startTimeInMin)/180);
+        
+        List<AttractionEntity> finalAttractions = new ArrayList<>();
+        for (int i = 0; i < noOfAttractions; i++) {
+            int n = (int) (attractions.size() * Math.random());
+            finalAttractions.add(attractions.get(n));
+            attractions.remove(n);
+            if (attractions.size() == 0) {
+                break;
+            }
+        }
+        
+        return finalAttractions;
+    }
+    
+    
 }

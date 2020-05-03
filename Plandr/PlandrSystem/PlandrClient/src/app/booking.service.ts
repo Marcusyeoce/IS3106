@@ -86,13 +86,30 @@ export class BookingService {
       "username": this.sessionService.getUsername(),
       "password": this.sessionService.getPassword(),
       "bookingId": bookingId
-    }
+    };
     return this.httpClient.post<any>(this.baseUrl + "/cancelBooking", cancelBookingReq, httpOptions).pipe
 		(
 			catchError(this.handleError)
 		);
   }
   
+  generateBooking(numPax: number, priceLimit: number, tagIds: number[], visitDate: string, startTime: string, endTime: string) {
+    let generateBookingReq = {
+      "username": this.sessionService.getUsername(),
+      "password": this.sessionService.getPassword(),
+      "numPax": numPax,
+      "priceLimit": priceLimit,
+      "tagIds": tagIds,
+      "visitDate": visitDate,
+      "startTime": startTime,
+      "endTime": endTime
+    };
+    return this.httpClient.post<any>(this.baseUrl + "/generateBooking", generateBookingReq, httpOptions).pipe
+    (
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
 

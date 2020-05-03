@@ -36,7 +36,7 @@ export class SearchAttractionsComponent implements OnInit {
     private tagService: TagService) 
   { 
     this.submitted = false;
-    this.tagIds = new Array;
+    this.tagIds = new Array();
     this.searchParam = "";
 
     this.resultSuccess = false;
