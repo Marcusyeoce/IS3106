@@ -37,19 +37,19 @@
       <table>
 
           <tr>
-              <td for="searchParam">Keyword</td>
-              <td><input id="searchParam" name="searchParam" type="text" [(ngModel)]="searchParam"/></td>
+              <td>Keyword</td>
+              <td><input id="searchParam" name="searchParam" #searchParamTxt="ngModel" type="text" [(ngModel)]="searchParam"/></td>
               <td>
                 &nbsp;
               </td>
           </tr>
 
           <tr>
-              <td for="priceLimit">Price Limit Per Person</td>
-              <td><input id="priceLimit" name="priceLimit" type="text" [(ngModel)]="priceLimit" required="true" /></td>
+              <td>Price Limit Per Person</td>
+              <td><input id="priceLimit" name="priceLimit" #priceLimitTxt="ngModel" type="text" [(ngModel)]="priceLimit" required="true" /></td>
               <td>
-                  <div *ngIf="priceLimit.invalid && (priceLimit.dirty || priceLimit.touched || submitted)" style="color: red;">
-                      <div *ngIf ="priceLimit.errors.required">
+                  <div *ngIf="priceLimitTxt.invalid && (priceLimitTxt.dirty || priceLimitTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="priceLimitTxt.errors.required">
                         Required field
                       </div>
                   </div>
@@ -57,11 +57,11 @@
           </tr>
 
           <tr>
-              <td for="visitDate">Visit Date</td>
-              <td><input id="visitDate" name="visitDate" type="date" [(ngModel)]="visitDate" required="true" /></td>
+              <td>Visit Date</td>
+              <td><input id="visitDate" name="visitDate" #visitDateTxt="ngModel"  type="date" [(ngModel)]="visitDate" required="true" /></td>
               <td>
-                  <div *ngIf="visitDate.invalid && (visitDate.dirty || visitDate.touched || submitted)" style="color: red;">
-                      <div *ngIf ="visitDate.errors.required">
+                  <div *ngIf="visitDateTxt.invalid && (visitDateTxt.dirty || visitDateTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="visitDateTxt.errors.required">
                         Required field
                       </div>
                   </div>
@@ -69,11 +69,11 @@
           </tr>
 
           <tr>
-              <td for="visitTime">Visit Time</td>
-              <td><input id="visitTime" name="visitTime" type="time" [(ngModel)]="visitTime" required="true" /></td>
+              <td>Visit Time</td>
+              <td><input id="visitTime" name="visitTime" #visitTimeTxt="ngModel" type="time" [(ngModel)]="visitTime" required="true" /></td>
               <td>
-                  <div *ngIf="visitTime.invalid && (visitTime.dirty || visitTime.touched || submitted)" style="color: red;">
-                      <div *ngIf ="visitTime.errors.required">
+                  <div *ngIf="visitTimeTxt.invalid && (visitTimeTxt.dirty || visitTimeTxt.touched || submitted)" style="color: red;">
+                      <div *ngIf ="visitTimeTxt.errors.required">
                           Required field
                       </div>
                   </div>
@@ -97,6 +97,8 @@
 
       </table>
       <br/>
+      <input type="reset" value="Clear" />
+      &nbsp;
       <input type="submit" value="Search" />
 
   </form>

@@ -114,7 +114,7 @@
 
             <tr>
                 <td>Date of Birth</td>
-                <td><input id="dob" name="dob" #dob="ngModel" type="text" [(ngModel)]="newMember.dob" required="true" /></td>
+                <td><input id="dob" name="dob" #dob="ngModel" type="date" [(ngModel)]="inputDob" required="true" /></td>
                 <td>
                     <div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" style="color: red;">
                         <div *ngIf ="dob.errors.required">

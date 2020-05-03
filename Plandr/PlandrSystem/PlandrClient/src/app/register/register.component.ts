@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   message: string;
   result: boolean;
   rePassword: string;
+  inputDob: Date;
 
   constructor(private router: Router, private memberService: MemberService)
   { 
@@ -43,6 +44,8 @@ export class RegisterComponent implements OnInit {
 
     if (registerForm.valid) 
     {
+      let dob = new Date(this.inputDob.toString() + "T00:00:00");
+      this.newMember.dob = dob;
       this.memberService.registerMember(this.newMember).subscribe(
         response => {
           let newMemberId: number = response.memberId;
