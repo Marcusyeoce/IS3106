@@ -91,7 +91,6 @@ public class MemberResource {
                     
                     for (ReviewEntity review: attraction.getReviewEntities()) {
                         review.setAttractionEntity(null);
-                        review.getMemberEntity().getReviewEntities().clear();
                     }
                 }
             }

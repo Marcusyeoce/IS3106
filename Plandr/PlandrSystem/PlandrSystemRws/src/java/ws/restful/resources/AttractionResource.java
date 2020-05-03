@@ -81,7 +81,6 @@ public class AttractionResource {
                     
                 for (ReviewEntity review: attraction.getReviewEntities()) {
                     review.setAttractionEntity(null);
-                    review.getMemberEntity().getReviewEntities().clear();
                 }
             }
         
@@ -117,7 +116,6 @@ public class AttractionResource {
 
             for (ReviewEntity review: attraction.getReviewEntities()) {
                 review.setAttractionEntity(null);
-                review.getMemberEntity().getReviewEntities().clear();
             }
             
             return Response.status(Status.OK).entity(new RetrieveAttractionRsp(attraction)).build();
@@ -169,7 +167,6 @@ public class AttractionResource {
                     
                     for (ReviewEntity review: attraction.getReviewEntities()) {
                         review.setAttractionEntity(null);
-                        review.getMemberEntity().getReviewEntities().clear();
                     }
                 }
                 

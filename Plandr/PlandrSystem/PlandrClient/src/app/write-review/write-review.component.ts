@@ -36,8 +36,16 @@ export class WriteReviewComponent implements OnInit {
 
     if (reviewForm.valid)
     {
-      this.reviewService.createNewReview(this.newReview, this.attractionId);
-      this.message = "Successfully made review"
+      this.reviewService.createNewReview(this.newReview, this.attractionId).subscribe(
+        response => {
+          this.message = "Review posted successfully";
+        },
+        error => {
+          this.message = "An error has occurred while reviewing: " + error;
+
+          console.log('********** WriteReviewComponent.ts: ' + error);
+        }
+      );
     }
   }
 

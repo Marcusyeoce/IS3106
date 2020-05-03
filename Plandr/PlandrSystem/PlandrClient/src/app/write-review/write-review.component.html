@@ -10,11 +10,11 @@
 
     <form #reviewForm="ngForm" (ngSubmit)="writeReview(reviewForm)">
 
-        <table>
+        <table width="70%">
 
             <tr>
                 <td style="font-weight: bold;">Review</td>
-                <td><input id="review" name="review" #review="ngModel" type="text" [(ngModel)]="newReview.content" required="true" /></td>
+                <td><input id="review" name="review" #review="ngModel" type="text" [(ngModel)]="newReview.content" required="true"/></td>
                 <td>
                     <div *ngIf="review.invalid && (review.dirty || review.touched || submitted)" style="color: red;">
                         <div *ngIf ="review.errors.required">
@@ -24,16 +24,9 @@
                 </td>
             </tr>
 
-
-            <tr>
-                <td colspan="3">
-                    <button (click)="clear()">Clear</button>
-                    &nbsp;
-                    <input type="submit" value="Submit" />
-                </td>
-            </tr>
-
         </table>
+        <br/>
+        <input type="submit" value="Submit" />
 
     </form>
 

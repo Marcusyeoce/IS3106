@@ -65,7 +65,6 @@ public class ReviewEntitySessionBean implements ReviewEntitySessionBeanLocal {
                     newReview.setAttractionEntity(attractionEntity);
                     attractionEntity.addReview(newReview);
                     
-                    newReview.setMemberEntity(memberEntity);
                     memberEntity.getReviewEntities().add(newReview);
                 }
                 em.persist(newReview);

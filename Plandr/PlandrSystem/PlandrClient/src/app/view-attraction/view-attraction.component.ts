@@ -40,5 +40,9 @@ export class ViewAttractionComponent implements OnInit {
     );
   }
 
+  parseDate(d: Date)
+	{		
+		return d.toString().replace('[UTC]', '');
+	}
 
 }

@@ -100,7 +100,6 @@ public class BookingResource {
                     
                     for (ReviewEntity review: attraction.getReviewEntities()) {
                         review.setAttractionEntity(null);
-                        review.getMemberEntity().getReviewEntities().clear();
                     }
                 }
             }
@@ -145,7 +144,6 @@ public class BookingResource {
                     
                 for (ReviewEntity review: attraction.getReviewEntities()) {
                     review.setAttractionEntity(null);
-                    review.getMemberEntity().getReviewEntities().clear();
                 }
             }
             
@@ -278,7 +276,6 @@ public class BookingResource {
                     
                     for (ReviewEntity review: attraction.getReviewEntities()) {
                         review.setAttractionEntity(null);
-                        review.getMemberEntity().getReviewEntities().clear();
                     }
                 }
     
@@ -290,6 +287,11 @@ public class BookingResource {
                     totalTicketPrice = totalTicketPrice.subtract(bestPromotion);
                 }
                 
+                if (member.isSubscribed()) {
+                    totalTicketPrice = totalTicketPrice.subtract(new BigDecimal("5.00"));
+                }
+                
+                System.out.print(totalTicketPrice);
                 return Response.status(Status.OK).entity(new GenerateBookingRsp(attractions, totalTicketPrice, attractionIds)).build();
                 
             } catch (InvalidLoginCredentialException ex) {

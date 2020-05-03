@@ -75,7 +75,7 @@ public class MemberEntity implements Serializable {
 //    @NotNull
     private String salt;
 
-    @OneToMany(mappedBy = "memberEntity")
+    @OneToMany
     private List<ReviewEntity> reviewEntities;
 
     @OneToMany(mappedBy = "memberEntity")

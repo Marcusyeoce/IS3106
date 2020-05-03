@@ -36,9 +36,6 @@ public class ReviewEntity implements Serializable {
     
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
-    private MemberEntity memberEntity;
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
     private AttractionEntity attractionEntity;
     
 
@@ -58,14 +55,6 @@ public class ReviewEntity implements Serializable {
 
     public void setAttractionEntity(AttractionEntity attractionEntity) {
         this.attractionEntity = attractionEntity;
-    }
-
-    public MemberEntity getMemberEntity() {
-        return memberEntity;
-    }
-
-    public void setMemberEntity(MemberEntity memberEntity) {
-        this.memberEntity = memberEntity;
     }
 
     public String getContent() {
