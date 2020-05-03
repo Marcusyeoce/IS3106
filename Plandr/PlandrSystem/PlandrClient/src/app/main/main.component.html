@@ -3,13 +3,13 @@
         <br/>
         <div *ngFor="let article of articles">
             <div class="articleTitle">
-                {{article.title}} - {{parseDate(article.publishedDate) | date:'EEE, MMM dd, yyyy'}}
+                {{article.title}}
             </div>
             <div class="articlePic">
-                {{article.picture}}
+                {{parseDate(article.publishedDate) | date:'EEE, MMM dd, yyyy'}}
             </div>
             <div class="articleContent">
-                {{article.content}}
+                <a routerLink="/viewArticle/{{article.articleId}}">Read Article</a>
             </div>
             <br/>
         </div>

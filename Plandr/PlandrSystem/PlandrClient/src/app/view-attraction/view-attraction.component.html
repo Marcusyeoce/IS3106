@@ -3,15 +3,15 @@
 
     <div>
 
-        <h3>Attraction ID: {{attractionToView.attractionId}}</h3>
-
         <h3>{{attractionToView.name}}</h3>
 
-        <h3>{{attractionToView.picture}}</h3>
+        <img src={{attractionToView.picture}} alt="Attraction ID: {{attractionToView.articleId}}" height="200">
 
         <p>Location: {{attractionToView.location}}</p>
 
-        <p>{{attractionToView.description}}</p>
+        <p>Description: {{attractionToView.description}}</p>
+        
+        <p>Ticket Price: ${{attractionToView.unitPrice}}</p>
 
         <h5>Start Date: {{attractionToView.startTimeStamp}}</h5>
 

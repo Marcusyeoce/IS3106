@@ -24,7 +24,7 @@
             </tr> -->
 
             <tr>
-                <td>Name</td>
+                <td style="font-weight: bold;">Name</td>
                 <td><input id="name" name="name" #name="ngModel" type="text" [(ngModel)]="newMember.name" required="true" /></td>
                 <td>
                     <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" style="color: red;">
@@ -36,7 +36,7 @@
             </tr>
 
             <tr>
-                <td>Email</td>
+                <td style="font-weight: bold;">Email</td>
                 <td><input id="email" name="email" #email="ngModel" type="text" [(ngModel)]="newMember.email" required="true" /></td>
                 <td>
                     <div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" style="color: red;">
@@ -48,7 +48,7 @@
             </tr>
 
             <tr>
-                <td>Contact Number</td>
+                <td style="font-weight: bold;">Contact Number</td>
                 <td><input id="contactNumber" name="contactNumber" #contactNumber="ngModel" type="text" [(ngModel)]="newMember.contactNumber" required="true" /></td>
                 <td>
                     <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched || submitted)" style="color: red;">
@@ -60,7 +60,7 @@
             </tr>
 
             <tr>
-                <td>Username</td>
+                <td style="font-weight: bold;">Username</td>
                 <td><input id="username" name="username" #username="ngModel" type="text" [(ngModel)]="newMember.username" required="true" /></td>
                 <td>
                     <div *ngIf="username.invalid && (username.dirty || username.touched || submitted)" style="color: red;">
@@ -72,7 +72,7 @@
             </tr>
 
             <tr>
-                <td>Password</td>
+                <td style="font-weight: bold;">Password</td>
                 <td><input id="password" name="password" #password="ngModel" type="password" [(ngModel)]="newMember.password" required="true" /></td>
                 <td>
                     <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" style="color: red;">
@@ -85,7 +85,7 @@
 
             <!-- Need to add validation logic -->
             <tr>
-                <td>Re-type Password</td>
+                <td style="font-weight: bold;">Re-type Password</td>
                 <td><input id="retypePassword" name="retypePassword" #rePasswordTxt="ngModel" type="password" [(ngModel)]="rePassword" required="true" /></td>
                 <td>
                     <div *ngIf="rePassword != newMember.password" style="color: red;">
@@ -95,7 +95,7 @@
             </tr>
 
             <tr>
-                <td>Gender</td>
+                <td style="font-weight: bold;">Gender</td>
                 <td>
                     <select id="gender" name="gender" #gender="ngModel" type="text" [(ngModel)]="newMember.gender" required="true">
                         <option value="MALE">MALE</option>
@@ -113,7 +113,7 @@
             </tr>
 
             <tr>
-                <td>Date of Birth</td>
+                <td style="font-weight: bold;">Date of Birth</td>
                 <td><input id="dob" name="dob" #dob="ngModel" type="date" [(ngModel)]="inputDob" required="true" /></td>
                 <td>
                     <div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" style="color: red;">
@@ -125,7 +125,7 @@
             </tr>
 
             <tr>
-                <td>Credit Card Number</td>
+                <td style="font-weight: bold;">Credit Card Number</td>
                 <td><input id="creditCard" name="creditCard" #creditCard="ngModel" type="text" [(ngModel)]="newMember.creditCard" required="true" /></td>
                 <td>
                     <div *ngIf="creditCard.invalid && (creditCard.dirty || creditCard.touched || submitted)" style="color: red;">
