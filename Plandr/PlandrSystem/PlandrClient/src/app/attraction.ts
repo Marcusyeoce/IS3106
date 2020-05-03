@@ -10,6 +10,7 @@ export class Attraction {
   picture: string;
   startTimestamp: Date;
   endTimestamp: Date;
+  unitPrice: number;
 
   promotionEntities: Promotion[];
   tagEntities: Tag[];
@@ -22,7 +23,8 @@ export class Attraction {
     location?: string,
     picture?: string,
     startTimestamp?: Date,
-    endTimestamp?: Date
+    endTimestamp?: Date,
+    unitPrice?: number
   ) {
     this.attractionId = attractionId;
     this.name = name;
@@ -31,5 +33,6 @@ export class Attraction {
     this.picture = picture;
     this.startTimestamp = startTimestamp;
     this.endTimestamp = endTimestamp;
+    this.unitPrice = unitPrice;
   }
 }

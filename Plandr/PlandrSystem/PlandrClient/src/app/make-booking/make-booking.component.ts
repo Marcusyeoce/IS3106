@@ -26,11 +26,12 @@ export class MakeBookingComponent implements OnInit {
 
   attractionIds: number[];
   attractions: Attraction[];
+  totalCost: number;
   newBooking: Booking;
 
   message: string;
 
-  constructor(private router: Router, private bookingService: BookingService) 
+  constructor(private router: Router, private bookingService: BookingService, private attractionService: AttractionService) 
   { 
     this.generateSubmitted = false;
     this.createSubmitted = false;
@@ -50,6 +51,7 @@ export class MakeBookingComponent implements OnInit {
     if (generateBookingForm.valid)
     {
       //attractions = this.attractionService.generateNewBooking(this.bookingDate, this.startTime, this.endTime, this.numPax, this.priceLimit);
+      //this.totalCost = this.attractionService.calculateTotalCost(attractions, numPax);
     }
 
   }
