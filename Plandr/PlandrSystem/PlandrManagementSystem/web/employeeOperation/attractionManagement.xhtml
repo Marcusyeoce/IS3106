@@ -62,7 +62,7 @@
         </h:form>
             
         <h:form id="formViewEvents">
-            <p:dataView var="event" value="#{attractionManagedBean.allEvents}" gridIcon="fa fa-th-large" listIcon="fa fa-navicon" >
+            <p:dataView var="event" widgetVar="AllEvents" value="#{attractionManagedBean.allEvents}" gridIcon="fa fa-th-large" listIcon="fa fa-navicon" >
                 <f:facet name="header">
                     <p:outputPanel style="text-align: left;">
                         <h:outputText value="Events" style="font-weight: bold;" />
@@ -75,6 +75,9 @@
 
                             <h:outputText value="#{event.location}" />
                             <h:outputText value="#{event.description}" />
+                            <h:outputText value="$ #{event.unitPrice}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                            </h:outputText>
 
                         </h:panelGrid>
                         <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
@@ -83,12 +86,12 @@
                         <p:commandButton update="formUpdateAttraction" oncomplete="PF('dialogUpdateAttraction').show()" icon="ui-icon-pencil" title="Update">
                             <f:setPropertyActionListener value="#{event}" target="#{attractionManagedBean.attractionToUpdate}" />
                         </p:commandButton>
-                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}" icon="ui-icon-trash" title="Delete">
+                        <p:commandButton actionListener="#{attractionManagedBean.deleteAttraction}"  icon="ui-icon-trash" title="Delete">
                             <f:attribute name="attractionEntityToDelete" value="#{event}" />
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{event.name}?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="formViewEvents formViewPlaces formViewAttraction"  />
                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                        </p:confirmDialog>
                     </p:panel>
@@ -111,6 +114,11 @@
                                 
                                 <h:outputText value="Location:" />
                                 <h:outputText value="#{event.location}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="Unit Price:" />
+                                <h:outputText value="#{event.unitPrice}" style="font-weight: bold">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                            </h:outputText>
                             </h:panelGrid>
                         </p:outputPanel>
                         <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
@@ -124,7 +132,7 @@
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{events.name}?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="formViewEvents formViewPlaces formViewAttraction"  />
                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                        </p:confirmDialog>
                     </h:panelGrid>
@@ -141,7 +149,7 @@
         </p>
             
         <h:form id="formViewPlaces">
-            <p:dataView var="place" value="#{attractionManagedBean.allPlaces}" gridIcon="fa fa-th-large" listIcon="fa fa-navicon" >
+            <p:dataView var="place" widgetVar="AllPlaces" value="#{attractionManagedBean.allPlaces}" gridIcon="fa fa-th-large" listIcon="fa fa-navicon" >
                 <f:facet name="header">
                     <p:outputPanel style="text-align: left;">
                         <h:outputText value="Places" style="font-weight: bold;" />
@@ -154,6 +162,9 @@
 
                             <h:outputText value="#{place.location}" />
                             <h:outputText value="#{place.description}" />
+                            <h:outputText value="#{place.unitPrice}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                            </h:outputText>
 
                         </h:panelGrid>
                         <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
@@ -167,7 +178,7 @@
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{place.name}?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="formViewEvents formViewPlaces formViewAttraction"  />
                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                        </p:confirmDialog>
                     </p:panel>
@@ -190,6 +201,11 @@
                                 
                                 <h:outputText value="Location:" />
                                 <h:outputText value="#{place.location}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="Unit Price:" />
+                                <h:outputText value="#{place.unitPrice}" style="font-weight: bold">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                                </h:outputText>
                             </h:panelGrid>
                         </p:outputPanel>
                         <p:commandButton update="formViewAttraction" oncomplete="PF('dialogViewAttraction').show()" icon="ui-icon-document" title="View">
@@ -203,8 +219,8 @@
                             <p:confirm header="Confirmation" message="Are you sure you want to delete #{place.name}?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  update="formViewEvents formViewPlaces formViewAttraction"  />
+                           <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                        </p:confirmDialog>
                     </h:panelGrid>
                 </p:dataViewListItem>
@@ -213,6 +229,9 @@
                     In total there are #{attractionManagedBean.allPlaces.size()} places.
                 </f:facet>
             </p:dataView>
+            <p:growl>
+                <p:autoUpdate/>
+            </p:growl>
         </h:form>    
             
         <h:form id="formViewAttraction">
@@ -246,6 +265,17 @@
                         </p:column>
                         <p:column>
                             <h:outputText value="#{attractionManagedBean.attractionToView.description}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Unit Price: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{attractionManagedBean.attractionToView.unitPrice}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="SGD" />
+                            </h:outputText>
                         </p:column>
                     </p:row>
                     
@@ -343,10 +373,11 @@
                             </p:dataList>
                         </p:column>
                     </p:row>
-                    
-                    
                 </p:panelGrid>
             </p:dialog>
+            <p:growl>
+                <p:autoUpdate/>
+            </p:growl>
         </h:form>
             
         <h:form id="formUpdateAttraction">
@@ -392,6 +423,16 @@
                         <p:column>
                             <p:inputText id="updatedAttractionDescription" value="#{attractionManagedBean.attractionToUpdate.description}"/>
                             <p:message for="updatedAttractionDescription" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel for="updatedAttractionPrice" value="Unit Price: $"/>
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="updatedAttractionPrice" value="#{attractionManagedBean.attractionToUpdate.unitPrice}" placeholder="10.00" min="0" max="1000000" stepFactor="0.01"/>
+                            <p:message for="updatedAttractionPrice" />
                         </p:column>
                     </p:row>
                     
@@ -489,13 +530,16 @@
 
                     <p:row>
                         <p:column colspan="2">
-                            <p:commandButton value="Update Attraction" update="formUpdateAttraction" actionListener="#{attractionManagedBean.updateAttraction}" oncomplete="PF('dialogUpdateAttraction').show();" />
+                            <p:commandButton value="Update Attraction" update="formViewEvents formViewPlaces formViewAttraction" actionListener="#{attractionManagedBean.updateAttraction}" oncomplete="PF('dialogUpdateAttraction').show();" />
                         </p:column>
                     </p:row>
 
                 </p:panelGrid>
 
             </p:dialog>
+            <p:growl>
+                <p:autoUpdate/>
+            </p:growl>
 
         </h:form>
         </div>

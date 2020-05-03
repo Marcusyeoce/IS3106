@@ -118,16 +118,16 @@ public class PromotionEntitySessionBean implements PromotionEntitySessionBeanLoc
                 promotionEntityToUpdate.setStartDate(promotionEntity.getStartDate());
                 promotionEntityToUpdate.setEndDate(promotionEntity.getEndDate());
                 
-                //Remove related promotions if have
-                List<AttractionEntity> currentAttractions = promotionEntityToUpdate.getAttractionEntities();
-                if(!currentAttractions.isEmpty()){
-                    for(AttractionEntity attraction: currentAttractions){
-                        attraction.removePromotion(promotionEntity);
-                    }
-                }
-                
+                                
                 if(attractionIdsToUpdate != null && (!attractionIdsToUpdate.isEmpty()))
                 {
+                    //Remove related promotions if have
+                    List<AttractionEntity> currentAttractions = promotionEntityToUpdate.getAttractionEntities();
+                    if(!currentAttractions.isEmpty()){
+                        for(AttractionEntity attraction: currentAttractions){
+                            attraction.removePromotion(promotionEntity);
+                        }
+                    }
                     promotionEntityToUpdate.getAttractionEntities().clear();
                     try{
                         for(Long attractionId:attractionIdsToUpdate)
