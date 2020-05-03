@@ -26,10 +26,9 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Location</th>
-                <th>Picture</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Action</th>
+                <th>Ticket Price</th>
+                <th>Details</th>
+                <th>Review</th>
             </thead>
             <tbody>
                 <tr *ngFor="let attraction of bookingToView.attractionEntities">
@@ -37,10 +36,14 @@
                     <td>{{attraction.name}}</td>
                     <td>{{attraction.description}}</td>
                     <td>{{attraction.location}}</td>
-                    <td>{{attraction.picture}}</td>
-                    <td>{{attraction.startTimeStamp}}</td>
-                    <td>{{attraction.endTimeStamp}}</td>
-                    <td><a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a></td>
+                    <td>${{attraction.unitPrice}}</td>
+                    <td>
+                        <a routerLink="/viewAttraction/{{attraction.attractionId}}">View More</a>
+                    </td>
+                    <td>
+                        <a routerLink="/writeReview/{{attraction.attractionId}}">Review</a>	  
+                    </td>
+
                 </tr>
             </tbody>
         </table>

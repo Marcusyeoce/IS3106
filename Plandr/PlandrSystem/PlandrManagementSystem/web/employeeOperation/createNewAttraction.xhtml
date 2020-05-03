@@ -66,6 +66,16 @@
                     
                     <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
                         <p:column>
+                            <p:outputLabel for="attractionPrice" value="Unit Price: $ " />
+                        </p:column>
+                        <p:column>
+                            <p:spinner id="attractionPrice" value="#{attractionManagedBean.newAttractionEntity.unitPrice}" placeholder="10.00" min="0" max="1000000" stepFactor="0.01" required="true" requiredMessage="Unit Price is required" />
+                            <p:message for="attractionPrice" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row rendered="#{attractionManagedBean.newAttractionType != null}">
+                        <p:column>
                             <p:outputLabel for="attractionLocation" value="Location: " />
                         </p:column>
                         <p:column>

@@ -12,6 +12,7 @@ import { Booking } from '../booking';
 })
 
 export class ViewAllBookingsComponent implements OnInit {
+  
   bookings: Booking[];
   errorMessage: string;
 

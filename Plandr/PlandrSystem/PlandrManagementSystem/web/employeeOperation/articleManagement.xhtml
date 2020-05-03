@@ -66,20 +66,11 @@
                         </p:column>
                     </p:row>
                     
-                     <p:row>
-                        <p:column>
-                            <p:outputLabel for="date" value="Published Date Till:  " />
-                        </p:column>
-                        <p:column>
-                            <p:calendar id="date" value="#{articleManagedBean.newArticleEntity.publishedDate}" showOn="button" />
-                            <p:message for="date" />
-                        </p:column>
-                    </p:row>
                     
                     <p:row>
                         <p:column colspan="2">
                             <p:commandButton type="reset" value="Clear" />&nbsp;
-                            <p:commandButton  value="Create New Article" actionListener="#{articleManagedBean.createNewArticle}" update="formCreateNewArticle" oncomplete="PF('dialogCreateNewArticle').show();" />
+                            <p:commandButton  value="Create New Article" actionListener="#{articleManagedBean.createNewArticle}" update="formAllArticles" oncomplete="PF('dialogCreateNewArticle').show();" />
                         </p:column>
                     </p:row>
 
@@ -248,7 +239,7 @@
                     
                     <p:row>
                         <p:column colspan="2">
-                            <p:commandButton value="Update Article" update="formUpdateArticle" actionListener="#{articleManagedBean.updateArticle}" oncomplete="PF('dialogUpdateArticle').show();" />
+                            <p:commandButton value="Update Article" update="formAllArticles" actionListener="#{articleManagedBean.updateArticle}" oncomplete="PF('dialogUpdateArticle').show();" />
                         </p:column>
                     </p:row>
 
