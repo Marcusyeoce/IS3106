@@ -10,9 +10,6 @@
 /Plandr/PlandrSystem/PlandrManagementSystem/nbproject/private/
 /Plandr/PlandrSystem/PlandrManagementSystem/build/
 /Plandr/PlandrSystem/PlandrManagementSystem/dist/
-/Plandr/PlandrSystemRws/nbproject/private/
-*.properties
+/Plandr/PlandrSystem/PlandrSystemRws/nbproject/private/
 /Plandr/PlandrSystem/PlandrSystemRws/build/
 /Plandr/PlandrSystem/PlandrSystemRws/dist/
-Plandr/PlandrSystem/PlandrManagementSystem/web/WEB-INF/glassfish-web.xml
-Plandr/PlandrSystem/PlandrSystem-ejb/src/java/ejb/session/singleton/DataInitSessionBean.java
