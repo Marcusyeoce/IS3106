@@ -13,11 +13,13 @@
         
         <p style="font-weight: bold;">Ticket Price: ${{attractionToView.unitPrice}}</p>
 
-        <!-- <h5>Start Date: {{attractionToView.startTimeStamp}}</h5>
+        <h5 *ngIf="isPlace == false">Start Date: {{parseDate(attractionToView.startDate) | date:'EEE, MMM dd, yyyy'}}</h5>
 
-        <h5>End Date: {{attractionToView.endTimeStamp}}</h5> -->
+        <h5 *ngIf="isPlace == false">End Date: {{parseDate(attractionToView.endDate) | date:'EEE, MMM dd, yyyy'}}</h5>
 
-        <br>
+        <h5 *ngIf="isPlace == true">Opening Time: {{parseDate(attractionToView.openingTime) | date:'HH:mm'}}</h5>
+
+        <h5 *ngIf="isPlace == true">Closing Time: {{parseDate(attractionToView.closingTime) | date:'HH:mm'}}</h5>
 
         <h4>Reviews</h4>
 

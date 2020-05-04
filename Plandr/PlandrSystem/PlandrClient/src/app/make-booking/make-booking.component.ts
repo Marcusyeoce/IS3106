@@ -68,10 +68,10 @@ export class MakeBookingComponent implements OnInit {
 				console.log('********** SearchAttractionsComponent.ts: ' + error);
 			}
     );
-    if (this.sessionService.getCurrentMember().subscribed == true) {
-      this. bookingFee = 0;
+    if (this.sessionService.getSubscribed() == true) {
+      this.bookingFee = 0;
     } else {
-      this.bookingFee = 2;
+      this.bookingFee = 3;
     }
   }
 

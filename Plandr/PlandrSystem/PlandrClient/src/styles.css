@@ -96,6 +96,10 @@ th, td {
 	padding: 3px;
 }
 
+button {
+	font-weight: bold;
+}
+
 .image{
     height:4cm; background-size:cover; width:auto;
     background-image:url(src\assets\headerbackground.jpg);

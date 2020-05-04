@@ -17,12 +17,15 @@ export class ViewAttractionComponent implements OnInit {
   attractionToView: Attraction;
   retrieveAttractionError: boolean;
 
+  isPlace: boolean;
+
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     public sessionService: SessionService,
     private attractionService: AttractionService) 
   {
     this.retrieveAttractionError = false;
+    this.isPlace = false;
   }
 
   ngOnInit() {
@@ -32,6 +35,9 @@ export class ViewAttractionComponent implements OnInit {
     this.attractionService.getAttractionByAttractionId(this.attractionId).subscribe(
       response => {
         this.attractionToView = response.attraction;
+        if (this.attractionToView.startDate == null) {
+          this.isPlace = true;
+        }
       },
       error => {
         this.retrieveAttractionError = true;
