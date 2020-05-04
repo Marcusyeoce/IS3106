@@ -72,7 +72,7 @@
 
 							<tr>
 								<td width="10%" style="font-weight: bold;">Date of Birth</td>
-								<td><input id="dob" name="dob" #dob="ngModel" type="date" value={{sessionService.getDob().toString()}} [(ngModel)]="inputDob" required="true" /></td>
+								<td><input id="dob" name="dob" #dob="ngModel" type="date" value={{inputDob}} [(ngModel)]="inputDob" required="true" /></td>
 								<td>
 									<div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" style="color: red;">
 										<div *ngIf ="dob.errors.required">
