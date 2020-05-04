@@ -109,3 +109,8 @@ th, td {
 .app_top img {
 	float: left;
 }
+
+.logo img {
+	display: block;
+	vertical-align: bottom;
+}
