@@ -35,6 +35,7 @@ export class UpdateProfileComponent implements OnInit {
   ngOnInit() {
     this.memberToUpdate = this.sessionService.getCurrentMember();
     this.inputDob = this.memberToUpdate.dob;
+    console.log(this.inputDob);
   }
 
   update(updateProfileForm: NgForm) {
