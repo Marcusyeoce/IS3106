@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         response => {
           let newMemberId: number = response.memberId;
           this.result = true;
-          this.message = "New account " + newMemberId + " registered successfully";
+          this.message = "New account registered successfully";
         },
         error => {
           this.result = false;
