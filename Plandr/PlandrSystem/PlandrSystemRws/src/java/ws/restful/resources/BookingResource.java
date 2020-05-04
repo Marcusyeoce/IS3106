@@ -287,10 +287,6 @@ public class BookingResource {
                     totalTicketPrice = totalTicketPrice.subtract(bestPromotion);
                 }
                 
-                if (member.isSubscribed()) {
-                    totalTicketPrice = totalTicketPrice.subtract(new BigDecimal("5.00"));
-                }
-                
                 System.out.print(totalTicketPrice);
                 return Response.status(Status.OK).entity(new GenerateBookingRsp(attractions, totalTicketPrice, attractionIds)).build();
                 

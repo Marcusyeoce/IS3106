@@ -22,44 +22,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  // memberLogin(): void {
-  //   this.sessionService.setUsername(this.username);
-  //   this.sessionService.setPassword(this.password);
-    
-  //   this.memberService.memberLogin(this.username, this.password).subscribe(
-  //     response => {
-  //       let loginMember: Member = response.member;
-
-  //       if(loginMember != null) {
-  //         this.sessionService.setIsLogin(true);
-	// 				this.sessionService.setCurrentMember(loginMember);					
-	// 				this.loginError = false;
-					
-	// 				this.childEvent.emit();
-					
-	// 				this.router.navigate(["/main"]);
-  //       } else {
-  //         this.loginError = true;
-  //       }
-  //     },
-  //     error => {
-  //       this.loginError = true;
-	// 			this.errorMessage = error
-  //     }
-  //   )
-  // }
-
   memberLogout(): void {
 		this.sessionService.setIsLogin(false);
 		this.sessionService.setCurrentMember(null);
 		
 		this.router.navigate(["/main"]);
 	}
-
-  redirectToMain() 
-  { 
-    this.router.navigate(["/main"]);
-  }
 
   redirectToRegister() 
   { 
@@ -70,30 +38,5 @@ export class HeaderComponent implements OnInit {
   { 
     this.router.navigate(["/login"]);
   }
-
-  // redirectToArticles() 
-  // { 
-  //   this.router.navigate(["/viewAllArticles"]);
-  // }
-
-  // redirectToAttractions() 
-  // { 
-  //   this.router.navigate(["/viewAllAttractions"]);
-  // }
-
-  // redirectToBookings() 
-  // { 
-  //   this.router.navigate(["/makeBooking"]);
-  // }
-
-  // redirectToProfile() 
-  // { 
-  //   this.router.navigate(["/profile"]);
-  // }
-
-  // redirectToFaq() 
-  // { 
-  //   this.router.navigate(["/faq"]);
-  // }
 
 }

@@ -11,12 +11,6 @@
 					<table width="100%">
 
 							<tr>
-								<td width="10%" style="font-weight: bold;">Member ID</td>
-								<td>{{memberToUpdate.memberId}}</td>
-								<td>&nbsp;</td>
-							</tr>
-
-							<tr>
 								<td width="10%" style="font-weight: bold;">Username</td>
 								<td>{{memberToUpdate.username}}</td>
 								<td>&nbsp;</td>
@@ -78,7 +72,7 @@
 
 							<tr>
 								<td width="10%" style="font-weight: bold;">Date of Birth</td>
-                <td><input id="dob" name="dob" #dob="ngModel" type="date" [(ngModel)]="inputDob" required="true" /></td>
+                <td><input id="dob" name="dob" #dob="ngModel" type="date" value={{sessionService.getDob().toString()}} [(ngModel)]="inputDob" required="true" /></td>
                 <td>
                     <div *ngIf="dob.invalid && (dob.dirty || dob.touched || submitted)" style="color: red;">
                         <div *ngIf ="dob.errors.required">
@@ -102,7 +96,8 @@
 
 					</table>
 					<br/>
-					<input type="submit" value="Update" />
+
+					<button mat-button type="submit" label="Save">Save</button> 
 			</form>
 
 

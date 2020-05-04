@@ -18,6 +18,21 @@
 
         &nbsp;
 
+        <button mat-button type="button" label="Cancel Booking" (click)="cancelProc()">Cancel Booking</button> 
+        
+        <div *ngIf="this.bookingToView.cancelled == false">
+            <div *ngIf="cancelProcess == true">
+                <p style="font-weight: bold;">Are you sure?</p>
+                <button mat-button type="button" label="Cancel Booking" (click)="cancelProc()">No</button> 
+                &nbsp;
+                <button mat-button type="button" label="Cancel Booking" (click)="cancel()" (click)="cancelProc()" style="color: green;">Yes</button> 
+            </div>
+        </div>
+        <br/>
+        <div *ngIf="message">
+            <h3>{{message}}</h3>
+        </div>
+
         <h3>Itinerary:</h3>
 
         <table id="ItineraryTable" style="width:100%; cellpadding: 3px; cellspacing: 1px; text-align: center;">

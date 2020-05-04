@@ -17,6 +17,8 @@ export class ViewBookingComponent implements OnInit {
   bookingId: number;
   bookingToView: Booking;
   retrieveBookingError: boolean;
+  cancelProcess: boolean;
+  message: string;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -24,6 +26,7 @@ export class ViewBookingComponent implements OnInit {
     private bookingService: BookingService) 
   { 
     this.retrieveBookingError = false;
+    this.cancelProcess = false;
   }
 
   ngOnInit() {
@@ -43,6 +46,23 @@ export class ViewBookingComponent implements OnInit {
   parseDate(d: Date)
 	{		
 		return d.toString().replace('[UTC]', '');
-	}
+  }
+  
+  cancelProc() {
+    this.cancelProcess = !this.cancelProcess;
+  }
+
+  cancel() {
+    this.bookingService.cancelBooking(this.bookingId).subscribe(
+      response => {
+        this.bookingToView.cancelled = true;
+
+        this.message = "Your booking has been refunded."
+      },
+      error => {
+        this.message = error;
+      }
+    )
+  }
 
 }

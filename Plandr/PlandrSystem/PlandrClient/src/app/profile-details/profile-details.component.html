@@ -10,8 +10,6 @@
         
         <h3>Profile Details</h3>
 
-        <h4>Member Id: {{memberToView.memberId}}</h4>
-
         <h4>Username: {{memberToView.username}}</h4>
 
         <h4>Name: {{sessionService.getName()}}</h4>
@@ -24,11 +22,13 @@
 
         <h4>Date of Birth: {{parseDate(sessionService.getDob()) | date:'MMM dd, yyyy'}}</h4>
 
+        <h4>Credit Card: {{sessionService.getCreditCard()}}</h4>
+
+        <h4>------</h4>
+
         <h4 *ngIf="sessionService.getSubscribed() == false">Currently not subscribed!</h4>
 
         <h4 *ngIf="sessionService.getSubscribed() == true">Subscribed Until: {{parseDate(sessionService.getSubscribedUntil()) | date:'EEE, MMM dd, yyyy'}}</h4>
-
-        <h4>Credit Card: {{sessionService.getCreditCard()}}</h4>
     </div>
     
 </section>

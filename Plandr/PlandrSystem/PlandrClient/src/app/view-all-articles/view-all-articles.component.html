@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let article of articles">
-                    <td>{{article.articleId+1}}</td>
+                    <td>{{article.articleId}}</td>
                     <td>{{article.title}}</td>
                     <td><a routerLink="/viewArticle/{{article.articleId}}">View More</a></td>
                 </tr>
