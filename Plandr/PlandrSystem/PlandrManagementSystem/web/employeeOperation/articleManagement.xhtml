@@ -38,8 +38,8 @@
                             <p:outputLabel for="content" value="Description: " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="content" value="#{articleManagedBean.newArticleEntity.content}" required="true" requiredMessage="Description is required">
-                            </p:inputText>
+                            <p:inputTextarea id="content" value="#{articleManagedBean.newArticleEntity.content}" required="true" requiredMessage="Description is required">
+                            </p:inputTextarea>
                             <p:message for="content" />
                         </p:column>
                     </p:row>
@@ -154,7 +154,7 @@
 
                     <p:row>
                         <p:column>
-                            <p:outputLabel value="URL to picture: " />
+                            <p:outputLabel value="Picture: " />
                         </p:column>
                         <p:column>
                             
@@ -165,7 +165,7 @@
                     
                     <p:row>
                         <p:column>
-                            <h:outputLabel value="Published Till: " />
+                            <h:outputLabel value="Published On: " />
                         </p:column>
                         <p:column>
                             <h:outputText value="#{articleManagedBean.articleEntityToView.publishedDate}" />
@@ -209,8 +209,8 @@
                             <p:outputLabel for="content" value="Description: "/>
                         </p:column>
                         <p:column>
-                            <p:inputText id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="false" requiredMessage="Content is required">
-                            </p:inputText>
+                            <p:inputTextarea id="content" value="#{articleManagedBean.articleEntityToUpdate.content}" required="false" requiredMessage="Content is required">
+                            </p:inputTextarea>
                             <p:message for="content" />
                         </p:column>
                     </p:row>
