@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     this.submitted = true;
 
+    console.log(this.submitted);
     if (loginForm.valid) {
       this.sessionService.setUsername(this.username);
       this.sessionService.setPassword(this.password);
