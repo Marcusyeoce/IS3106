@@ -23,7 +23,7 @@
 
         <h4>Reviews</h4>
 
-        <table width = 100% *ngIf="attractionToView.reviewEntities != null">
+        <table width = 100% *ngIf="attractionToView.reviewEntities.length != 0">
 
             <thead>
                 <th>Review ID</th>
@@ -32,7 +32,7 @@
             </thead>
 
             
-            <tbody>
+            <tbody *ngIf="attractionToView.reviewEntities.length!=0">
                 <tr *ngFor="let review of attractionToView.reviewEntities">
                     <td>{{review.reviewId}}</td>
                     <td>{{review.content}}</td>
@@ -41,6 +41,10 @@
             </tbody>
 
         </table>
+
+        <h4 *ngIf="attractionToView.reviewEntities.length == 0">
+            No reviews yet!
+        </h4>
 
     </div>
 </section>
